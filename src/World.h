@@ -10,7 +10,7 @@
 #pragma once
 
 #include "CinderIPod.h"
-#include "cinder/app/AppCocoaTouch.h"
+#include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/Vector.h"
 #include "cinder/Font.h"
 #include "cinder/gl/gl.h"

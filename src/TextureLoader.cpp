@@ -7,7 +7,7 @@
 //
 
 #include "TextureLoader.h"
-#include "cinder/app/AppCocoaTouch.h" // for loadResource
+#include "cinder/app/cocoa/AppCocoaTouch.h" // for loadResource
 #include "cinder/ImageIo.h"
 #include "TaskQueue.h"
 

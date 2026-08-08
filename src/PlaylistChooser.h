@@ -11,7 +11,7 @@
 #include <vector>
 #include <map>
 
-#include "cinder/app/AppCocoaTouch.h"
+#include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/gl/TextureFont.h"
 #include "cinder/Font.h"
 #include "cinder/Color.h"

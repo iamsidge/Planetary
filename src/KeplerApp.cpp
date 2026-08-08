@@ -1,7 +1,7 @@
 #include <vector>
 #include <cmath>
 
-#include "cinder/app/AppCocoaTouch.h"
+#include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/app/Renderer.h"
 #include "cinder/Surface.h"
 #include "cinder/gl/Texture.h"

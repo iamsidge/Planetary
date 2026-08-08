@@ -7,7 +7,7 @@
  *
  */
 
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "NodeArtist.h"
 #include "NodeAlbum.h"
 #include "NodeTrack.h"

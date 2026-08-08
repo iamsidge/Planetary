@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "cinder/app/AppCocoaTouch.h"
+#include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/Function.h"
 #include "cinder/Vector.h"
 #include "cinder/gl/gl.h"

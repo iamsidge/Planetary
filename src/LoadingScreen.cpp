@@ -11,7 +11,7 @@
 #include "cinder/Rand.h"
 #include "cinder/ImageIo.h"
 #include "BloomScene.h"
-#include "cinder/app/AppCocoaTouch.h" // for loadResource
+#include "cinder/app/cocoa/AppCocoaTouch.h" // for loadResource
 #include "Globals.h"
 
 using namespace ci;

@@ -10,7 +10,7 @@
 
 #include <sstream>
 
-#include "cinder/app/AppCocoaTouch.h"
+#include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/Font.h"
 #include "cinder/Text.h"

@@ -14,7 +14,7 @@
 #include "cinder/Text.h"
 #include "Globals.h"
 #include "BloomScene.h"
-#include "cinder/app/AppCocoaTouch.h" // FIXME: just for time
+#include "cinder/app/cocoa/AppCocoaTouch.h" // FIXME: just for time
 
 using namespace std;
 using namespace ci;

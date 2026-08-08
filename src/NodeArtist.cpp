@@ -11,7 +11,7 @@
 #include <deque>
 #include <boost/foreach.hpp>
 #include <boost/functional/hash.hpp>
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "cinder/Rand.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Utilities.h"

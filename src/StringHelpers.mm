@@ -8,6 +8,10 @@
 
 #include "StringHelpers.h"
 
+// The original build got Foundation via the project prefix header (.pch),
+// which the CMake project doesn't use. Imported explicitly instead.
+#import <Foundation/Foundation.h>
+
 using namespace std;
 
 namespace bloom {

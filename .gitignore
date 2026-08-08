@@ -23,3 +23,6 @@ Release/
 /xcode/Kepler.xcodeproj/project.pbxproj.mergesave
 
 *~
+
+# CMake build output
+build-ios/

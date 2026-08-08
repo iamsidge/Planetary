@@ -7,7 +7,7 @@
 //
 
 #include "ScrollingLabel.h"
-#include "cinder/app/AppCocoaTouch.h" // app::getElapsedSeconds()
+#include "cinder/app/cocoa/AppCocoaTouch.h" // app::getElapsedSeconds()
 #include "cinder/gl/gl.h"
 #include "cinder/Text.h"
 #include "BloomGl.h"

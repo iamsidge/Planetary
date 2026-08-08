@@ -10,7 +10,7 @@
 
 #include <queue>
 #include <set>
-#include "cinder/app/AppBasic.h"
+#include "cinder/app/App.h"
 #include "cinder/Cinder.h"
 #include "cinder/Thread.h"
 #include "cinder/Function.h"
