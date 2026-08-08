@@ -20,10 +20,10 @@ class NodeArtist : public Node
 	
 	void update( float param1, float param2 );
 	void drawEclipseGlow();
-	void drawStarGlow( const ci::Vec3f &camEye, const ci::Vec3f &camNormal, const ci::gl::Texture &tex );
-	void drawExtraGlow( const ci::Vec3f &camEye, const ci::gl::Texture &texGlow, const ci::gl::Texture &texCore );
-	void drawPlanet( const ci::gl::Texture &tex );
-	void drawAtmosphere( const ci::Vec3f &camEye, const ci::Vec2f &center, const ci::gl::Texture &tex, const ci::gl::Texture &directionalTex, float pinchAlphaPer, float scaleSliderOffset );
+	void drawStarGlow( const ci::vec3 &camEye, const ci::vec3 &camNormal, const ci::gl::TextureRef &tex );
+	void drawExtraGlow( const ci::vec3 &camEye, const ci::gl::TextureRef &texGlow, const ci::gl::TextureRef &texCore );
+	void drawPlanet( const ci::gl::TextureRef &tex );
+	void drawAtmosphere( const ci::vec3 &camEye, const ci::vec2 &center, const ci::gl::TextureRef &tex, const ci::gl::TextureRef &directionalTex, float pinchAlphaPer, float scaleSliderOffset );
 	
 	void select();
 	void setChildOrbitRadii();

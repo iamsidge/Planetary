@@ -25,11 +25,11 @@ public:
 				const float &pinchPer,
                 const float &currentLevel, 
                 const float &zoom);
-    void draw(const ci::Matrix44f &orientationMatrix);
+    void draw(const ci::mat4 &orientationMatrix);
     
 private:
 
-    ci::gl::Texture mParamsTex;
+    ci::gl::TextureRef mParamsTex;
     ci::Color mColor, mFpsColor;
     ci::Font mFont; 
 };

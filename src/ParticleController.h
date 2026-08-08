@@ -8,18 +8,18 @@ class ParticleController {
  public:
     
     struct ParticleVertex {
-        ci::Vec3f vertex;
-        ci::Vec2f texture;
-        ci::Vec4f color;
+        ci::vec3 vertex;
+        ci::vec2 texture;
+        ci::vec4 color;
     };
     
     struct DustVertex {
-        ci::Vec3f vertex;
-        ci::Vec4f color;
+        ci::vec3 vertex;
+        ci::vec4 color;
     };
     
 	ParticleController();
-	void update( const ci::Vec3f &camEye, float radius, const ci::Vec3f &bbRight, const ci::Vec3f &bbUp );
+	void update( const ci::vec3 &camEye, float radius, const ci::vec3 &bbRight, const ci::vec3 &bbUp );
 	void buildParticleVertexArray( float scaleOffset, ci::Color c, float eclipseStrength );
 	void buildDustVertexArray( float scaleOffset, Node *node, float pinchAlphaOffset, float dustAlpha );
 	void drawParticleVertexArray( Node *node, float multi );
@@ -40,7 +40,7 @@ class ParticleController {
     int mPrevTotalDustVertices; // so we only recreate frames
     DustVertex *mDustVerts;
 	
-	ci::Vec3f mBbRight;
-	ci::Vec3f mBbUp;
+	ci::vec3 mBbRight;
+	ci::vec3 mBbUp;
 	
 };

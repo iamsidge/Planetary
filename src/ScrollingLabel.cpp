@@ -37,7 +37,7 @@ void ScrollingLabel::updateTexture()
 		layout.setColor( mColor );			
 		layout.addLine( mText );
 		bool PREMULT = false;
-		mTexture = gl::Texture( layout.render( true, PREMULT ) );        
+		mTexture = gl::Texture::create( layout.render( true, PREMULT ) );        
     }
 }
 

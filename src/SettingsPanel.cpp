@@ -16,7 +16,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-void SettingsPanel::setup( const Vec2f &interfaceSize, ipod::Player *player, const Font &font, const gl::Texture &uiSmallButtonsTex )
+void SettingsPanel::setup( const vec2 &interfaceSize, ipod::Player *player, const Font &font, const gl::TextureRef &uiSmallButtonsTex )
 {   
     // create, add, and position everything...
     createChildren( font, uiSmallButtonsTex );
@@ -35,7 +35,7 @@ void SettingsPanel::setup( const Vec2f &interfaceSize, ipod::Player *player, con
     }
 }
 
-void SettingsPanel::createChildren( const Font &font, const gl::Texture &uiSmallButtonsTex )
+void SettingsPanel::createChildren( const Font &font, const gl::TextureRef &uiSmallButtonsTex )
 {
     // !!! SMALL BUTTONS !!!
 	float x0 = 350.0f;
@@ -158,7 +158,7 @@ void SettingsPanel::addChildren()
     addChild( BloomNodeRef(mParamSlider2Label) );    
 }
 
-void SettingsPanel::setInterfaceSize( const Vec2f &interfaceSize )
+void SettingsPanel::setInterfaceSize( const vec2 &interfaceSize )
 {
     mInterfaceSize = interfaceSize;
     
@@ -228,7 +228,7 @@ void SettingsPanel::setInterfaceSize( const Vec2f &interfaceSize )
 
 void SettingsPanel::update()
 {
-    Vec2f interfaceSize = getRoot()->getInterfaceSize();
+    vec2 interfaceSize = getRoot()->getInterfaceSize();
     if ( mInterfaceSize != interfaceSize ) {
         setInterfaceSize( interfaceSize );
     }    
@@ -242,11 +242,11 @@ void SettingsPanel::deepDraw()
 
         // draw background so we can't see alpha/playlist chooser behind us in transitions
 		gl::color( Color::black() );
-        gl::drawSolidRect( Rectf( Vec2f( 0.0f, 0.0f ), Vec2f( mInterfaceSize.x, getHeight() ) ) );
+        gl::drawSolidRect( Rectf( vec2( 0.0f, 0.0f ), vec2( mInterfaceSize.x, getHeight() ) ) );
        
         // draw line at the top (as for each ui panel)
 		gl::color( ColorA( BRIGHT_BLUE, 0.125f ) );
-        gl::drawLine( Vec2f( 0.0f, 0.0f ), Vec2f( mInterfaceSize.x, 0.0f ) );
+        gl::drawLine( vec2( 0.0f, 0.0f ), vec2( mInterfaceSize.x, 0.0f ) );
 
         // tint children
 		gl::color( ColorA( 1, 1, 1, mOpacity ) ); // mOpacity comes from UiLayer

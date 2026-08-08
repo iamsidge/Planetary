@@ -27,7 +27,7 @@ public:
 	AlphaChooser(): mOpacity(1.0f) {};
 	~AlphaChooser() {};
 		
-	void	setup( const ci::Font &font, const ci::Vec2f &interfaceSize );    
+	void	setup( const ci::Font &font, const ci::vec2 &interfaceSize );    
 	void	update();
 	void	draw();
     
@@ -42,10 +42,10 @@ public:
 	
 	template<typename T>
 	ci::CallbackId registerAlphaCharSelected( T *obj, bool ( T::*callback )( char ) ){
-		return mCallbacksAlphaCharSelected.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCallbacksAlphaCharSelected.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
     
-    bool hitTest( ci::Vec2f globalPos ) { return mVisible && mFullRect.contains( globalToLocal( globalPos ) ); }
+    bool hitTest( ci::vec2 globalPos ) { return mVisible && mFullRect.contains( globalToLocal( globalPos ) ); }
 
     // used in UiLayer layout...
     float getHeight();
@@ -64,9 +64,9 @@ private:
 	
     float           mOpacity;
 
-    ci::Vec2f       mInterfaceSize;
+    ci::vec2       mInterfaceSize;
     
-	std::vector<ci::gl::Texture> mAlphaTextures;
+	std::vector<ci::gl::TextureRef> mAlphaTextures;
 	std::vector<ci::Rectf>       mAlphaRects;
 	std::vector<ci::Rectf>       mAlphaHitRects;
     ci::Rectf mFullRect;

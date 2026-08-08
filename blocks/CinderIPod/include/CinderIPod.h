@@ -40,7 +40,7 @@ public:
 //    int      getReleaseMonth(); // 1-12 (not 0-11 like Java!)
 //    int      getReleaseDay();   // 1-31
 
-    Surface getArtwork(const Vec2i &size);
+    Surface getArtwork(const ivec2 &size);
 
     MPMediaItem* getMediaItem(){
         return m_media_item;

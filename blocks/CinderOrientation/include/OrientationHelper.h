@@ -19,7 +19,7 @@ namespace cinder { namespace app {
         CallbackId		registerOrientationChanged( std::function<bool (OrientationEvent)> callback ) { return mCallbacksOrientationChanged.registerCb( callback ); }
         //! Registers a callback for orientationChanged events. Returns a unique identifier which can be used as a parameter to unregisterOrientationChanged().
         template<typename T>
-        CallbackId		registerOrientationChanged( T *obj, bool (T::*callback)(OrientationEvent) ) { return mCallbacksOrientationChanged.registerCb( std::bind1st( std::mem_fun( callback ), obj ) ); }
+        CallbackId		registerOrientationChanged( T *obj, bool (T::*callback)(OrientationEvent) ) { return mCallbacksOrientationChanged.registerCb( std::bind( callback, obj, std::placeholders::_1 ) ); }
         //! Unregisters a callback for orientationChanged events.
         void			unregisterOrientationChanged( CallbackId id ) { mCallbacksOrientationChanged.unregisterCb( id ); }        
 

@@ -7,14 +7,14 @@
 class Dust {
 public:
 	Dust();
-	Dust( int index, ci::Vec3f pos, ci::Vec3f vel );
-	void setup( const ci::Vec3f &camEye );
-	void update( const ci::Vec3f &camEye );
+	Dust( int index, ci::vec3 pos, ci::vec3 vel );
+	void setup( const ci::vec3 &camEye );
+	void update( const ci::vec3 &camEye );
 	
 	int			mIndex;
-	ci::Vec3f	mPos, mPrevPos;
-	ci::Vec3f	mVel;
-	ci::Vec3f	mAcc;
+	ci::vec3	mPos, mPrevPos;
+	ci::vec3	mVel;
+	ci::vec3	mAcc;
 	
 	ci::Color	mColor;
 	float		mRadius;

@@ -26,7 +26,7 @@ StarGlows::~StarGlows()
     }
 }
 
-void StarGlows::setup( const vector<NodeArtist*> &filteredNodes, const Vec3f &bbRight, const Vec3f &bbUp, const float &zoomAlpha )
+void StarGlows::setup( const vector<NodeArtist*> &filteredNodes, const vec3 &bbRight, const vec3 &bbUp, const float &zoomAlpha )
 {
 	mTotalVertices	= filteredNodes.size() * 6;	// 6 = 2 triangles per quad
 	
@@ -42,7 +42,7 @@ void StarGlows::setup( const vector<NodeArtist*> &filteredNodes, const Vec3f &bb
 	
 	for( vector<NodeArtist*>::const_iterator it = filteredNodes.begin(); it != filteredNodes.end(); ++it )
 	{
-        Vec3f pos			= (*it)->mPos;
+        vec3 pos			= (*it)->mPos;
         float r				= (*it)->mRadius * ( (*it)->mEclipseStrength * 2.0f + 1.5f ); // HERE IS WHERE YOU CAN MAKE THE GLOW HUGER/BIGGER/AWESOMER
         if( (*it)->mIsSelected )
         	r				*= 0.1f;
@@ -52,43 +52,43 @@ void StarGlows::setup( const vector<NodeArtist*> &filteredNodes, const Vec3f &bb
         //	alpha			= 1.0f - zoomAlpha;
         
         Color c             = (*it)->mGlowColor;
-        Vec4f col			= Vec4f( c.r, c.g, c.b, alpha );
+        vec4 col			= vec4( c.r, c.g, c.b, alpha );
         
-        Vec3f right			= bbRight * r;
-        Vec3f up			= bbUp * r;
+        vec3 right			= bbRight * r;
+        vec3 up			= bbUp * r;
         
-        Vec3f p1			= pos - right - up;
-        Vec3f p2			= pos + right - up;
-        Vec3f p3			= pos - right + up;
-        Vec3f p4			= pos + right + up;
+        vec3 p1			= pos - right - up;
+        vec3 p2			= pos + right - up;
+        vec3 p3			= pos - right + up;
+        vec3 p4			= pos + right + up;
         
         mVerts[vIndex].vertex  = p1;
-        mVerts[vIndex].texture = Vec2f(0.0f,0.0f);
+        mVerts[vIndex].texture = vec2(0.0f,0.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
 
         mVerts[vIndex].vertex  = p2;
-        mVerts[vIndex].texture = Vec2f(1.0f,0.0f);
+        mVerts[vIndex].texture = vec2(1.0f,0.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
 
         mVerts[vIndex].vertex  = p3;
-        mVerts[vIndex].texture = Vec2f(0.0f,1.0f);
+        mVerts[vIndex].texture = vec2(0.0f,1.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
         
         mVerts[vIndex].vertex  = p2;
-        mVerts[vIndex].texture = Vec2f(1.0f,0.0f);
+        mVerts[vIndex].texture = vec2(1.0f,0.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
         
         mVerts[vIndex].vertex  = p3;
-        mVerts[vIndex].texture = Vec2f(0.0f,1.0f);
+        mVerts[vIndex].texture = vec2(0.0f,1.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
 
         mVerts[vIndex].vertex  = p4;
-        mVerts[vIndex].texture = Vec2f(1.0f,1.0f);
+        mVerts[vIndex].texture = vec2(1.0f,1.0f);
         mVerts[vIndex].color   = col;
         vIndex++;        
 	}

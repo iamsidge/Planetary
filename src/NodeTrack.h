@@ -31,18 +31,18 @@ class NodeTrack : public Node
 	void updateAudioData( double currentPlayheadTime );
 	void update( float param1, float param2 );
 	void drawEclipseGlow();
-	void drawPlanet( const ci::gl::Texture &tex );
-	void drawClouds( const std::vector< ci::gl::Texture> &clouds );
+	void drawPlanet( const ci::gl::TextureRef &tex );
+	void drawClouds( const std::vector< ci::gl::TextureRef> &clouds );
 	void drawOrbitRing( float pinchAlphaOffset, float camAlpha, const OrbitRing &orbitRing, float fadeInAlphaToArtist, float fadeInArtistToAlbum );
 	void buildPlayheadProgressVertexArray();
-	void drawPlayheadProgress( float pinchAlphaPer, float camAlpha, float pauseAlpha, const ci::gl::Texture &tex, const ci::gl::Texture &originTex );
-//	void drawAtmosphere( const ci::Vec2f &center, const ci::gl::Texture &tex, const ci::gl::Texture &directionalTex, float pinchAlphaPer );
-	void drawAtmosphere( const ci::Vec3f &camEye, const ci::Vec2f &center, const ci::gl::Texture &tex, const ci::gl::Texture &directionalTex, float pinchAlphaPer, float scaleSliderOffset );
+	void drawPlayheadProgress( float pinchAlphaPer, float camAlpha, float pauseAlpha, const ci::gl::TextureRef &tex, const ci::gl::TextureRef &originTex );
+//	void drawAtmosphere( const ci::vec2 &center, const ci::gl::TextureRef &tex, const ci::gl::TextureRef &directionalTex, float pinchAlphaPer );
+	void drawAtmosphere( const ci::vec3 &camEye, const ci::vec2 &center, const ci::gl::TextureRef &tex, const ci::gl::TextureRef &directionalTex, float pinchAlphaPer, float scaleSliderOffset );
 	void findShadows( float camAlpha );
-	void buildShadowVertexArray( ci::Vec3f p1, ci::Vec3f p2, ci::Vec3f p3, ci::Vec3f p4 );
+	void buildShadowVertexArray( ci::vec3 p1, ci::vec3 p2, ci::vec3 p3, ci::vec3 p4 );
 
-	ci::Vec3f getStartRelPos(){ return mStartRelPos; }
-	ci::Vec3f getRelPos(){ return mRelPos; }
+	ci::vec3 getStartRelPos(){ return mStartRelPos; }
+	ci::vec3 getRelPos(){ return mRelPos; }
 
 	void setStartAngle();
 	int getTrackNumber();
@@ -65,8 +65,8 @@ private:
 	float		mNormPlayCount;
 	int			mStarRating;
 	int			mNumTracks;
-	ci::Vec3f	mStartPos, mTransStartPos, mStartRelPos;
-	vector<ci::Vec3f> mOrbitPath;
+	ci::vec3	mStartPos, mTransStartPos, mStartRelPos;
+	vector<ci::vec3> mOrbitPath;
 	
 	float		mPrevTime, mCurrentTime, mMyTime;
 	double		mStartTime;
@@ -79,7 +79,7 @@ private:
 	bool		mIsMostPlayed;
 	bool		mHasAlbumArt;
 	bool		mHasRequestedAlbumArt;
-	ci::gl::Texture mAlbumArtTex;
+	ci::gl::TextureRef mAlbumArtTex;
 	ci::Surface	mAlbumArtSurface;
 	
 	float		mCloudLayerRadius;

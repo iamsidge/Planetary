@@ -24,7 +24,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-void Vignette::setup( const gl::Texture &tex )
+void Vignette::setup( const gl::TextureRef &tex )
 {
     mScale = 2.25f;
 	mShowing = false;    
@@ -42,23 +42,23 @@ void Vignette::update()
 		mScale -= ( mScale - 2.25f ) * 0.2f;	
 	}    
         
-    const Vec2f interfaceSize = getRoot()->getInterfaceSize();
+    const vec2 interfaceSize = getRoot()->getInterfaceSize();
     
     if (mInterfaceSize != interfaceSize || mScale != prevScale) {
         
         mInterfaceSize = interfaceSize;
         mInterfaceCenter = mInterfaceSize * 0.5f;        
 
-        Matrix44f mat;
-        mat.translate( Vec3f(mInterfaceCenter, 0) );
+        mat4 mat;
+        mat.translate( vec3(mInterfaceCenter, 0) );
         
         if ( mInterfaceSize.x > mInterfaceSize.y ) {
             // adjust for control panel in landscape
             float amount = (mInterfaceSize.x - mInterfaceSize.y) / (1024-768);            
-            mat.translate( Vec3f(0, -15.0f * amount, 0) );
+            mat.translate( vec3(0, -15.0f * amount, 0) );
         }
 
-        mat.scale( Vec3f( mScale, mScale, 1.0f ) );
+        mat.scale( vec3( mScale, mScale, 1.0f ) );
         setTransform(mat);        
     }        
 }
@@ -74,17 +74,17 @@ void Vignette::updateVerts()
 	float CW = W/2;
 	float CH = H/2;
 		
-	vector<Vec2i> positions;
-	positions.push_back( Vec2i( 0 - CW, 0 - CH ) );
-	positions.push_back( Vec2i( W - CW, 0 - CH ) );
-	positions.push_back( Vec2i( 0 - CW, H - CH ) );
-	positions.push_back( Vec2i( W - CW, H - CH ) );
+	vector<ivec2> positions;
+	positions.push_back( ivec2( 0 - CW, 0 - CH ) );
+	positions.push_back( ivec2( W - CW, 0 - CH ) );
+	positions.push_back( ivec2( 0 - CW, H - CH ) );
+	positions.push_back( ivec2( W - CW, H - CH ) );
 	
-	vector<Vec2f> textures;
-	textures.push_back( Vec2f( 0, 0 ) );
-	textures.push_back( Vec2f( 1, 0 ) );
-	textures.push_back( Vec2f( 0, 1 ) );
-	textures.push_back( Vec2f( 1, 1 ) );
+	vector<vec2> textures;
+	textures.push_back( vec2( 0, 0 ) );
+	textures.push_back( vec2( 1, 0 ) );
+	textures.push_back( vec2( 0, 1 ) );
+	textures.push_back( vec2( 1, 1 ) );
 	
 	int indices[6] = { 0, 1, 2, 1, 3, 2 };
 	

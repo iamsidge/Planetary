@@ -244,14 +244,14 @@ NodeTrack* World::selectPlayingHierarchy( uint64_t artistId, uint64_t albumId, u
     return mPlayingTrackNode;
 }
 
-void World::checkForNameTouch( vector<Node*> &nodes, const Vec2f &pos )
+void World::checkForNameTouch( vector<Node*> &nodes, const vec2 &pos )
 {
     BOOST_FOREACH(NodeArtist* artistNode, mFilteredNodes) {        
         artistNode->checkForNameTouch( nodes, pos );
     }
 }
 
-void World::updateGraphics( const CameraPersp &cam, const Vec2f &center, const Vec3f &bbRight, const Vec3f &bbUp, const float &zoomAlpha )
+void World::updateGraphics( const CameraPersp &cam, const vec2 &center, const vec3 &bbRight, const vec3 &bbUp, const float &zoomAlpha )
 {
     const float w = app::getWindowWidth();
     const float h = app::getWindowHeight();
@@ -303,7 +303,7 @@ void World::repulseNodes()
 		
 		vector<NodeArtist*>::iterator p2 = p1;
 		for( ++p2; p2 != mNodes.end(); ++p2 ) {
-			Vec3f dir = (*p1)->mPosDest - (*p2)->mPosDest;
+			vec3 dir = (*p1)->mPosDest - (*p2)->mPosDest;
 			
 			float thresh = 20.0f;
 			if( dir.x > -thresh && dir.x < thresh && dir.y > -thresh && dir.y < thresh && dir.z > -thresh && dir.z < thresh ){
@@ -333,7 +333,7 @@ void World::drawStarGlowsVertexArray()
     mStarGlows.draw();
 }
 
-void World::drawRings( const gl::Texture &tex, float camZPos )
+void World::drawRings( const gl::TextureRef &tex, float camZPos )
 {
     BOOST_FOREACH(NodeArtist* artistNode, mNodes) {        
 		artistNode->drawRings( tex, mPlanetRing, camZPos );

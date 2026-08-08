@@ -15,11 +15,11 @@ ParticleController::ParticleController()
 	mPrevTotalDustVertices = -1;
     mDustVerts			= NULL;
 
-	mBbRight			= Vec3f::xAxis();
-	mBbUp				= Vec3f::yAxis();
+	mBbRight			= vec3::xAxis();
+	mBbUp				= vec3::yAxis();
 }
 
-void ParticleController::update( const Vec3f &camEye, float radius, const Vec3f &bbRight, const Vec3f &bbUp )
+void ParticleController::update( const vec3 &camEye, float radius, const vec3 &bbRight, const vec3 &bbUp )
 {
 	mBbRight = bbRight;
 	mBbUp	 = bbUp;
@@ -41,7 +41,7 @@ void ParticleController::update( const Vec3f &camEye, float radius, const Vec3f 
 
 void ParticleController::buildParticleVertexArray( float scaleOffset, Color c, float eclipseStrength )
 {
-//	Vec3f lookVec = mBbRight.cross( mBbUp ) * 0.025f;
+//	vec3 lookVec = mBbRight.cross( mBbUp ) * 0.025f;
 	
 	mTotalParticleVertices = mParticles.size() * 6;
 	
@@ -62,50 +62,50 @@ void ParticleController::buildParticleVertexArray( float scaleOffset, Color c, f
 	
 	for( list<Particle>::iterator it = mParticles.begin(); it != mParticles.end(); ++it ){
         
-		Vec3f pos				= it->mPos;// + lookVec;
+		vec3 pos				= it->mPos;// + lookVec;
 		float radius			= it->mRadius * ( 1.0f - it->mAgePer ) * scaleOffset;// * eclipseStrength;// * sin( it->mAgePer * M_PI );
 		float alpha				= constrain(it->mAgePer * eclipseStrength, 0.0f, 1.0f);
 		
-//		Vec3f right				= mBbRight * radius * it->mQuat;
-//		Vec3f up				= mBbUp * radius * it->mQuat;
+//		vec3 right				= mBbRight * radius * it->mQuat;
+//		vec3 up				= mBbUp * radius * it->mQuat;
 
-		Vec3f right				= Vec3f::yAxis() * radius * it->mQuat;
-		Vec3f up				= Vec3f::xAxis() * radius * it->mQuat;
+		vec3 right				= vec3::yAxis() * radius * it->mQuat;
+		vec3 up				= vec3::xAxis() * radius * it->mQuat;
 		
-		Vec3f p1				= pos - right - up;
-		Vec3f p2				= pos + right - up;
-		Vec3f p3				= pos - right + up;
-		Vec3f p4				= pos + right + up;
+		vec3 p1				= pos - right - up;
+		vec3 p2				= pos + right - up;
+		vec3 p3				= pos - right + up;
+		vec3 p4				= pos + right + up;
         
-        Vec4f col(c.r, c.g, c.b, alpha);
+        vec4 col(c.r, c.g, c.b, alpha);
         
 		mParticleVerts[vIndex].vertex  = p1;
-		mParticleVerts[vIndex].texture = Vec2f(u1,v1);
+		mParticleVerts[vIndex].texture = vec2(u1,v1);
 		mParticleVerts[vIndex].color   = col;
         vIndex++;		
 
         mParticleVerts[vIndex].vertex  = p2;
-		mParticleVerts[vIndex].texture = Vec2f(u2,v1);
+		mParticleVerts[vIndex].texture = vec2(u2,v1);
 		mParticleVerts[vIndex].color   = col;
         vIndex++;		
 
 		mParticleVerts[vIndex].vertex  = p3;
-		mParticleVerts[vIndex].texture = Vec2f(u1,v2);
+		mParticleVerts[vIndex].texture = vec2(u1,v2);
 		mParticleVerts[vIndex].color   = col;
         vIndex++;		
 
         mParticleVerts[vIndex].vertex  = p2;
-		mParticleVerts[vIndex].texture = Vec2f(u2,v1);
+		mParticleVerts[vIndex].texture = vec2(u2,v1);
 		mParticleVerts[vIndex].color   = col;
         vIndex++;		
 
 		mParticleVerts[vIndex].vertex  = p3;
-		mParticleVerts[vIndex].texture = Vec2f(u1,v2);
+		mParticleVerts[vIndex].texture = vec2(u1,v2);
 		mParticleVerts[vIndex].color   = col;
         vIndex++;		
 
 		mParticleVerts[vIndex].vertex  = p4;
-		mParticleVerts[vIndex].texture = Vec2f(u2,v2);
+		mParticleVerts[vIndex].texture = vec2(u2,v2);
 		mParticleVerts[vIndex].color   = col;
         vIndex++;		
 	}
@@ -133,7 +133,7 @@ void ParticleController::buildDustVertexArray( float scaleOffset, Node *node, fl
 
 	for( list<Dust>::iterator it = mDusts.begin(); it != mDusts.end(); ++it ){        
 		mDustVerts[vIndex].vertex = it->mPos; //0.7f
-		mDustVerts[vIndex].color = Vec4f(col.r, col.g, col.b, alpha * it->mAgePer);
+		mDustVerts[vIndex].color = vec4(col.r, col.g, col.b, alpha * it->mAgePer);
         vIndex++;
 	}
 }
@@ -154,7 +154,7 @@ void ParticleController::drawParticleVertexArray( Node *node, float multi )
 	if( node ){
 		gl::translate( node->mPos );
 		float radius = node->mRadius * multi + 0.007f;
-		gl::scale( Vec3f( radius, radius, radius ) );
+		gl::scale( vec3( radius, radius, radius ) );
 	}
 	glDrawArrays( GL_TRIANGLES, 0, mTotalParticleVertices );
 	glPopMatrix();
@@ -176,7 +176,7 @@ void ParticleController::drawDustVertexArray( Node *node, float multi )
 	if( node ) {
 		gl::translate( node->mPos );
 		float radius = node->mRadius * multi + 0.007f;
-		gl::scale( Vec3f( radius, radius, radius ) );
+		gl::scale( vec3( radius, radius, radius ) );
     }
 	glDrawArrays( GL_POINTS, 0, mTotalDustVertices );
 	glPopMatrix();
@@ -189,8 +189,8 @@ void ParticleController::addDusts( int amt )
 {
 	for( int i=0; i<amt; i++ )
 	{
-		Vec3f pos = Rand::randVec3f() * Rand::randFloat( 100.0f, 200.0f );
-		Vec3f vel = Rand::randVec3f();
+		vec3 pos = Rand::randVec3f() * Rand::randFloat( 100.0f, 200.0f );
+		vec3 vel = Rand::randVec3f();
 		
 		mDusts.push_back( Dust( i, pos, vel ) );
 	}
@@ -200,8 +200,8 @@ void ParticleController::addParticles( int amt )
 {
 	for( int i=0; i<amt; i++ )
 	{
-		Vec3f pos = Rand::randVec3f() * Rand::randFloat( 100.0f, 200.0f );
-		Vec3f vel = Rand::randVec3f();
+		vec3 pos = Rand::randVec3f() * Rand::randFloat( 100.0f, 200.0f );
+		vec3 vel = Rand::randVec3f();
 		
 		mParticles.push_back( Particle( i, pos, vel, mBbRight, mBbUp ) );
 	}

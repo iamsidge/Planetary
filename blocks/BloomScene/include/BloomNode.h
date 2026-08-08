@@ -82,15 +82,15 @@ public:
     
 // TRANFORM METHODS
     
-    void setTransform( const ci::Matrix44f &transform ) { mTransform = transform; /* copy OK */ }
-    ci::Matrix44f getTransform() const { return mTransform; /* copy OK */ }
+    void setTransform( const ci::mat4 &transform ) { mTransform = transform; /* copy OK */ }
+    ci::mat4 getTransform() const { return mTransform; /* copy OK */ }
     
     // override getConcatenatedTransform to change the behavior of these:
-    ci::Vec2f localToGlobal( const ci::Vec2f &pos );
-    ci::Vec2f globalToLocal( const ci::Vec2f &pos );    
+    ci::vec2 localToGlobal( const ci::vec2 &pos );
+    ci::vec2 globalToLocal( const ci::vec2 &pos );    
     
     // if you have extra transforms/rotations that get applied in draw, override this too:
-    virtual ci::Matrix44f getConcatenatedTransform() const;    
+    virtual ci::mat4 getConcatenatedTransform() const;    
     
 // ID METHODS
         
@@ -116,7 +116,7 @@ public:
     virtual bool touchEnded( ci::app::TouchEvent::Touch touch ) { return false; }
     
     // override deepHitTest as well if you want to skip hit-testing children
-    virtual bool hitTest( const ci::Vec2f &screenPos ) { return false; }
+    virtual bool hitTest( const ci::vec2 &screenPos ) { return false; }
     
 // RECURSIVE METHODS
     
@@ -136,24 +136,24 @@ public:
     
     // recurse to children and call hitTest
     // override this if you want to skip hitTesting children
-    virtual bool deepHitTest( const ci::Vec2f &screenPos );
+    virtual bool deepHitTest( const ci::vec2 &screenPos );
     
 // EVENT STUFF
     
 	template<typename T>
     ci::CallbackId registerTouchBegan( T *obj, bool (T::*callback)(BloomSceneEventRef) )
 	{
-		return mCbTouchBegan.registerCb(std::bind1st(std::mem_fun(callback), obj));
+		return mCbTouchBegan.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
 	}    
 	template<typename T>
     ci::CallbackId registerTouchMoved( T *obj, bool (T::*callback)(BloomSceneEventRef) )
 	{
-		return mCbTouchMoved.registerCb(std::bind1st(std::mem_fun(callback), obj));
+		return mCbTouchMoved.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
 	}    
 	template<typename T>
     ci::CallbackId registerTouchEnded( T *obj, bool (T::*callback)(BloomSceneEventRef) )
 	{
-		return mCbTouchEnded.registerCb(std::bind1st(std::mem_fun(callback), obj));
+		return mCbTouchEnded.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
 	}
 	
     void unregisterTouchBegan( ci::CallbackId cbId ) { mCbTouchBegan.unregisterCb( cbId ); }
@@ -175,7 +175,7 @@ protected:
     // and this is really all we have, everything else is recursion
     int mId;
     bool mVisible;    
-    ci::Matrix44f mTransform;
+    ci::mat4 mTransform;
     
     // normal shared_ptrs because we "own" children
     std::vector<BloomNodeRef> mChildren;

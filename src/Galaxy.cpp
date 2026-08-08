@@ -13,7 +13,7 @@ using namespace ci;
 
 
 void Galaxy::setup(float initialCamDist, ci::Color lightMatterColor, ci::Color centerColor,
-				   ci::gl::Texture galaxyDome, ci::gl::Texture galaxyTex, ci::gl::Texture darkMatterTex, ci::gl::Texture starGlowTex)
+				   ci::gl::TextureRef galaxyDome, ci::gl::TextureRef galaxyTex, ci::gl::TextureRef darkMatterTex, ci::gl::TextureRef starGlowTex)
 {
 	mDarkMatterCylinderRes = 48;    
     initGalaxyVertexArray();
@@ -32,7 +32,7 @@ void Galaxy::setup(float initialCamDist, ci::Color lightMatterColor, ci::Color c
 	mDistFromCamZAxis = 1000.0f;
 }
 
-void Galaxy::update( const Vec3f &eye, const float &fadeInAlphaToArtist, const float rotSpeed, const float eclipseAmt, const Vec3f &bbRight, const Vec3f &bbUp)
+void Galaxy::update( const vec3 &eye, const float &fadeInAlphaToArtist, const float rotSpeed, const float eclipseAmt, const vec3 &bbRight, const vec3 &bbUp)
 {
 	// For doing galaxy-axis fades
 	mZoomOff		= ( 1.0f - fadeInAlphaToArtist ) * 0.9f + 0.1f;
@@ -42,7 +42,7 @@ void Galaxy::update( const Vec3f &eye, const float &fadeInAlphaToArtist, const f
     mBbRight		= bbRight;
     mBbUp			= bbUp;
 	
-	mDistFromCamZAxis	= eye.length();//-cam.worldToEyeDepth( Vec3f::zero() );
+	mDistFromCamZAxis	= eye.length();//-cam.worldToEyeDepth( vec3::zero() );
 }
 
 
@@ -60,7 +60,7 @@ void Galaxy::drawLightMatter( float fadeInAlphaToArtist )
         mGalaxyDome.enableAndBind();
         glBindBuffer(GL_ARRAY_BUFFER, mDarkMatterVBO);
         glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(Vec3f) ); // NB:- change if type of VertexData.vertex changes
+        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec3) ); // NB:- change if type of VertexData.vertex changes
         glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.                
 
         glEnableClientState( GL_VERTEX_ARRAY );
@@ -68,18 +68,18 @@ void Galaxy::drawLightMatter( float fadeInAlphaToArtist )
         
 		
 		float rotationSpeed = -mElapsedSeconds * 0.2f;
-        gl::scale( Vec3f( radius, radius, radius ) );
-        gl::rotate( Vec3f( 0.0f, rotationSpeed, 0.0f ) );
+        gl::scale( vec3( radius, radius, radius ) );
+        gl::rotate( vec3( 0.0f, rotationSpeed, 0.0f ) );
         glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
 		
 		if( G_IS_IPAD2 ){
 			gl::color( ColorA( mLightMatterColor, mInvAlpha * ( 1.0f - fadeInAlphaToArtist ) ) );
-			gl::scale( Vec3f( 1.15f, 1.15f, 1.15f ) );
-			gl::rotate( Vec3f( 0.0f, 50.0f, 0.0f ) );
+			gl::scale( vec3( 1.15f, 1.15f, 1.15f ) );
+			gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
 			glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
 			
-			gl::scale( Vec3f( 1.15f, 1.15f, 1.15f ) );
-			gl::rotate( Vec3f( 0.0f, 50.0f, 0.0f ) );
+			gl::scale( vec3( 1.15f, 1.15f, 1.15f ) );
+			gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
 			glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
 		}
         
@@ -100,7 +100,7 @@ void Galaxy::drawSpiralPlanes()
 
         glBindBuffer(GL_ARRAY_BUFFER, mGalaxyVBO);
         glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(Vec3f) ); // NB:- change if type of VertexData.vertex changes
+        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec3) ); // NB:- change if type of VertexData.vertex changes
         glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.                
         
         glPushMatrix();
@@ -109,20 +109,20 @@ void Galaxy::drawSpiralPlanes()
 		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 		
 		if( G_IS_IPAD2 ){
-			gl::translate( Vec3f( 0.0f, 3.5f, 0.0f ) );
-			gl::rotate( Vec3f( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::translate( vec3( 0.0f, 3.5f, 0.0f ) );
+			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
 			glDrawArrays( GL_TRIANGLES, 0, 6 );
 			
-			gl::translate( Vec3f( 0.0f, -7.0f, 0.0f ) );
-			gl::rotate( Vec3f( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::translate( vec3( 0.0f, -7.0f, 0.0f ) );
+			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
 			glDrawArrays( GL_TRIANGLES, 0, 6 );
 			
-			gl::translate( Vec3f( 0.0f, 3.5f, 0.0f ) );
-			gl::scale( Vec3f( 0.5f, 0.5f, 0.5f ) );
-			gl::rotate( Vec3f( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::translate( vec3( 0.0f, 3.5f, 0.0f ) );
+			gl::scale( vec3( 0.5f, 0.5f, 0.5f ) );
+			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
 			glDrawArrays( GL_TRIANGLES, 0, 6 );
 		} else {
-			gl::rotate( Vec3f( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
 			glDrawArrays( GL_TRIANGLES, 0, 6 );
 		}
 		
@@ -141,9 +141,9 @@ void Galaxy::drawCenter()
 	if( alpha > 0.01f ){
 		mStarGlowTex.enableAndBind();
 		gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-		gl::drawBillboard( Vec3f::zero(), Vec2f( 400.0f, 400.0f ), mElapsedSeconds * 10.0f, mBbRight, mBbUp );
+		gl::drawBillboard( vec3::zero(), vec2( 400.0f, 400.0f ), mElapsedSeconds * 10.0f, mBbRight, mBbUp );
 		gl::color( ColorA( BRIGHT_YELLOW, alpha ) );
-		gl::drawBillboard( Vec3f::zero(), Vec2f( 200.0f, 200.0f ), -mElapsedSeconds * 7.0f, mBbRight, mBbUp );
+		gl::drawBillboard( vec3::zero(), vec2( 200.0f, 200.0f ), -mElapsedSeconds * 7.0f, mBbRight, mBbUp );
 		mStarGlowTex.disable();
 	}
 }
@@ -165,7 +165,7 @@ void Galaxy::drawDarkMatter()
 
         glBindBuffer(GL_ARRAY_BUFFER, mDarkMatterVBO);
         glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(Vec3f) ); // NB:- change if type of VertexData.vertex changes
+        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec3) ); // NB:- change if type of VertexData.vertex changes
         glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.                
         
 		float rotationSpeed = -mElapsedSeconds * 0.2f;
@@ -174,8 +174,8 @@ void Galaxy::drawDarkMatter()
 		float alpha		= mInvAlpha * delta;
 		if( alpha > 0.0f ){
 			gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-			gl::rotate( Vec3f( 0.0f, rotationSpeed, 0.0f ) );
-			gl::scale( Vec3f( radius, radius * 0.75f, radius ) );
+			gl::rotate( vec3( 0.0f, rotationSpeed, 0.0f ) );
+			gl::scale( vec3( radius, radius * 0.75f, radius ) );
 			glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
 		}
 		
@@ -185,8 +185,8 @@ void Galaxy::drawDarkMatter()
 //			alpha		= mInvAlpha * delta;
 //			if( alpha > 0.0f ){
 //				gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-//				gl::rotate( Vec3f( 0.0f, 50.0f, 0.0f ) );
-//				gl::scale( Vec3f( multi, multi, multi ) );
+//				gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
+//				gl::scale( vec3( multi, multi, multi ) );
 //				glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
 //			}
 			
@@ -196,8 +196,8 @@ void Galaxy::drawDarkMatter()
 			alpha		= mInvAlpha * delta;
 			if( alpha > 0.0f ){
 				gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-				gl::rotate( Vec3f( 0.0f, 50.0f, 0.0f ) );
-				gl::scale( Vec3f( multi, multi, multi ) );
+				gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
+				gl::scale( vec3( multi, multi, multi ) );
 				glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
 			}
 		}
@@ -220,28 +220,28 @@ void Galaxy::initGalaxyVertexArray()
 
     int vert = 0;
 
-	galaxyVerts[vert].vertex  = Vec3f( -w, 0.0f, -w );
-    galaxyVerts[vert].texture = Vec2f::zero();
+	galaxyVerts[vert].vertex  = vec3( -w, 0.0f, -w );
+    galaxyVerts[vert].texture = vec2::zero();
     vert++;
 	
-	galaxyVerts[vert].vertex  = Vec3f( w, 0.0f, -w );
-    galaxyVerts[vert].texture = Vec2f(1.0f, 0.0f);
+	galaxyVerts[vert].vertex  = vec3( w, 0.0f, -w );
+    galaxyVerts[vert].texture = vec2(1.0f, 0.0f);
     vert++;
 
-    galaxyVerts[vert].vertex  = Vec3f( w, 0.0f, w );
-    galaxyVerts[vert].texture = Vec2f(1.0f, 1.0f);
+    galaxyVerts[vert].vertex  = vec3( w, 0.0f, w );
+    galaxyVerts[vert].texture = vec2(1.0f, 1.0f);
     vert++;
 
-    galaxyVerts[vert].vertex  = Vec3f( -w, 0.0f, -w );
-    galaxyVerts[vert].texture = Vec2f(0.0f, 0.0f);
+    galaxyVerts[vert].vertex  = vec3( -w, 0.0f, -w );
+    galaxyVerts[vert].texture = vec2(0.0f, 0.0f);
     vert++;
 
-    galaxyVerts[vert].vertex  = Vec3f( w, 0.0f, w );
-    galaxyVerts[vert].texture = Vec2f(1.0f, 1.0f);
+    galaxyVerts[vert].vertex  = vec3( w, 0.0f, w );
+    galaxyVerts[vert].texture = vec2(1.0f, 1.0f);
     vert++;
 
-    galaxyVerts[vert].vertex  = Vec3f( -w, 0.0f, w );
-    galaxyVerts[vert].texture = Vec2f(0.0f, 1.0f);
+    galaxyVerts[vert].vertex  = vec3( -w, 0.0f, w );
+    galaxyVerts[vert].texture = vec2(0.0f, 1.0f);
     vert++;
     
     glGenBuffers(1, &mGalaxyVBO);
@@ -274,35 +274,35 @@ void Galaxy::initDarkMatterVertexArray()
 		float ca2 = cos( angle2 );
 		
 		float h = 0.5f;
-		Vec3f v1 = Vec3f( ca1, -h, sa1 );
-		Vec3f v2 = Vec3f( ca2, -h, sa2 );
-		Vec3f v3 = Vec3f( ca1,  h, sa1 );
-		Vec3f v4 = Vec3f( ca2,  h, sa2 );
+		vec3 v1 = vec3( ca1, -h, sa1 );
+		vec3 v2 = vec3( ca2, -h, sa2 );
+		vec3 v3 = vec3( ca1,  h, sa1 );
+		vec3 v4 = vec3( ca2,  h, sa2 );
 		
         const float texRepeat = 2.0f;
         
 		darkMatterVerts[vert].vertex = v1;
-		darkMatterVerts[vert].texture = Vec2f(per1 * texRepeat, 0.0f);
+		darkMatterVerts[vert].texture = vec2(per1 * texRepeat, 0.0f);
 		vert++;
 
         darkMatterVerts[vert].vertex = v2;
-		darkMatterVerts[vert].texture = Vec2f(per2 * texRepeat, 0.0f);
+		darkMatterVerts[vert].texture = vec2(per2 * texRepeat, 0.0f);
 		vert++;
 
         darkMatterVerts[vert].vertex = v3;
-		darkMatterVerts[vert].texture = Vec2f(per1 * texRepeat, 1.0f);
+		darkMatterVerts[vert].texture = vec2(per1 * texRepeat, 1.0f);
 		vert++;
 
         darkMatterVerts[vert].vertex = v2;
-		darkMatterVerts[vert].texture = Vec2f(per2 * texRepeat, 0.0f);
+		darkMatterVerts[vert].texture = vec2(per2 * texRepeat, 0.0f);
 		vert++;
 
         darkMatterVerts[vert].vertex = v4;
-		darkMatterVerts[vert].texture = Vec2f(per2 * texRepeat, 1.0f);
+		darkMatterVerts[vert].texture = vec2(per2 * texRepeat, 1.0f);
 		vert++;
 
         darkMatterVerts[vert].vertex = v3;
-		darkMatterVerts[vert].texture = Vec2f(per1 * texRepeat, 1.0f);
+		darkMatterVerts[vert].texture = vec2(per1 * texRepeat, 1.0f);
 		vert++;
 	}
     

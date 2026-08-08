@@ -37,7 +37,7 @@ class State {
 	void setAlphaChar( const string &artistName );
 	template<typename T>
 	CallbackId registerAlphaCharStateChanged( T *obj, bool ( T::*callback )( char ) ){
-		return mCallbacksAlphaCharStateChanged.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCallbacksAlphaCharStateChanged.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
 	
 	
@@ -46,7 +46,7 @@ class State {
 	void setPlaylist( ci::ipod::PlaylistRef playlist );
 	template<typename T>
 	CallbackId registerPlaylistStateChanged( T *obj, bool ( T::*callback )( ci::ipod::PlaylistRef ) ){
-		return mCallbacksPlaylistStateChanged.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCallbacksPlaylistStateChanged.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
 	
 
@@ -56,7 +56,7 @@ class State {
 	
 	template<typename T>
 	CallbackId registerNodeSelected( T *obj, bool (T::*callback)(Node*) ){
-		return mCallbacksNodeSelected.registerCb(std::bind1st(std::mem_fun(callback), obj));
+		return mCallbacksNodeSelected.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
 	}
 	
 	// TODO: should these use casts to get NodeArtist/NodeAlbum out?
@@ -78,7 +78,7 @@ class State {
     FilterMode getFilterMode() { return mFilterMode; }
 	template<typename T>
 	CallbackId registerFilterModeStateChanged( T *obj, bool ( T::*callback )( FilterMode ) ){
-		return mCallbacksFilterModeStateChanged.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCallbacksFilterModeStateChanged.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
     
 private:

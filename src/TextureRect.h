@@ -16,7 +16,7 @@ class TextureRect : public BloomNode
 {
 public:
     
-    TextureRect( const ci::gl::Texture &texture, const ci::Area &area ): mTexture(texture), mArea(area) {}
+    TextureRect( const ci::gl::TextureRef &texture, const ci::Area &area ): mTexture(texture), mArea(area) {}
     
     virtual void draw();
     
@@ -26,7 +26,7 @@ public:
 
 private:
     
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
     ci::Area mArea;
     ci::Rectf mRect;
 };

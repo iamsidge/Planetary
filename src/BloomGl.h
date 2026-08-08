@@ -18,19 +18,19 @@
 
 namespace bloom { namespace gl {
 
-	void drawBillboard( const ci::Vec3f &pos, const ci::Vec2f &scale, float rotationDegrees, const ci::Vec3f &bbRight, const ci::Vec3f &bbUp );
-	void drawSphericalBillboard( const ci::Vec3f &camEye, const ci::Vec3f &objPos, const ci::Vec2f &scale, float rotationDegrees );
-    void drawSphericalRotatedBillboard( const ci::Vec3f &pos, const ci::Vec3f &lookAt, const ci::Vec3f &turnAt, const ci::Vec2f &scale );
+	void drawBillboard( const ci::vec3 &pos, const ci::vec2 &scale, float rotationDegrees, const ci::vec3 &bbRight, const ci::vec3 &bbUp );
+	void drawSphericalBillboard( const ci::vec3 &camEye, const ci::vec3 &objPos, const ci::vec2 &scale, float rotationDegrees );
+    void drawSphericalRotatedBillboard( const ci::vec3 &pos, const ci::vec3 &lookAt, const ci::vec3 &turnAt, const ci::vec2 &scale );
 	
     // hat tip http://craiggiles.wordpress.com/2009/08/03/opengl-es-batch-rendering-on-the-iphone/
 
     struct VertexData {
-        ci::Vec2f vertex;
-        ci::Vec2f texture;
+        ci::vec2 vertex;
+        ci::vec2 texture;
     };
     
     struct Batch {
-        ci::gl::Texture texture;
+        ci::gl::TextureRef texture;
         std::vector<VertexData> vertices;
     };
     
@@ -40,9 +40,9 @@ namespace bloom { namespace gl {
     extern std::vector<BatchRef> batches;
     
     void beginBatch();
-    void batchRect( const ci::gl::Texture &tex, const ci::Vec2f &pos );            
-    void batchRect( const ci::gl::Texture &tex, const ci::Rectf &srcRect, const ci::Rectf &dstRect );
-    void batchRect( const ci::gl::Texture &tex, const ci::Area &srcArea, const ci::Rectf &dstRect );
+    void batchRect( const ci::gl::TextureRef &tex, const ci::vec2 &pos );            
+    void batchRect( const ci::gl::TextureRef &tex, const ci::Rectf &srcRect, const ci::Rectf &dstRect );
+    void batchRect( const ci::gl::TextureRef &tex, const ci::Area &srcArea, const ci::Rectf &dstRect );
     void endBatch();
     
 } }

@@ -24,7 +24,7 @@ namespace cinder {
 		
 		// keep track of the touches from the last touch ended event
 		bool wasSingleTapped;
-		Vec2f prevTouchPos;
+		vec2 prevTouchPos;
 		
 		// override touch end handling from GestureAnalyzer base...
 		bool touchesEnded(TouchEvent event);
@@ -40,7 +40,7 @@ namespace cinder {
 		void init(AppType *app) {
 			GestureRecognizer::init(app);
 			wasSingleTapped = false;
-			prevTouchPos = Vec2f(0,0);
+			prevTouchPos = vec2(0,0);
 		}
 		
 		void update() {
@@ -48,7 +48,7 @@ namespace cinder {
 //			std::cout << "TapRecognizer::update: wasSingleTapped=" << wasSingleTapped << " dt=" << timer.getSeconds() << std::endl;
 			if (wasSingleTapped && timer.getSeconds() > 0.25f) {
 				mCallbacksSingleTap.call( SingleTapEvent( prevTouchPos, getElapsedSeconds()-timer.getSeconds() ) );
-				prevTouchPos = Vec2f(0,0);
+				prevTouchPos = vec2(0,0);
 				wasSingleTapped = false;
 			}
 		}
@@ -61,7 +61,7 @@ namespace cinder {
 		 *
 		 * rather than:
 		 *
-		 *     mTapRecognizer.mCallbacksDoubleTap.registerCb(std::bind1st(std::mem_fun(&MyApp::doubleTap), this));
+		 *     mTapRecognizer.mCallbacksDoubleTap.registerCb(std::bind( &MyApp::doubleTap, this, std::placeholders::_1 ));
 		 *     
 		 * where doubleTap is a function in your app:
 		 *
@@ -70,12 +70,12 @@ namespace cinder {
 		 */
 		template<typename T>
 		CallbackId registerDoubleTap( T *obj, bool (T::*callback)(DoubleTapEvent) ){
-			return mCallbacksDoubleTap.registerCb(std::bind1st(std::mem_fun(callback), obj));
+			return mCallbacksDoubleTap.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
 		}
 
 		template<typename T>
 		CallbackId registerSingleTap( T *obj, bool (T::*callback)(SingleTapEvent) ){
-			return mCallbacksSingleTap.registerCb(std::bind1st(std::mem_fun(callback), obj));
+			return mCallbacksSingleTap.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
 		}
 		
 	};
@@ -91,7 +91,7 @@ namespace cinder {
 			}
 		}
 		if (doubleTapped) {
-			prevTouchPos = Vec2f( 0, 0 );
+			prevTouchPos = vec2( 0, 0 );
 			wasSingleTapped = false;
 		}
 		else {

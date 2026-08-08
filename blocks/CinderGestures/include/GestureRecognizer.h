@@ -119,7 +119,7 @@ public:
     
     template<typename T>
     void setKeepTouchCallback(T *obj, bool(T::*callback)(TouchEvent::Touch)){
-        mKeepTouchCb = std::bind1st(std::mem_fun(callback), obj);
+        mKeepTouchCb = std::bind( callback, obj, std::placeholders::_1 );
     }
 
 };

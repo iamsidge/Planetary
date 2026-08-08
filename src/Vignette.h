@@ -25,7 +25,7 @@ public:
         delete[] mVerts; 
     }
 	
-	void	setup( const ci::gl::Texture &tex );
+	void	setup( const ci::gl::TextureRef &tex );
 	void	update();
 	void	draw();
 
@@ -36,19 +36,19 @@ public:
     
 	template<typename T>
 	ci::CallbackId registerToggled( T *obj, bool ( T::*callback )( bool ) ){
-		return mCallbacksToggled.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCallbacksToggled.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
     
 private:
 
 	struct VertexData {
-        ci::Vec2f vertex;
-        ci::Vec2f texture;
+        ci::vec2 vertex;
+        ci::vec2 texture;
     };
 	    
     void updateVerts();
     
-	ci::gl::Texture	mTex;
+	ci::gl::TextureRef	mTex;
 
 	float mScale;
     
@@ -57,7 +57,7 @@ private:
 	int mTotalVertices;
 	VertexData *mVerts;
     
-    ci::Vec2f mInterfaceSize, mInterfaceCenter;
+    ci::vec2 mInterfaceSize, mInterfaceCenter;
     
 	ci::CallbackMgr<bool(bool)> mCallbacksToggled;    
 };

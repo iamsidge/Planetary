@@ -34,7 +34,7 @@ public:
     
     PlaylistChooser(): mData(NULL), mOffsetX(0.0f), mOpacity(1.0f) {}
     
-    void setup( const ci::Font &font, const ci::Vec2f &interfaceSize );
+    void setup( const ci::Font &font, const ci::vec2 &interfaceSize );
 	void update();
     void draw();
 
@@ -46,15 +46,15 @@ public:
 
     template<typename T>
 	ci::CallbackId registerPlaylistSelected( T *obj, bool ( T::*callback )( ci::ipod::PlaylistRef ) ){
-		return mCbPlaylistSelected.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCbPlaylistSelected.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
 
     template<typename T>
 	ci::CallbackId registerPlaylistTouched( T *obj, bool ( T::*callback )( ci::ipod::PlaylistRef ) ){
-		return mCbPlaylistTouched.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCbPlaylistTouched.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
     
-    bool hitTest( ci::Vec2f globalPos ) { return mVisible && mFullRect.contains( globalToLocal( globalPos ) ); }
+    bool hitTest( ci::vec2 globalPos ) { return mVisible && mFullRect.contains( globalToLocal( globalPos ) ); }
 
     // used in UiLayer layout...
     float getHeight();
@@ -72,15 +72,15 @@ private:
 	int				mCurrentIndex;
 	int				mPrevIndex;
 	
-	ci::Vec2i		mTouchPos, mTouchPrevPos;
+	ci::ivec2		mTouchPos, mTouchPrevPos;
 	float			mTouchVel;
 	uint64_t		mTouchDragId;
-    ci::Vec2f		mTouchDragStartPos;
+    ci::vec2		mTouchDragStartPos;
     float			mTouchDragStartOffset;
     int				mTouchDragPlaylistIndex;
     bool			mIsDragging;
 	
-	ci::Vec2f		mPlaylistSize;
+	ci::vec2		mPlaylistSize;
 	float			mSpacerWidth;
 	float			mOffsetX;		// for scrolling
 	float			mStartY;
@@ -91,7 +91,7 @@ private:
     
     std::vector<RectRef> mPlaylistRects;
 	
-	std::vector<ci::gl::Texture> mTextures;
+	std::vector<ci::gl::TextureRef> mTextures;
         
     Data			*mData;  // for playlists
     World			*mWorld; // for nodes
@@ -100,7 +100,7 @@ private:
     ci::Font		mFont;
     float           mFontHeight;
     
-    ci::Vec2f		mInterfaceSize;
+    ci::vec2		mInterfaceSize;
 			
 	ci::CallbackMgr<bool(ci::ipod::PlaylistRef)> mCbPlaylistSelected, mCbPlaylistTouched;        
 };

@@ -119,7 +119,7 @@ double Track::getLength()
     return [[m_media_item valueForProperty: MPMediaItemPropertyPlaybackDuration] doubleValue];
 }
 
-Surface Track::getArtwork(const Vec2i &size)
+Surface Track::getArtwork(const ivec2 &size)
 {
     MPMediaItemArtwork *artwork = [m_media_item valueForProperty: MPMediaItemPropertyArtwork];
     UIImage *artwork_img = [artwork imageWithSize: CGSizeMake(size.x, size.y)];

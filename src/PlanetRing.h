@@ -15,8 +15,8 @@ class PlanetRing {
 public:
     
     struct VertexData {
-        ci::Vec3f vertex;
-        ci::Vec2f texture;
+        ci::vec3 vertex;
+        ci::vec2 texture;
     };
     
     PlanetRing()

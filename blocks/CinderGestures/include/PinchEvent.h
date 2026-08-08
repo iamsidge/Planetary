@@ -19,17 +19,17 @@ public:
     
     struct Touch {
         uint32_t mId;
-        Vec2f    mPosStart, mPosPrev, mPos;
+        vec2    mPosStart, mPosPrev, mPos;
     };
     
 private:
     
     Touch mTouch1, mTouch2;
-    Vec2f mScreenSize;
+    vec2 mScreenSize;
     
     vector<Touch> mTouches;
     
-    static Vec3f calcRayPlaneIntersection(const Ray &ray, const Vec3f &planeOrigin, const Vec3f &planeNormal)
+    static vec3 calcRayPlaneIntersection(const Ray &ray, const vec3 &planeOrigin, const vec3 &planeNormal)
     {
         float denom = planeNormal.dot(ray.getDirection());
         float u = planeNormal.dot(planeOrigin - ray.getOrigin()) / denom;
@@ -39,17 +39,17 @@ private:
 public:
 
     PinchEvent(){}
-    PinchEvent(const std::pair<Touch, Touch> &touchPair, const Vec2f &screenSize)
+    PinchEvent(const std::pair<Touch, Touch> &touchPair, const vec2 &screenSize)
     : mTouch1(touchPair.first), mTouch2(touchPair.second), mScreenSize(screenSize)
     {
         mTouches.push_back(mTouch1);
         mTouches.push_back(mTouch2);
     }
 
-    Vec2f getTranslation() const {
+    vec2 getTranslation() const {
         return mTouch1.mPos - mTouch1.mPosStart;
     }
-    Vec2f getTranslationDelta() const {
+    vec2 getTranslationDelta() const {
         return mTouch1.mPos - mTouch1.mPosPrev;
     }
 
@@ -80,45 +80,45 @@ public:
         return touch_rays;
     }
     
-    Matrix44f getTransform()
+    mat4 getTransform()
     {
         float scale = getScale();
 
-        Matrix44f mtx;
-        mtx.translate(Vec3f(mTouch1.mPos, 0.0f));
-        mtx.rotate(Vec3f::zAxis(), getRotation());
-        mtx.scale(Vec3f(scale, scale, scale));
-        mtx.translate(Vec3f(getTranslation() - mTouch1.mPos, 0.0f));
+        mat4 mtx;
+        mtx.translate(vec3(mTouch1.mPos, 0.0f));
+        mtx.rotate(vec3::zAxis(), getRotation());
+        mtx.scale(vec3(scale, scale, scale));
+        mtx.translate(vec3(getTranslation() - mTouch1.mPos, 0.0f));
         return mtx;
     }
                    
-    Matrix44f getTransformDelta()
+    mat4 getTransformDelta()
     {
         float scale = getScaleDelta();
         
-        Matrix44f mtx;
-        mtx.translate(Vec3f(mTouch1.mPos, 0.0f));
-        mtx.rotate(Vec3f::zAxis(), getRotationDelta());
-        mtx.scale(Vec3f(scale, scale, scale));
-        mtx.translate(Vec3f(getTranslationDelta() - mTouch1.mPos, 0.0f));
+        mat4 mtx;
+        mtx.translate(vec3(mTouch1.mPos, 0.0f));
+        mtx.rotate(vec3::zAxis(), getRotationDelta());
+        mtx.scale(vec3(scale, scale, scale));
+        mtx.translate(vec3(getTranslationDelta() - mTouch1.mPos, 0.0f));
         return mtx;
     }
     
-    Matrix44f getTransformDelta(const Camera &cam, float depth)
+    mat4 getTransformDelta(const Camera &cam, float depth)
     {
         Ray t1Ray  = cam.generateRay(mTouch1.mPos.x / mScreenSize.x, 1.0f - mTouch1.mPos.y / mScreenSize.y, cam.getAspectRatio());
         Ray t1pRay = cam.generateRay(mTouch1.mPosPrev.x / mScreenSize.x, 1.0f - mTouch1.mPosPrev.y / mScreenSize.y, cam.getAspectRatio());
-        Vec3f planeOrigin(cam.getEyePoint() + cam.getViewDirection() * depth);
-        Vec3f planeNormal(cam.getViewDirection() * -1.0f);
-        Vec3f t1Pos  = calcRayPlaneIntersection(t1Ray, planeOrigin, planeNormal);
-        Vec3f t1pPos = calcRayPlaneIntersection(t1pRay, planeOrigin, planeNormal);
+        vec3 planeOrigin(cam.getEyePoint() + cam.getViewDirection() * depth);
+        vec3 planeNormal(cam.getViewDirection() * -1.0f);
+        vec3 t1Pos  = calcRayPlaneIntersection(t1Ray, planeOrigin, planeNormal);
+        vec3 t1pPos = calcRayPlaneIntersection(t1pRay, planeOrigin, planeNormal);
         
         float scale = getScaleDelta();
         
-        Matrix44f mtx;
+        mat4 mtx;
         mtx.translate(t1Pos);
         mtx.rotate(cam.getViewDirection(), getRotationDelta());
-        mtx.scale(Vec3f(scale, scale, scale));
+        mtx.scale(vec3(scale, scale, scale));
         mtx.translate(t1Pos - t1pPos - t1Pos);
         return mtx;
     }

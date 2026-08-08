@@ -30,7 +30,7 @@ void Constellation::setup(const vector<NodeArtist*> &filteredNodes)
 		for( ++it2; it2 != filteredNodes.end(); ++it2 ) {
 			NodeArtist *child2 = *it2;
 			
-			Vec3f dirBetweenChildren = child1->mPosDest - child2->mPosDest;
+			vec3 dirBetweenChildren = child1->mPosDest - child2->mPosDest;
 			float distBetweenChildren = dirBetweenChildren.length();
 			if( distBetweenChildren < shortestDist ){
 				shortestDist = distBetweenChildren;
@@ -54,12 +54,12 @@ void Constellation::setup(const vector<NodeArtist*> &filteredNodes)
 	int vIndex = 0;
 	int distancesIndex = 0;
 	for( int i=0; i<mTotalConstellationVertices; i++ ){
-		Vec3f pos = mConstellation[i];
+		vec3 pos = mConstellation[i];
 		mConstellationVerts[vIndex].vertex = mConstellation[i];
 		if( i%2 == 0 ){
-			mConstellationVerts[vIndex].texture	= Vec2f(0.0f, 0.5f);
+			mConstellationVerts[vIndex].texture	= vec2(0.0f, 0.5f);
 		} else {
-			mConstellationVerts[vIndex].texture	= Vec2f(distances[distancesIndex], 0.5f);
+			mConstellationVerts[vIndex].texture	= vec2(distances[distancesIndex], 0.5f);
 			distancesIndex++;
 		}
         vIndex++;

@@ -23,28 +23,28 @@ void PlanetRing::setup()
 	int i = 0;
 	float w	= 1.0f;
 	
-	mVerts[i].vertex  = Vec3f( -w, 0.0f, -w );
-    mVerts[i].texture = Vec2f( 0.0f, 0.0f );
+	mVerts[i].vertex  = vec3( -w, 0.0f, -w );
+    mVerts[i].texture = vec2( 0.0f, 0.0f );
     i++;
 	
-	mVerts[i].vertex  = Vec3f( w, 0.0f, -w );
-    mVerts[i].texture = Vec2f( 1.0f, 0.0f );
+	mVerts[i].vertex  = vec3( w, 0.0f, -w );
+    mVerts[i].texture = vec2( 1.0f, 0.0f );
     i++;
 	
-	mVerts[i].vertex  = Vec3f( w, 0.0f, w );	
-    mVerts[i].texture = Vec2f( 1.0f, 1.0f );
+	mVerts[i].vertex  = vec3( w, 0.0f, w );	
+    mVerts[i].texture = vec2( 1.0f, 1.0f );
     i++;
 	
-	mVerts[i].vertex  = Vec3f( -w, 0.0f, -w );
-    mVerts[i].texture = Vec2f( 0.0f, 0.0f );
+	mVerts[i].vertex  = vec3( -w, 0.0f, -w );
+    mVerts[i].texture = vec2( 0.0f, 0.0f );
     i++;
 	
-	mVerts[i].vertex  = Vec3f( w, 0.0f, w );
-    mVerts[i].texture = Vec2f( 1.0f, 1.0f );
+	mVerts[i].vertex  = vec3( w, 0.0f, w );
+    mVerts[i].texture = vec2( 1.0f, 1.0f );
     i++;
 	
-	mVerts[i].vertex  = Vec3f( -w, 0.0f, w );
-    mVerts[i].texture = Vec2f( 0.0f, 1.0f );
+	mVerts[i].vertex  = vec3( -w, 0.0f, w );
+    mVerts[i].texture = vec2( 0.0f, 1.0f );
     i++;
 }
 

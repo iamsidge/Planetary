@@ -19,44 +19,44 @@ namespace cinder { namespace app {
         }
     }
 
-    // if you usually use Vec3f::yAxis() for up on your CameraPersp, this will help
-    Vec3f getUpVectorForOrientation(const Orientation &orientation)
+    // if you usually use vec3::yAxis() for up on your CameraPersp, this will help
+    vec3 getUpVectorForOrientation(const Orientation &orientation)
     {
         switch ( orientation )
         {
             case PORTRAIT_ORIENTATION:
-                return Vec3f::yAxis();
+                return vec3::yAxis();
             case UPSIDE_DOWN_PORTRAIT_ORIENTATION:
-                return -Vec3f::yAxis();
+                return -vec3::yAxis();
             case LANDSCAPE_LEFT_ORIENTATION:
-                return Vec3f::xAxis();
+                return vec3::xAxis();
             case LANDSCAPE_RIGHT_ORIENTATION:
-                return -Vec3f::xAxis();
+                return -vec3::xAxis();
             default:
                 // if in doubt, just return the normal one
-                return Vec3f::yAxis();                    
+                return vec3::yAxis();                    
         }  
     }
 
     // if you're doing 2D drawing, this matrix moves the origin to the correct device corner
     // to get the window size, use app::getWindowSize(), test for 
     // isLandscape(event.getInterfaceOrientation()) and apply a .yx() swizzle 
-    Matrix44f getOrientationMatrix44(const Orientation &orientation, const Vec2f &deviceSize)
+    mat4 getOrientationMatrix44(const Orientation &orientation, const vec2 &deviceSize)
     {
-        Matrix44f orientationMtx;
+        mat4 orientationMtx;
         switch ( orientation )
         {
             case UPSIDE_DOWN_PORTRAIT_ORIENTATION:
-                orientationMtx.translate( Vec3f( deviceSize.x, deviceSize.y, 0 ) );            
-                orientationMtx.rotate( Vec3f( 0, 0, M_PI ) );
+                orientationMtx.translate( vec3( deviceSize.x, deviceSize.y, 0 ) );            
+                orientationMtx.rotate( vec3( 0, 0, M_PI ) );
                 break;
             case LANDSCAPE_LEFT_ORIENTATION:
-                orientationMtx.translate( Vec3f( deviceSize.x, 0, 0 ) );
-                orientationMtx.rotate( Vec3f( 0, 0, M_PI/2.0 ) );
+                orientationMtx.translate( vec3( deviceSize.x, 0, 0 ) );
+                orientationMtx.rotate( vec3( 0, 0, M_PI/2.0 ) );
                 break;
             case LANDSCAPE_RIGHT_ORIENTATION:
-                orientationMtx.translate( Vec3f( 0, deviceSize.y, 0 ) );
-                orientationMtx.rotate( Vec3f( 0, 0, -M_PI/2.0 ) );
+                orientationMtx.translate( vec3( 0, deviceSize.y, 0 ) );
+                orientationMtx.rotate( vec3( 0, 0, -M_PI/2.0 ) );
                 break;
             default:
                 break;

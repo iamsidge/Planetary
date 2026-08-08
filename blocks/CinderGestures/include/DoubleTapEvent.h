@@ -17,18 +17,18 @@ class DoubleTapEvent : public Event {
 
 private:
 
-	Vec2f mPos;
+	vec2 mPos;
 	double mTime;
 
 public:
 
-	DoubleTapEvent(const Vec2f &pos, const double &t): mPos(pos), mTime(t) { } 
+	DoubleTapEvent(const vec2 &pos, const double &t): mPos(pos), mTime(t) { } 
 
 	const double& getTime() {
 		return mTime;
 	}
 
-	const Vec2f& getPos() {
+	const vec2& getPos() {
 		return mPos;
 	}
 };

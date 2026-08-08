@@ -107,7 +107,7 @@ void NodeAlbum::setData( PlaylistRef album )
 	mSphere				= Sphere( mPos, mRadiusInit );
 	mAxialTilt			= Rand::randFloat( 5.0f );
     mAxialVel			= Rand::randFloat( 10.0f, 45.0f );
-	mAxialRot			= Vec3f( 0.0f, Rand::randFloat( 150.0f ), mAxialTilt );
+	mAxialRot			= vec3( 0.0f, Rand::randFloat( 150.0f ), mAxialTilt );
 	
 // CHILD ORBIT RADIUS CONSTRAINTS
 	mOrbitRadiusMin		= mRadiusInit * 3.0f;
@@ -125,7 +125,7 @@ void NodeAlbum::setData( PlaylistRef album )
     
 	int halfWidth		= totalWidth/2;
 	int border			= 10;
-	mAlbumArtSurface	= (*mAlbum)[0]->getArtwork( Vec2i( totalWidth, totalWidth ) );
+	mAlbumArtSurface	= (*mAlbum)[0]->getArtwork( ivec2( totalWidth, totalWidth ) );
 	
 	bool hasAlbumArt = true;
 	if( !mAlbumArtSurface ){
@@ -161,7 +161,7 @@ void NodeAlbum::setData( PlaylistRef album )
 				xi = (halfWidth-1) - iter.x();
 				yi = iter.y();	
 			}
-			ColorA c = crop.getPixel( Vec2i( xi, yi ) );
+			ColorA c = crop.getPixel( ivec2( xi, yi ) );
 			iter.r() = c.r * 255.0f;
 			iter.g() = c.g * 255.0f;
 			iter.b() = c.b * 255.0f;
@@ -184,7 +184,7 @@ void NodeAlbum::setData( PlaylistRef album )
 	//				iter2.g() = 0.0f;
 	//				iter2.b() = 0.0f;
 	//			} else {
-	//				ColorA c = crop2.getPixel( Vec2i( i2, iter2.y() ) );
+	//				ColorA c = crop2.getPixel( ivec2( i2, iter2.y() ) );
 	//				iter2.r() = c.r * 255.0f;
 	//				iter2.g() = c.g * 255.0f;
 	//				iter2.b() = c.b * 255.0f;
@@ -202,8 +202,8 @@ void NodeAlbum::setData( PlaylistRef album )
 	iter = planetSurface.getIter();
 	while( iter.line() ) {
 		while( iter.pixel() ) {
-			ColorA albumColor	= crop2.getPixel( Vec2i( iter.x(), iter.y() ) );
-			ColorA surfaceColor	= planetSurface.getPixel( Vec2i( iter.x(), iter.y() ) );
+			ColorA albumColor	= crop2.getPixel( ivec2( iter.x(), iter.y() ) );
+			ColorA surfaceColor	= planetSurface.getPixel( ivec2( iter.x(), iter.y() ) );
 			float planetVal		= surfaceColor.r;
 			float cloudShadow	= surfaceColor.g * 0.5f + 0.5f;
 			//float brightness	= surfaceColor.b;
@@ -221,7 +221,7 @@ void NodeAlbum::setData( PlaylistRef album )
     fmt.enableMipmapping( true );
     fmt.setMinFilter( GL_LINEAR_MIPMAP_LINEAR );
 	
-	mAlbumArtTex		= gl::Texture( planetSurface, fmt );
+	mAlbumArtTex		= gl::Texture::create( planetSurface, fmt );
 	mHasAlbumArt		= true;
 
 }
@@ -238,9 +238,9 @@ void NodeAlbum::update( float param1, float param2 )
 	mOrbitAngle	+= param2 * mAxialVel * 0.05f;
 	mAxialRot.y -= mAxialVel * ( param2 * 10.0f );
 		
-    Vec3f prevPos  = mPos;
+    vec3 prevPos  = mPos;
 	
-	mRelPos		= Vec3f( cos( mOrbitAngle ), 0.0f, sin( mOrbitAngle ) ) * mOrbitRadius;
+	mRelPos		= vec3( cos( mOrbitAngle ), 0.0f, sin( mOrbitAngle ) ) * mOrbitRadius;
 	mPos		= mParentNode->mPos + mRelPos;
 	
 	
@@ -249,11 +249,11 @@ void NodeAlbum::update( float param1, float param2 )
 	// CALCULATE ECLIPSE VARS
     if( mParentNode->mDistFromCamZAxis > 0.0f && mDistFromCamZAxis > 0.0f && mIsHighlighted ) //&& ( mIsSelected || mIsPlaying )
 	{		
-		Vec2f p		= mScreenPos;
+		vec2 p		= mScreenPos;
 		float r		= mSphereScreenRadius;
 		float rsqrd = r * r;
 		
-		Vec2f P		= mParentNode->mScreenPos;
+		vec2 P		= mParentNode->mScreenPos;
 		float R		= mParentNode->mSphereScreenRadius * 0.85f;
 		float Rsqrd	= R * R;
 		float A		= M_PI * Rsqrd;
@@ -320,13 +320,13 @@ void NodeAlbum::drawEclipseGlow()
 	Node::drawEclipseGlow();
 }
 
-void NodeAlbum::drawPlanet( const gl::Texture &tex )
+void NodeAlbum::drawPlanet( const gl::TextureRef &tex )
 {	
 	if( mDistFromCamZAxis > mRadius ){
         
 		glPushMatrix();
 		gl::translate( mPos );
-		gl::scale( Vec3f( mRadius, mRadius, mRadius ) * mDeathPer );
+		gl::scale( vec3( mRadius, mRadius, mRadius ) * mDeathPer );
 		gl::rotate( mAxialRot );
 		
 		mAlbumArtTex.enableAndBind();
@@ -367,7 +367,7 @@ void NodeAlbum::drawPlanet( const gl::Texture &tex )
 }
 
 
-void NodeAlbum::drawClouds( const vector<gl::Texture> &clouds )
+void NodeAlbum::drawClouds( const vector<gl::TextureRef> &clouds )
 {
 	if( mSphereScreenRadius > 5.0f && mDistFromCamZAxis > mRadius ){		
         
@@ -402,8 +402,8 @@ void NodeAlbum::drawClouds( const vector<gl::Texture> &clouds )
         const float radius = mRadius * mDeathPer + mCloudLayerRadius;
         const float alpha = constrain( ( 5.0f - mDistFromCamZAxis ) * 0.2f, 0.0f, 0.334f ) * mClosenessFadeAlpha;        
 
-        gl::scale( Vec3f( radius, radius, radius ) );
-        gl::rotate( mAxialRot * Vec3f( 1.0f, 0.75f, 1.0f ) + Vec3f( 0.0f, 0.5f, 0.0f ) ); 
+        gl::scale( vec3( radius, radius, radius ) );
+        gl::rotate( mAxialRot * vec3( 1.0f, 0.75f, 1.0f ) + vec3( 0.0f, 0.5f, 0.0f ) ); 
 		
 		// SHADOW CLOUDS
 		if( mIsHighlighted ){
@@ -421,7 +421,7 @@ void NodeAlbum::drawClouds( const vector<gl::Texture> &clouds )
         // LIT CLOUDS
 		gl::enableAdditiveBlending();
 		const float radius2 = (mRadius * mDeathPer + mCloudLayerRadius*1.5f) / radius;
-		gl::scale( Vec3f( radius2, radius2, radius2 ) );
+		gl::scale( vec3( radius2, radius2, radius2 ) );
 		lodSphere->draw();
         
         clouds[mCloudTexIndex].disable();
@@ -432,12 +432,12 @@ void NodeAlbum::drawClouds( const vector<gl::Texture> &clouds )
 }
 
 
-void NodeAlbum::drawAtmosphere( const Vec3f &camEye, const Vec2f &center, const gl::Texture &tex, const gl::Texture &directionalTex, float pinchAlphaPer, float scaleSliderOffset )
+void NodeAlbum::drawAtmosphere( const vec3 &camEye, const vec2 &center, const gl::TextureRef &tex, const gl::TextureRef &directionalTex, float pinchAlphaPer, float scaleSliderOffset )
 {
 	if( mClosenessFadeAlpha > 0.0f && mDistFromCamZAxis > mRadius ){		
 		float alpha = ( 1.0f - mScreenDistToCenterPer * 0.75f ) + mEclipseStrength;
 		alpha *= mDeathPer * mClosenessFadeAlpha * ( mBlockedBySunPer - 0.5f ) * 2.0f;
-		Vec2f radius( mRadius, mRadius );
+		vec2 radius( mRadius, mRadius );
 		radius *= ( 2.42f + scaleSliderOffset + max( ( mSphereScreenRadius - 160.0f ) * 0.001f, 0.0f ) ) * mDeathPer;
 		
 
@@ -480,8 +480,8 @@ void NodeAlbum::drawOrbitRing( float pinchAlphaPer, float camAlpha, const OrbitR
 	
 	glPushMatrix();
 	gl::translate( mParentNode->mPos );
-	gl::scale( Vec3f( mOrbitRadius, mOrbitRadius, mOrbitRadius ) );
-	gl::rotate( Vec3f( 90.0f, 0.0f, toDegrees( mOrbitAngle ) ) );	
+	gl::scale( vec3( mOrbitRadius, mOrbitRadius, mOrbitRadius ) );
+	gl::rotate( vec3( 90.0f, 0.0f, toDegrees( mOrbitAngle ) ) );	
     orbitRing.drawHighRes();
 	glPopMatrix();
 	
@@ -490,7 +490,7 @@ void NodeAlbum::drawOrbitRing( float pinchAlphaPer, float camAlpha, const OrbitR
 
 
 
-void NodeAlbum::drawRings( const gl::Texture &tex, const PlanetRing &planetRing, float camAlpha )
+void NodeAlbum::drawRings( const gl::TextureRef &tex, const PlanetRing &planetRing, float camAlpha )
 {
 	if( mHasRings && G_ZOOM > G_ARTIST_LEVEL ){
 		if( mIsSelected || mIsPlaying ){
@@ -500,8 +500,8 @@ void NodeAlbum::drawRings( const gl::Texture &tex, const PlanetRing &planetRing,
 			gl::translate( mPos );
 			
             float c = 0.5f * mIdealCameraDist;
-			gl::scale( Vec3f( c, c, c ) );
-			gl::rotate( Vec3f( 0.0f, app::getElapsedSeconds() * mAxialVel * 0.2f, 0.0f ) );
+			gl::scale( vec3( c, c, c ) );
+			gl::rotate( vec3( 0.0f, app::getElapsedSeconds() * mAxialVel * 0.2f, 0.0f ) );
 			
 			float zoomPer = constrain( 1.0f - ( mGen - G_ZOOM ), 0.0f, 1.0f );
 			gl::color( ColorA( mColor, camAlpha * zoomPer ) );
@@ -547,10 +547,10 @@ void NodeAlbum::select()
 void NodeAlbum::findShadows( float camAlpha )
 {	
 	if( mIsHighlighted ){
-		Vec3f P0, P1, P2, P4;
-		Vec3f P3a, P3b;
-		Vec3f P5a, P5b, P6a, P6b;
-		Vec3f outerTanADir, outerTanBDir, innerTanADir, innerTanBDir;
+		vec3 P0, P1, P2, P4;
+		vec3 P3a, P3b;
+		vec3 P5a, P5b, P6a, P6b;
+		vec3 outerTanADir, outerTanBDir, innerTanADir, innerTanBDir;
 		
 		float r0, r1, r0Inner, rTotal;
 		float d, dMid, dMidSqrd;
@@ -585,16 +585,16 @@ void NodeAlbum::findShadows( float camAlpha )
 			
 			float h = sqrt( dMidSqrd - a * a ) * 0.5f;
 			
-			Vec3f p = ( P1 - P0 )/dMid;
+			vec3 p = ( P1 - P0 )/dMid;
 			
-			P3a = P2 + h * Vec3f( -p.z, p.y, p.x );
-			P3b = P2 - h * Vec3f( -p.z, p.y, p.x );
+			P3a = P2 + h * vec3( -p.z, p.y, p.x );
+			P3b = P2 - h * vec3( -p.z, p.y, p.x );
 			
 			
-			Vec3f P3aDirNorm = P3a - P0;
+			vec3 P3aDirNorm = P3a - P0;
 			P3aDirNorm.normalize();
 			
-			Vec3f P3bDirNorm = P3b - P0;
+			vec3 P3bDirNorm = P3b - P0;
 			P3bDirNorm.normalize();
 			
 			P5a = P3a + P3aDirNorm * r1;
@@ -608,8 +608,8 @@ void NodeAlbum::findShadows( float camAlpha )
 			innerTanADir = ( P6a - P5b ) * amt;
 			innerTanBDir = ( P6b - P5a ) * amt;
 			
-			Vec3f P7a = P6a + outerTanBDir;
-			Vec3f P7b = P6b + outerTanADir;
+			vec3 P7a = P6a + outerTanBDir;
+			vec3 P7b = P6b + outerTanADir;
 			
 			float distOfShadow = max( 1.0f - r0, 0.01f );
 			P7a = P6a + ( P7a - P6a ).normalized() * distOfShadow;
@@ -642,29 +642,29 @@ void NodeAlbum::findShadows( float camAlpha )
 		 glPushMatrix();
 		 gl::translate( P0 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-		 gl::drawStrokedCircle( Vec2f::zero(), r0, 50 );
+		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::drawStrokedCircle( vec2::zero(), r0, 50 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P0 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-		 gl::drawStrokedCircle( Vec2f::zero(), r0Inner, 50 );
+		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::drawStrokedCircle( vec2::zero(), r0Inner, 50 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P1 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-		 gl::drawStrokedCircle( Vec2f::zero(), r1, 25 );
+		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::drawStrokedCircle( vec2::zero(), r1, 25 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P2 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-		 gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
 		 glPopMatrix();
 		 
 		 
@@ -672,35 +672,35 @@ void NodeAlbum::findShadows( float camAlpha )
 		 glPushMatrix();
 		 gl::translate( P3a );
 		 //gl::rotate( mMatrix );
-		 //gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-		 gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+		 //gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P3b );
 		 //gl::rotate( mMatrix );
-		 //gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-		 gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+		 //gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P5a );
-		 gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+		 gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P5b );
-		 gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+		 gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P6a );
-		 gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+		 gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
 		 glPopMatrix();
 		 
 		 glPushMatrix();
 		 gl::translate( P6b );
-		 gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+		 gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
 		 glPopMatrix();
 		 
 		 
@@ -713,8 +713,8 @@ void NodeAlbum::findShadows( float camAlpha )
 		 glPushMatrix();
 		 gl::translate( P4 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-		 gl::drawStrokedCircle( Vec2f::zero(), dMid, 50 );
+		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::drawStrokedCircle( vec2::zero(), dMid, 50 );
 		 glPopMatrix();
 		 
 		 glEnable( GL_TEXTURE_2D );
@@ -729,7 +729,7 @@ void NodeAlbum::findShadows( float camAlpha )
 
 
 
-void NodeAlbum::buildShadowVertexArray( Vec3f p1, Vec3f p2, Vec3f p3, Vec3f p4 )
+void NodeAlbum::buildShadowVertexArray( vec3 p1, vec3 p2, vec3 p3, vec3 p4 )
 {
     if( mShadowVerts != NULL )		delete[] mShadowVerts;
     if( mShadowTexCoords != NULL )  delete[] mShadowTexCoords;
@@ -740,8 +740,8 @@ void NodeAlbum::buildShadowVertexArray( Vec3f p1, Vec3f p2, Vec3f p3, Vec3f p4 )
 	int i = 0;
 	int t = 0;
 	
-	Vec3f v1 = ( p1 + p2 ) * 0.5f;	// midpoint between base vertices
-	Vec3f v2 = ( p3 + p4 ) * 0.5f;	// midpoint between end vertices
+	vec3 v1 = ( p1 + p2 ) * 0.5f;	// midpoint between base vertices
+	vec3 v2 = ( p3 + p4 ) * 0.5f;	// midpoint between end vertices
 	
 	mShadowVerts[i++]	= p1.x;		mShadowTexCoords[t++]	= 0.0f;
 	mShadowVerts[i++]	= p1.y;		mShadowTexCoords[t++]	= 0.2f;

@@ -58,10 +58,10 @@ public:
                                           
     void updateAgainstCurrentFilter();
     
-	void checkForNameTouch( std::vector<Node*> &nodes, const ci::Vec2f &pos );
+	void checkForNameTouch( std::vector<Node*> &nodes, const ci::vec2 &pos );
     
 	void update( float param1, float param2 );
-	void updateGraphics( const ci::CameraPersp &cam, const ci::Vec2f &center, const ci::Vec3f &bbRight, const ci::Vec3f &bbUp, const float &zoomAlpha );
+	void updateGraphics( const ci::CameraPersp &cam, const ci::vec2 &center, const ci::vec3 &bbRight, const ci::vec3 &bbUp, const float &zoomAlpha );
 
 	void drawStarsVertexArray();
 	void drawStarGlowsVertexArray();
@@ -69,7 +69,7 @@ public:
 	void drawOrbitRings( float pinchAlphaOffset, float camAlpha, float fadeInAlphaToArtist, float fadeInArtistToAlbum );
 	void drawConstellation();
 	void drawTouchHighlights( float zoomAlpha );
-	void drawRings( const ci::gl::Texture &tex, float camZPos );
+	void drawRings( const ci::gl::TextureRef &tex, float camZPos );
     void drawHitAreas();
         
 	std::vector<Node*> getUnsortedNodes( int fromGen, int toGen );

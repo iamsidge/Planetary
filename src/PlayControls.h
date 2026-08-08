@@ -42,11 +42,11 @@ public:
     PlayControls(): mOpacity(1.0f) {};
     ~PlayControls() {};
     
-    void setup( Vec2f interfaceSize, 
+    void setup( vec2 interfaceSize, 
                 ci::ipod::Player *player,
                 const ci::Font &font, 
                 const ci::Font &fontSmall, 
-                const ci::gl::Texture &buttonsTex );
+                const ci::gl::TextureRef &buttonsTex );
     
     void update();
         
@@ -86,15 +86,15 @@ public:
 private:
 					  
     // instantiate and set fonts/areas/textures (called once)
-    void createChildren( const Font &font, const Font &fontSmall, const gl::Texture &uiButtonsTex );
+    void createChildren( const Font &font, const Font &fontSmall, const gl::TextureRef &uiButtonsTex );
     
     // add everything (called once)
     void addChildren();
     
     // set positions (can be called repeatedly whenever interfaceSize changes)
-    void setInterfaceSize( ci::Vec2f interfaceSize );
+    void setInterfaceSize( ci::vec2 interfaceSize );
     
-    ci::Vec2f mInterfaceSize; // for detecting orientation change, updating layout
+    ci::vec2 mInterfaceSize; // for detecting orientation change, updating layout
 
     float mOpacity;
 

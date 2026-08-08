@@ -40,6 +40,6 @@ private:
     std::string mText;
     ci::Rectf mRect;
 
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
     
 };

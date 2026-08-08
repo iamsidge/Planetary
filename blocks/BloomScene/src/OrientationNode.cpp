@@ -67,7 +67,7 @@ void OrientationNode::setInterfaceOrientation( const Orientation &orientation, b
 	}
     
     // get the facts
-    Vec2f deviceSize = app::getWindowSize();
+    vec2 deviceSize = app::getWindowSize();
     float orientationAngle = getOrientationAngle( mInterfaceOrientation );
     
     // assign new targets
@@ -123,9 +123,9 @@ void OrientationNode::update()
         
         // update matrix (for globalToLocal etc)
         mTransform.setToIdentity();
-        mTransform.translate( Vec3f( app::getWindowCenter(), 0 ) );
-        mTransform.rotate( Vec3f( 0, 0, mInterfaceAngle ) );
-        mTransform.translate( Vec3f( getRoot()->getInterfaceSize() * -0.5f, 0 ) );                        
+        mTransform.translate( vec3( app::getWindowCenter(), 0 ) );
+        mTransform.rotate( vec3( 0, 0, mInterfaceAngle ) );
+        mTransform.translate( vec3( getRoot()->getInterfaceSize() * -0.5f, 0 ) );                        
     }    
 }
 

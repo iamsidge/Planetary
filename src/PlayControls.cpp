@@ -17,7 +17,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-void PlayControls::setup( Vec2f interfaceSize, ipod::Player *player, const Font &font, const Font &fontSmall, const gl::Texture &uiButtonsTex )
+void PlayControls::setup( vec2 interfaceSize, ipod::Player *player, const Font &font, const Font &fontSmall, const gl::TextureRef &uiButtonsTex )
 {   
 
     // create, add, and position everything...
@@ -31,7 +31,7 @@ void PlayControls::setup( Vec2f interfaceSize, ipod::Player *player, const Font 
     setShowSettingsOn( G_SHOW_SETTINGS );
 }
 
-void PlayControls::createChildren( const Font &font, const Font &fontSmall, const gl::Texture &uiButtonsTex )
+void PlayControls::createChildren( const Font &font, const Font &fontSmall, const gl::TextureRef &uiButtonsTex )
 {
 	float uw = 50.0f;   // button tex width
 	float uh = 50.0f;	// button tex height
@@ -168,7 +168,7 @@ void PlayControls::addChildren()
 //    return false;
 //}
 
-void PlayControls::setInterfaceSize( Vec2f interfaceSize )
+void PlayControls::setInterfaceSize( vec2 interfaceSize )
 {
     mInterfaceSize = interfaceSize;
     
@@ -247,7 +247,7 @@ void PlayControls::setInterfaceSize( Vec2f interfaceSize )
 
 void PlayControls::update()
 {
-    Vec2f interfaceSize = getRoot()->getInterfaceSize();
+    vec2 interfaceSize = getRoot()->getInterfaceSize();
     if ( mInterfaceSize != interfaceSize ) {
         setInterfaceSize( interfaceSize );
     }    
@@ -303,7 +303,7 @@ void PlayControls::setPlaylistButtonVisible( bool visible )
     
     if ( mPlaylistButton->isVisible() ) {
         // FIXME: make a bsize a class level constant and use if for the offset here?
-        mAlphaButton->setRect( mPlaylistButton->getRect().getOffset( Vec2f(-50.0f,0.0f) ) );        
+        mAlphaButton->setRect( mPlaylistButton->getRect().getOffset( vec2(-50.0f,0.0f) ) );        
     }
     else {
         mAlphaButton->setRect( mPlaylistButton->getRect() );        

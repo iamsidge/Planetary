@@ -37,10 +37,10 @@ public:
     SettingsPanel(): mOpacity(1.0f) {};
     ~SettingsPanel() {};
     
-    void setup( const ci::Vec2f &interfaceSize, 
+    void setup( const ci::vec2 &interfaceSize, 
                 ci::ipod::Player *player,
                 const ci::Font &font, 
-                const ci::gl::Texture &smallButtonsTex );
+                const ci::gl::TextureRef &smallButtonsTex );
     
     void update();
     
@@ -73,16 +73,16 @@ public:
 private:
     
     // instantiate and set fonts/areas/textures (called once)
-    void createChildren( const ci::Font &font, const ci::gl::Texture &uiSmallButtonsTex );
+    void createChildren( const ci::Font &font, const ci::gl::TextureRef &uiSmallButtonsTex );
     
     // add everything (called once)
     void addChildren();
     
     // set positions (can be called repeatedly whenever interfaceSize changes)
-    void setInterfaceSize( const ci::Vec2f &interfaceSize );
+    void setInterfaceSize( const ci::vec2 &interfaceSize );
     
     // for detecting orientation change, updating layout    
-    ci::Vec2f mInterfaceSize;
+    ci::vec2 mInterfaceSize;
     
     float mOpacity;
     

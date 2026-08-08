@@ -22,13 +22,13 @@ class NodeAlbum : public Node
 	void setData( ci::ipod::PlaylistRef album );
 	void update( float param1, float param2 );
 	void drawEclipseGlow();
-	void drawPlanet( const ci::gl::Texture &tex );
-	void drawClouds( const std::vector< ci::gl::Texture> &clouds );
-	void drawRings( const ci::gl::Texture &tex, const PlanetRing &planetRing, float camZPos );
-	void drawAtmosphere( const ci::Vec3f &camEye, const ci::Vec2f &center, const ci::gl::Texture &tex, const ci::gl::Texture &directionalTex, float pinchAlphaPer, float scaleSliderOffset );
+	void drawPlanet( const ci::gl::TextureRef &tex );
+	void drawClouds( const std::vector< ci::gl::TextureRef> &clouds );
+	void drawRings( const ci::gl::TextureRef &tex, const PlanetRing &planetRing, float camZPos );
+	void drawAtmosphere( const ci::vec3 &camEye, const ci::vec2 &center, const ci::gl::TextureRef &tex, const ci::gl::TextureRef &directionalTex, float pinchAlphaPer, float scaleSliderOffset );
 	void drawOrbitRing( float pinchAlphaOffset, float camAlpha, const OrbitRing &orbitRing, float fadeInAlphaToArtist, float fadeInArtistToAlbum );
 	void findShadows( float camAlpha );
-    void buildShadowVertexArray( ci::Vec3f p1, ci::Vec3f p2, ci::Vec3f p3, ci::Vec3f p4 );
+    void buildShadowVertexArray( ci::vec3 p1, ci::vec3 p2, ci::vec3 p3, ci::vec3 p4 );
 	void select();
 	void setChildOrbitRadii();
 	string getName();
@@ -43,8 +43,8 @@ class NodeAlbum : public Node
 	
   private:
 	struct VertexData {
-        ci::Vec2f vertex;
-        ci::Vec2f texture;
+        ci::vec2 vertex;
+        ci::vec2 texture;
     }; 
 	GLuint		mAlbumArtVbo;
 	
@@ -56,7 +56,7 @@ class NodeAlbum : public Node
 	bool		mHasClouds;
 	bool		mIsBlockedBySun;
 	float		mBlockedBySunPer;
-	ci::gl::Texture mAlbumArtTex;
+	ci::gl::TextureRef mAlbumArtTex;
 	ci::ipod::PlaylistRef mAlbum;
 	float		mCloudLayerRadius;
 	uint64_t    mId;

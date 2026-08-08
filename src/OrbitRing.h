@@ -25,8 +25,8 @@ public:
 private:
 
     struct VertexData {
-        ci::Vec2f vertex;
-        ci::Vec2f texture;
+        ci::vec2 vertex;
+        ci::vec2 texture;
     };
     
     GLuint mLowResVBO, mHighResVBO;

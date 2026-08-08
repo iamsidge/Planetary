@@ -29,7 +29,7 @@ NodeArtist::NodeArtist( int index, const Font &font, const Font &smallFont, cons
 	: Node( NULL, index, font, smallFont, hiResSurfaces, loResSurfaces, noAlbumArt )
 {
 	mGen			= G_ARTIST_LEVEL;
-	mAcc			= Vec3f::zero();
+	mAcc			= vec3::zero();
 	
 	mAge			= 0.0f;
 	mBirthPause		= Rand::randFloat( 50.0f );
@@ -56,10 +56,10 @@ void NodeArtist::setData( PlaylistRef playlist )
 	float angle		= (float)mIndex * 0.618f;
 	float x			= cos( angle );
 	float y			= sin( angle );
-	Vec2f v			= Vec2f( x, y );
+	vec2 v			= vec2( x, y );
 	v				*= mHashPer;
 	float height	= mHashPer * 0.2f - 10.0f;
-	mPosDest		= Vec3f( v.x, height, v.y );
+	mPosDest		= vec3( v.x, height, v.y );
 	mPos			= mPosDest;// + Rand::randVec3f() * 25.0f;
 	
 	
@@ -89,7 +89,7 @@ void NodeArtist::setData( PlaylistRef playlist )
 	mSphere			= Sphere( mPos, mRadiusInit * 0.175f );
 	
 	mAxialVel		= Rand::randFloat( 12.0f, 25.0f );
-	mAxialRot			= Vec3f( 0.0f, Rand::randFloat( 150.0f ), 0.0f );
+	mAxialRot			= vec3( 0.0f, Rand::randFloat( 150.0f ), 0.0f );
 }
 
 
@@ -105,7 +105,7 @@ void NodeArtist::update( float param1, float param2 )
 	mAxialRot.y += mAxialVel * ( param2 * 3.0f );
 	mEclipseStrength = 0.0f;
 	
-	Vec3f prevPos  = mPos;
+	vec3 prevPos  = mPos;
 	
 	if( mAge < 50.0f ){
 		mPosDest += mAcc;
@@ -141,16 +141,16 @@ void NodeArtist::update( float param1, float param2 )
 }
 
 
-void NodeArtist::drawStarGlow( const Vec3f &camEye, const Vec3f &camNormal, const gl::Texture &tex )
+void NodeArtist::drawStarGlow( const vec3 &camEye, const vec3 &camNormal, const gl::TextureRef &tex )
 {
-	Vec2f radius = Vec2f( mRadius, mRadius ) * 15.0f;// * ( mEclipseStrength * 2.0f + 1.5f );
+	vec2 radius = vec2( mRadius, mRadius ) * 15.0f;// * ( mEclipseStrength * 2.0f + 1.5f );
 	
 	float alpha			= mDistFromCamZAxisPer * ( 1.0f - mEclipseStrength );
 	Color c             = mGlowColor;
 	gl::color( ColorA( c.r, c.g, c.b, alpha ) );
 	
 	tex.enableAndBind();
-	bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, Vec3f::zero(), radius * sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) );
+	bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, vec3::zero(), radius * sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) );
 	tex.disable();
 }
 
@@ -161,13 +161,13 @@ void NodeArtist::drawEclipseGlow()
 	if( mIsHighlighted && mDistFromCamZAxisPer > 0.0f ){
 		/*
         gl::color( ColorA( mGlowColor, mDistFromCamZAxisPer * ( 1.0f - mEclipseStrength ) * 2.0f ) );
-		Vec2f radius = Vec2f( mRadius, mRadius ) * 10.0f;
+		vec2 radius = vec2( mRadius, mRadius ) * 10.0f;
 		gl::drawBillboard( mTransPos, radius, 0.0f, mBbRight, mBbUp );
 		 */
 		
 		float alpha = G_ALPHA_LEVEL - ( G_ZOOM - 1.0f );
 		gl::color( ColorA( mGlowColor, mDistFromCamZAxisPer * ( 1.0f - mEclipseStrength ) * alpha ) );
-		Vec2f radius = Vec2f( mRadius, mRadius ) * 10.0f;
+		vec2 radius = vec2( mRadius, mRadius ) * 10.0f;
 		gl::drawBillboard( mPos, radius, 0.0f, mBbRight, mBbUp );
 
 	}
@@ -175,15 +175,15 @@ void NodeArtist::drawEclipseGlow()
 	Node::drawEclipseGlow();
 }
 
-void NodeArtist::drawPlanet( const gl::Texture &tex )
+void NodeArtist::drawPlanet( const gl::TextureRef &tex )
 {
 	if( mIsSelected || mIsPlaying ){
         // FIXME: move rotation calculation to something called from main app's update()
-		mAxialRot = Vec3f( 0.0f, app::getElapsedSeconds() * mAxialVel * 0.75f, mAxialTilt );
+		mAxialRot = vec3( 0.0f, app::getElapsedSeconds() * mAxialVel * 0.75f, mAxialTilt );
 		
 		glPushMatrix();
 		gl::translate( mPos );
-		gl::scale( Vec3f( mRadius, mRadius, mRadius ) * mDeathPer * 0.16f );
+		gl::scale( vec3( mRadius, mRadius, mRadius ) * mDeathPer * 0.16f );
 		gl::rotate( mAxialRot );
 		gl::color( ColorA( ( mColor + Color::white() ) * 0.5f, 1.0f ) );
 
@@ -210,7 +210,7 @@ void NodeArtist::drawPlanet( const gl::Texture &tex )
 	}
 }
 
-void NodeArtist::drawAtmosphere( const Vec3f &camEye, const Vec2f &center, const gl::Texture &tex, const gl::Texture &directionalTex, float pinchAlphaPer, float scaleSliderOffset )
+void NodeArtist::drawAtmosphere( const vec3 &camEye, const vec2 &center, const gl::TextureRef &tex, const gl::TextureRef &directionalTex, float pinchAlphaPer, float scaleSliderOffset )
 {
 	if( mIsHighlighted ){
 		float alpha = ( 1.0f - mScreenDistToCenterPer * 0.75f );
@@ -219,7 +219,7 @@ void NodeArtist::drawAtmosphere( const Vec3f &camEye, const Vec2f &center, const
 		gl::color( ColorA( ( mColor + Color::white() ), alpha ) );
 		
 		float radiusOffset = ( ( mSphereScreenRadius/300.0f ) ) * 0.1f;
-		Vec2f radius = Vec2f( mRadius, mRadius ) * ( 2.42f + radiusOffset ) * 0.16f;
+		vec2 radius = vec2( mRadius, mRadius ) * ( 2.42f + radiusOffset ) * 0.16f;
 		
 		tex.enableAndBind();
 		bloom::gl::drawSphericalBillboard( camEye, mPos, radius, 0.0f );
@@ -228,11 +228,11 @@ void NodeArtist::drawAtmosphere( const Vec3f &camEye, const Vec2f &center, const
 	//}
 }
 
-void NodeArtist::drawExtraGlow( const Vec3f &camEye, const gl::Texture &texGlow, const gl::Texture &texCore )
+void NodeArtist::drawExtraGlow( const vec3 &camEye, const gl::TextureRef &texGlow, const gl::TextureRef &texCore )
 {
 	if( mIsHighlighted ){
 		float alpha = ( 1.0f - mScreenDistToCenterPer ) * sin( mEclipseStrength * M_PI_2 + M_PI_2 ) * mDeathPer;
-		Vec2f radius = Vec2f( mRadius, mRadius ) * 7.5f;
+		vec2 radius = vec2( mRadius, mRadius ) * 7.5f;
 		
 //		texCore.enableAndBind();
 //		gl::color( ColorA( mGlowColor, alpha * 0.1f ) );
@@ -243,7 +243,7 @@ void NodeArtist::drawExtraGlow( const Vec3f &camEye, const gl::Texture &texGlow,
 		texGlow.enableAndBind();
 		alpha = sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 0.4f + 0.2f );
 		gl::color( ColorA( Color::white(), alpha ) );
-		bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, Vec3f::zero(), radius * sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) );
+		bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, vec3::zero(), radius * sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) );
 		texGlow.disable();
 	}
 	//}

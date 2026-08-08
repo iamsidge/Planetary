@@ -17,8 +17,8 @@
 using namespace ci;
 using namespace ci::app;
 
-void LoadingScreen::setup( const ci::gl::Texture &planetaryTex, const ci::gl::Texture &planetTex,
-                          const ci::gl::Texture &backgroundTex, const ci::gl::Texture &starGlowTex )
+void LoadingScreen::setup( const ci::gl::TextureRef &planetaryTex, const ci::gl::TextureRef &planetTex,
+                          const ci::gl::TextureRef &backgroundTex, const ci::gl::TextureRef &starGlowTex )
 {
 	mPlanetaryTex	= planetaryTex;
 	mPlanetTex		= planetTex;
@@ -96,18 +96,18 @@ bool LoadingScreen::isComplete()
 
 void LoadingScreen::draw()
 {
-	Vec2f pos;
+	vec2 pos;
 	float radius;
 	
-    Vec2f center = mInterfaceSize * 0.5f;
+    vec2 center = mInterfaceSize * 0.5f;
     gl::color( Color::white() );
 	
 	//float fadeInAlpha = constrain( app::getElapsedFrames()/30.0f - 1.0f, 0.0f, 1.0f );
 	
 // BACKGROUND	
 	mBackgroundTex.enableAndBind();
-	Vec2f v1( center - mBackgroundTex.getSize() * 0.5f );
-	Vec2f v2( v1 + mBackgroundTex.getSize() );
+	vec2 v1( center - mBackgroundTex.getSize() * 0.5f );
+	vec2 v2( v1 + mBackgroundTex.getSize() );
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 	gl::drawSolidRect( Rectf( v1, v2 ) );
 	mBackgroundTex.disable();
@@ -119,7 +119,7 @@ void LoadingScreen::draw()
 // PLANETARY TEXT
     mPlanetaryTex.enableAndBind();
 	float h		= mPlanetaryTex.getHeight();
-	v1			= Vec2f( center.x + 60.0f, center.y-h*0.5f );
+	v1			= vec2( center.x + 60.0f, center.y-h*0.5f );
 	v2			= v1 + mPlanetaryTex.getSize();
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
     gl::drawSolidRect( Rectf( v1, v2 ) );
@@ -128,7 +128,7 @@ void LoadingScreen::draw()
 	
 // STARGLOW
 	mStarGlowTex.enableAndBind();
-	Vec2f starSize = mStarGlowTex.getSize() * Rand::randFloat( 0.75f, 0.85f );
+	vec2 starSize = mStarGlowTex.getSize() * Rand::randFloat( 0.75f, 0.85f );
 	v1			= center - starSize;
 	v2			= v1 + starSize * 2.0f;
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 0.2f ) );
@@ -145,10 +145,10 @@ void LoadingScreen::draw()
 	float sinAmt	= sin( speed );
 	float cosAmt	= cos( speed );
 	if( cosAmt > 0.0f ){
-		pos			= Vec2f( sinAmt * 500.0f, 0.0f );
+		pos			= vec2( sinAmt * 500.0f, 0.0f );
 		radius		= 6.0f;
-		v1			= center + pos - Vec2f( radius, radius );
-		v2			= v1 + Vec2f( radius, radius ) * 2.0f;
+		v1			= center + pos - vec2( radius, radius );
+		v2			= v1 + vec2( radius, radius ) * 2.0f;
 		gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 		gl::drawSolidRect( Rectf( v1, v2 ) );
 	}
@@ -158,10 +158,10 @@ void LoadingScreen::draw()
 	sinAmt			= sin( speed );
 	cosAmt			= cos( speed );
 	if( cosAmt > 0.0f ){
-		pos				= Vec2f( sinAmt * 700.0f, 0.0f );
+		pos				= vec2( sinAmt * 700.0f, 0.0f );
 		radius			= 25.0f;
-		v1				= center + pos - Vec2f( radius, radius );
-		v2				= v1 + Vec2f( radius, radius ) * 2.0f;
+		v1				= center + pos - vec2( radius, radius );
+		v2				= v1 + vec2( radius, radius ) * 2.0f;
 		gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 		gl::drawSolidRect( Rectf( v1, v2 ) );
 	}
@@ -171,10 +171,10 @@ void LoadingScreen::draw()
 	sinAmt			= sin( speed );
 	cosAmt			= cos( speed );
 	if( cosAmt > 0.0f ){
-		pos				= Vec2f( sinAmt * 700.0f, 0.0f );
+		pos				= vec2( sinAmt * 700.0f, 0.0f );
 		radius			= 50.0f;
-		v1				= center + pos - Vec2f( radius, radius );
-		v2				= v1 + Vec2f( radius, radius ) * 2.0f;
+		v1				= center + pos - vec2( radius, radius );
+		v2				= v1 + vec2( radius, radius ) * 2.0f;
 		gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 		gl::drawSolidRect( Rectf( v1, v2 ) );
 	}
@@ -184,17 +184,17 @@ void LoadingScreen::draw()
 	sinAmt			= sin( speed );
 	cosAmt			= cos( speed );
 	if( cosAmt > 0.0f ){
-		pos				= Vec2f( sinAmt * 1500.0f, 0.0f );
+		pos				= vec2( sinAmt * 1500.0f, 0.0f );
 		radius			= 300.0f;
-		v1				= center + pos - Vec2f( radius, radius );
-		v2				= v1 + Vec2f( radius, radius ) * 2.0f;
+		v1				= center + pos - vec2( radius, radius );
+		v2				= v1 + vec2( radius, radius ) * 2.0f;
 		gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 		gl::drawSolidRect( Rectf( v1, v2 ) );
 	}
 	
 	/*
 // LARGE PLANET
-	v1			= Vec2f( center - Vec2f( mPlanetTex.getWidth(), mPlanetTex.getHeight() * 0.5f ) + Vec2f( app::getElapsedFrames() * 0.25f - 50.0f, 0.0f ) );
+	v1			= vec2( center - vec2( mPlanetTex.getWidth(), mPlanetTex.getHeight() * 0.5f ) + vec2( app::getElapsedFrames() * 0.25f - 50.0f, 0.0f ) );
 	v2			= v1 + mPlanetTex.getSize();
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 	gl::drawSolidRect( Rectf( v1, v2 ) );

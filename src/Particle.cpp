@@ -10,7 +10,7 @@ Particle::Particle()
 {
 }
 
-Particle::Particle( int index, Vec3f pos, Vec3f vel, const Vec3f &bbRight, const Vec3f &bbUp )
+Particle::Particle( int index, vec3 pos, vec3 vel, const vec3 &bbRight, const vec3 &bbUp )
 {
 	mIndex			= index;
 	mColor			= ColorA( 1.0f, 1.0f, 1.0f, 1.0f );
@@ -23,7 +23,7 @@ Particle::Particle( int index, Vec3f pos, Vec3f vel, const Vec3f &bbRight, const
 	setup( bbRight, bbUp );
 }
 
-void Particle::setup( const Vec3f &bbRight, const Vec3f &bbUp )
+void Particle::setup( const vec3 &bbRight, const vec3 &bbUp )
 {
 	mLifespan       = pow( Rand::randFloat( 0.5f, 1.0f ), 2.0f );	
 	mRadius			= Rand::randFloat( 0.2f, 0.3f );
@@ -39,10 +39,10 @@ void Particle::setup( const Vec3f &bbRight, const Vec3f &bbUp )
 	mAcc		= Rand::randVec3f() * 0.01f;
 	mAge		= 0;
 	mAgePer		= 0.0f;
-	mQuat		= Quatf( mPos, Rand::randFloat( M_PI * 2.0f ) );
+	mQuat		= quat( mPos, Rand::randFloat( M_PI * 2.0f ) );
 }
 
-void Particle::update( float radius, const Vec3f &bbRight, const Vec3f &bbUp )
+void Particle::update( float radius, const vec3 &bbRight, const vec3 &bbUp )
 {
 	mAgePer		= 1.0f - sqrt( (float)mAge/(float)mLifespan );
 

@@ -37,9 +37,9 @@ class UiLayer : public BloomNode {
                    AlphaChooserRef alphaChooser, 
                    PlayControlsRef playControls, 
                    SettingsPanelRef settingsPanel,
-                   const ci::gl::Texture &uiButtonsTex, 
+                   const ci::gl::TextureRef &uiButtonsTex, 
                    const bool &showSettings, 
-                   const ci::Vec2f interfaceSize );
+                   const ci::vec2 interfaceSize );
 	
     bool	touchBegan( ci::app::TouchEvent::Touch touch );
 	bool	touchMoved( ci::app::TouchEvent::Touch touch );
@@ -55,7 +55,7 @@ class UiLayer : public BloomNode {
 	bool	getIsPanelOpen() { return mIsPanelOpen; }
 	void	setIsPanelOpen( bool b ){ mIsPanelOpen = b; mHasPanelBeenDragged = false; }
 	
-    bool    hitTest( ci::Vec2f globalPos );
+    bool    hitTest( ci::vec2 globalPos );
     
     //// expand/collapse/query panels
     void    setShowAlphaFilter(bool visible);
@@ -66,10 +66,10 @@ class UiLayer : public BloomNode {
     
  private:
 
-    void updateLayout( ci::Vec2f interfaceSize );
+    void updateLayout( ci::vec2 interfaceSize );
     
-    ci::Vec2f       mInterfaceSize; // for detecting orientation changes    
-    ci::gl::Texture mButtonsTex;
+    ci::vec2       mInterfaceSize; // for detecting orientation changes    
+    ci::gl::TextureRef mButtonsTex;
     
     float           mPanelY;                // used in setTransform
     float           mPanelOpenY;            // updated in setShowSettings/updateLayout
@@ -79,7 +79,7 @@ class UiLayer : public BloomNode {
 	bool			mIsPanelTabTouched;		// Is the Panel Tab currently being touched
 	bool			mIsPanelOpen;			// Is the Panel fully open
 	bool			mHasPanelBeenDragged;   // Are we dragging or just animating?
-    ci::Vec2f		mPanelTabTouchOffset;	// Remember the touch position value when dragging	
+    ci::vec2		mPanelTabTouchOffset;	// Remember the touch position value when dragging	
     
     float           getPanelHeight();
     float           getMaxPanelHeight();

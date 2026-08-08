@@ -27,11 +27,11 @@ Node::Node( Node *parent, int index, const Font &font, const Font &smallFont, co
 {
     mZoomPer            = 0.0f;
     
-	mScreenPos			= Vec2f::zero();
+	mScreenPos			= vec2::zero();
 	mEclipseStrength	= 0.0f;
 	mEclipseAngle		= 0.0f;
 	mEclipseDirBasedAlpha = 0.0f;
-	mVel                = Vec3f::zero();
+	mVel                = vec3::zero();
 	
 	mOrbitStartAngle	= Rand::randFloat( TWO_PI );
 	mOrbitAngle			= mOrbitStartAngle;
@@ -42,7 +42,7 @@ Node::Node( Node *parent, int index, const Font &font, const Font &smallFont, co
 	mDistFromCamZAxis	= 1000.0f;
 	mDistFromCamZAxisPer = 1.0f;
 	mPlanetTexIndex		= 0;
-	mScreenDirToCenter	= Vec2f::zero();
+	mScreenDirToCenter	= vec2::zero();
 	mScreenDistToCenterPer = 0.0f;
 	
 	mHitArea			= Rectf( 0.0f, 0.0f, 10.0f, 10.0f ); //just for init.
@@ -155,13 +155,13 @@ void Node::createNameSurface()
 		layout.addLine( yearStr );
 	}
 	Surface8u nameSurface = Surface8u( layout.render( true, false ) );
-    mTaskId = UiTaskQueue::pushTask( std::bind( std::mem_fun( &Node::createNameTexture ), this, nameSurface ) );
+    mTaskId = UiTaskQueue::pushTask( std::bind( &Node::createNameTexture, this, nameSurface ) );
 }
 
 // must be on UI thread
 void Node::createNameTexture( Surface8u nameSurface )
 {
-	mNameTex = gl::Texture( nameSurface );
+	mNameTex = gl::Texture::create( nameSurface );
     mNameTexCreatedTime = app::getElapsedSeconds();
 }
 
@@ -210,7 +210,7 @@ void Node::update( float param1, float param2 )
 	}
 }
 
-void Node::updateGraphics( const CameraPersp &cam, const Vec2f &center, const Vec3f &bbRight, const Vec3f &bbUp, const float &w, const float &h )
+void Node::updateGraphics( const CameraPersp &cam, const vec2 &center, const vec3 &bbRight, const vec3 &bbUp, const float &w, const float &h )
 {
 	mBbRight = bbRight;
 	mBbUp    = bbUp;
@@ -240,7 +240,7 @@ void Node::drawEclipseGlow()
 	}
 }
 
-void Node::drawRings( const gl::Texture &tex, const PlanetRing &planetRing, float camZPos )
+void Node::drawRings( const gl::TextureRef &tex, const PlanetRing &planetRing, float camZPos )
 {
     BOOST_FOREACH(Node* node, mChildNodes) {
 		node->drawRings( tex, planetRing, camZPos );
@@ -281,29 +281,29 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
 		}
         
 		if( alpha > 0 ){
-			Vec2f pos1, pos2;
-			Vec2f offset0, offset1, offset2;
+			vec2 pos1, pos2;
+			vec2 offset0, offset1, offset2;
 			
 			if (mNameTex == NULL) {
                 if (!mNameTextureRequested) {
                     mNameTextureRequested = true;
                     // do the TextLayout and surface bit one per frame
-                    mTaskId = UiTaskQueue::pushTask( std::bind( std::mem_fun( &Node::createNameSurface ), this ) );
+                    mTaskId = UiTaskQueue::pushTask( std::bind( &Node::createNameSurface, this ) );
                 }
 			}
             else {
 
-                offset0 = Vec2f( mSphereScreenRadius, mSphereScreenRadius ) * 0.75f;
+                offset0 = vec2( mSphereScreenRadius, mSphereScreenRadius ) * 0.75f;
                 offset0.rotate( angle );
                 pos1 = mScreenPos + offset0;
                 
-                offset1 = Vec2f( 5.0f, 5.0f ) * ( ( G_TRACK_LEVEL + 1.0f ) - mGen );
+                offset1 = vec2( 5.0f, 5.0f ) * ( ( G_TRACK_LEVEL + 1.0f ) - mGen );
                 offset1.rotate( angle );
                 pos2 = pos1 + offset1;
-                offset2 = Vec2f( 2.0f, -8.0f );
+                offset2 = vec2( 2.0f, -8.0f );
                 offset2.rotate( angle );
 
-                Vec2f texCorner = mNameTex.getSize();
+                vec2 texCorner = mNameTex.getSize();
                 
                 glPushMatrix();
                 gl::translate( pos2 + offset2 );
@@ -318,14 +318,14 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
                 else {
                     mLabelScale += (1.0f - mLabelScale) * 0.25f;
                 }
-                gl::scale( Vec3f( mLabelScale, mLabelScale, 1.0f ) );
+                gl::scale( vec3( mLabelScale, mLabelScale, 1.0f ) );
                 texCorner *= mLabelScale;
                 
             // DRAW DROP SHADOW
                 if( mIsPlaying ){ 
                     gl::enableAlphaBlending();
                     gl::color( ColorA( 0.0f, 0.0f, 0.0f, alpha * 0.35f ) );
-                    gl::draw( mNameTex, Vec2f( 1.0f, 1.0f ) );
+                    gl::draw( mNameTex, vec2( 1.0f, 1.0f ) );
                     gl::enableAdditiveBlending();
                 }
                 
@@ -333,13 +333,13 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
                 float labelAlpha = constrain( app::getElapsedSeconds() - mNameTexCreatedTime, 0.0, 0.2 ) * 5.0f;
 
                 gl::color( ColorA( c, alpha * labelAlpha ) );
-                gl::draw( mNameTex, Vec2f::zero() );
+                gl::draw( mNameTex, vec2::zero() );
                 
                 glPopMatrix();
                 
                 mHitArea = Rectf( pos2 + offset2, pos2 + offset2 + texCorner);
                 mHitArea.canonicalize();
-                mHitArea.inflate( Vec2f( 5.0f, 5.0f ) );        
+                mHitArea.inflate( vec2( 5.0f, 5.0f ) );        
                 
                 // TODO: this is a lot of state changes per frame. Switch to drawing
                 // all names first, then all lines?
@@ -360,17 +360,17 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
 		// For viewing node states
 		if( mIsHighlighted ){
 			gl::color( Color( 1.0f, 0.0f, 0.0f ) );
-			gl::drawLine( pos1 + Vec2f( 1.0f, -1.0f ), pos1 + Vec2f( -1.0f, 1.0f ) );
+			gl::drawLine( pos1 + vec2( 1.0f, -1.0f ), pos1 + vec2( -1.0f, 1.0f ) );
 		}
 		
 		if( mIsSelected ){
 			gl::color( Color( 0.0f, 1.0f, 0.0f ) );
-			gl::drawLine( pos1 + Vec2f( 3.0f, 1.0f ), pos1 + Vec2f( 1.0f, 3.0f ) );
+			gl::drawLine( pos1 + vec2( 3.0f, 1.0f ), pos1 + vec2( 1.0f, 3.0f ) );
 		}
 		
 		if( mIsPlaying ){
 			gl::color( Color( 0.0f, 0.0f, 1.0f ) );
-			gl::drawLine( pos1 + Vec2f( 5.0f, 3.0f ), pos1 + Vec2f( 3.0f, 5.0f ) );
+			gl::drawLine( pos1 + vec2( 5.0f, 3.0f ), pos1 + vec2( 3.0f, 5.0f ) );
 		}
 		 */
 	}
@@ -385,7 +385,7 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
 void Node::drawTouchHighlight( float zoomAlpha )
 {
 	if( mIsHighlighted ){
-		Vec2f radius = Vec2f( mRadius * 5.0f, mRadius * 5.0f );
+		vec2 radius = vec2( mRadius * 5.0f, mRadius * 5.0f );
 		if( mIsTapped ){
 			gl::color( ColorA( mColor, mHighlightStrength ) );
 			mHighlightStrength -= ( mHighlightStrength - 0.0f ) * 0.1f;
@@ -415,7 +415,7 @@ void Node::drawTouchHighlight( float zoomAlpha )
 	}
 }
 
-void Node::checkForNameTouch( vector<Node*> &nodes, const Vec2f &pos )
+void Node::checkForNameTouch( vector<Node*> &nodes, const vec2 &pos )
 {
 	if( mIsHighlighted && mDistFromCamZAxisPer > 0.0f ){
 		if( mSphereHitArea.contains( pos ) || ( mNameTex != NULL && mHitArea.contains( pos ) && G_DRAW_TEXT ) ) {

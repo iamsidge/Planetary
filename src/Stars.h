@@ -21,16 +21,16 @@ public:
     ~Stars();
     
     void setup( const std::vector<NodeArtist*> &nodes,
-               const ci::Vec3f &bbRight, const ci::Vec3f &bbUp, 
+               const ci::vec3 &bbRight, const ci::vec3 &bbUp, 
                const float &zoomAlpha );
     void draw();
     
 private:
 
     struct VertexData {
-        ci::Vec3f vertex;
-        ci::Vec2f texture;
-        ci::Vec4f color;
+        ci::vec3 vertex;
+        ci::vec2 texture;
+        ci::vec4 color;
     };
     
 	int mTotalVertices, mPrevTotalVertices;

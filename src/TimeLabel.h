@@ -45,6 +45,6 @@ private:
     
     int mSeconds;
 
-    ci::gl::Texture mTexture, mHyphenTexture;
+    ci::gl::TextureRef mTexture, mHyphenTexture;
     
 };

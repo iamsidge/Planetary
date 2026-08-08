@@ -16,7 +16,7 @@ class Slider : public BloomNode {
 public:
     
     Slider(const int &id, 
-           const ci::gl::Texture &texture,               
+           const ci::gl::TextureRef &texture,               
            const ci::Area &bgTexArea, 
            const ci::Area &fgTexArea, 
            const ci::Area &thumbDownTexArea, 
@@ -52,7 +52,7 @@ public:
 protected:
 
     ci::Area mFgTexArea, mBgTexArea, mThumbDownTexArea, mThumbUpTexArea; // texture coords, fixed
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
     ci::Rectf mRect;
     
     float mValue;

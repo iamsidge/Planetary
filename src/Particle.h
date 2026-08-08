@@ -8,14 +8,14 @@
 class Particle {
  public:
 	Particle();
-	Particle( int index, ci::Vec3f pos, ci::Vec3f vel, const ci::Vec3f &bbRight, const ci::Vec3f &bbUp );
-	void setup( const ci::Vec3f &bbRight, const ci::Vec3f &bbUp );
-	void update( float radius, const ci::Vec3f &bbRight, const ci::Vec3f &bbUp );
+	Particle( int index, ci::vec3 pos, ci::vec3 vel, const ci::vec3 &bbRight, const ci::vec3 &bbUp );
+	void setup( const ci::vec3 &bbRight, const ci::vec3 &bbUp );
+	void update( float radius, const ci::vec3 &bbRight, const ci::vec3 &bbUp );
 	
 	int			mIndex;
-	ci::Vec3f	mPos;
-	ci::Vec3f	mVel;
-	ci::Vec3f	mAcc;
+	ci::vec3	mPos;
+	ci::vec3	mVel;
+	ci::vec3	mAcc;
 
 	float		mAngle;
 	float		mCosAngle, mSinAngle;
@@ -26,7 +26,7 @@ class Particle {
 	float         mLifespan;
 	float		mAgePer;
 	bool		mIsDead;
-	ci::Quatf	mQuat;
+	ci::quat	mQuat;
 	
 	bool		mIsRetreatingFlare;
 };

@@ -19,9 +19,9 @@ public:
     void setup();
     void update();
     
-    ci::Quatf getQuat() { return mQuat; }
+    ci::quat getQuat() { return mQuat; }
 private:
-    ci::Quatf mQuat;
+    ci::quat mQuat;
     bool mActive;
     
 	// Objective C 

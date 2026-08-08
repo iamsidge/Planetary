@@ -28,8 +28,8 @@ public:
     
     virtual ~BloomScene();
     
-    ci::Vec2f getInterfaceSize() { return mInterfaceSize; }
-    void setInterfaceSize( ci::Vec2f interfaceSize ) { mInterfaceSize = interfaceSize; }
+    ci::vec2 getInterfaceSize() { return mInterfaceSize; }
+    void setInterfaceSize( ci::vec2 interfaceSize ) { mInterfaceSize = interfaceSize; }
     
     // BloomScene draw/update starts the chain off, very much does *not* draw/update itself :)
     void draw();
@@ -42,7 +42,7 @@ protected:
     
     ci::app::AppCocoaTouch *mApp;
     
-    ci::Vec2f mInterfaceSize;    
+    ci::vec2 mInterfaceSize;    
     
     ci::CallbackId cbTouchesBegan, cbTouchesMoved, cbTouchesEnded;
     

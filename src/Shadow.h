@@ -23,7 +23,7 @@ public:
 
 private:
 
-    void buildVerts( ci::Vec3f p1, ci::Vec3f p2, ci::Vec3f p3, ci::Vec3f p4 );
+    void buildVerts( ci::vec3 p1, ci::vec3 p2, ci::vec3 p3, ci::vec3 p4 );
     
 	GLfloat		*mShadowVerts;
 	GLfloat		*mShadowTexCoords;

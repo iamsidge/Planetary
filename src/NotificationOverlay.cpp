@@ -54,10 +54,10 @@ void NotificationOverlay::update()
         mAlpha = 1.0f - (elapsedSince - mFadeDelay) / mFadeDuration;
     }    
     
-    Vec2f interfaceSize = getRoot()->getInterfaceSize();
+    vec2 interfaceSize = getRoot()->getInterfaceSize();
     
-    Matrix44f mat;
-    mat.translate(Vec3f( interfaceSize.x * 0.5f, interfaceSize.y * 0.5f + 184.0f - mMessageTexture.getHeight(), 0.0f ));
+    mat4 mat;
+    mat.translate(vec3( interfaceSize.x * 0.5f, interfaceSize.y * 0.5f + 184.0f - mMessageTexture.getHeight(), 0.0f ));
     setTransform(mat);
 }
 
@@ -84,12 +84,12 @@ void NotificationOverlay::draw()
     }
 }
 
-void NotificationOverlay::show(const gl::Texture &texture, const Area &srcArea, const string &message)
+void NotificationOverlay::show(const gl::TextureRef &texture, const Area &srcArea, const string &message)
 {
     show(texture, srcArea, Area(0,0,0,0), message);
 }
 
-void NotificationOverlay::show( const ci::gl::Texture &texture, const ci::Area &srcArea1, const ci::Area &srcArea2, const std::string &message )
+void NotificationOverlay::show( const ci::gl::TextureRef &texture, const ci::Area &srcArea1, const ci::Area &srcArea2, const std::string &message )
 {
     if (!mSetup) return;
     
@@ -106,14 +106,14 @@ void NotificationOverlay::show( const ci::gl::Texture &texture, const ci::Area &
     for (int i = 0; i < results.size(); i++) {
         layout.addCenteredLine( results[i] );
     }
-	mMessageTexture = gl::Texture( layout.render( true, true ) );
+	mMessageTexture = gl::Texture::create( layout.render( true, true ) );
     
-	Vec2f iconSize = mCurrentSrcArea.getSize();
+	vec2 iconSize = mCurrentSrcArea.getSize();
     mIconRect = Rectf( -iconSize/2.0f, iconSize/2.0f );
     
 	float halfWidth = mMessageTexture.getWidth() * 0.5f;
-	Vec2f messageTopLeft( -halfWidth, mIconRect.y2 - 10.0f );
-	Vec2f messageBottomRight( halfWidth, mIconRect.y2 + mMessageTexture.getHeight() - 10.0f );
+	vec2 messageTopLeft( -halfWidth, mIconRect.y2 - 10.0f );
+	vec2 messageBottomRight( halfWidth, mIconRect.y2 + mMessageTexture.getHeight() - 10.0f );
 	mMessageRect = Rectf( messageTopLeft, messageBottomRight );
 	
     mActive = true;
@@ -131,7 +131,7 @@ void NotificationOverlay::showLetter( const char &c, const string &message, cons
 	s += c;
 	charLayout.addCenteredLine( s );
 	
-    gl::Texture texture = gl::Texture( charLayout.render( true, true ) );
+    gl::TextureRef texture = gl::Texture::create( charLayout.render( true, true ) );
     
     show( texture, 
           Area( 0, 0, texture.getWidth(), texture.getHeight() + 15.0f ), 

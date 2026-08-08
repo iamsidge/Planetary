@@ -27,13 +27,13 @@ namespace cinder { namespace app {
     // how much to rotate from PORTRAIT_ORIENTATION to the given orientation
     float getAngleForOrientation(const Orientation &orientation);    
 
-    // if you usually use Vec3f::yAxis() for up on your CameraPersp, this will help
-    Vec3f getUpVectorForOrientation(const Orientation &orientation);
+    // if you usually use vec3::yAxis() for up on your CameraPersp, this will help
+    vec3 getUpVectorForOrientation(const Orientation &orientation);
 
     // if you're doing 2D drawing, this matrix moves the origin to the correct device corner
     // to get the window size, use app::getWindowSize(), test for 
     // isLandscape(event.getInterfaceOrientation()) and apply a .yx() swizzle 
-    Matrix44f getOrientationMatrix44(const Orientation &orientation, const Vec2f &deviceSize);
+    mat4 getOrientationMatrix44(const Orientation &orientation, const vec2 &deviceSize);
 
     std::string getOrientationString(const Orientation &orientation);
 

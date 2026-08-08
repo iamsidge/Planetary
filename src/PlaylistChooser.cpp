@@ -21,26 +21,26 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-void PlaylistChooser::setup( const Font &font, const Vec2f &interfaceSize )
+void PlaylistChooser::setup( const Font &font, const vec2 &interfaceSize )
 {
     mFont					= font;
     mFontHeight             = mFont.getAscent() + mFont.getDescent();
 
     mTouchDragId			= 0;
-    mTouchDragStartPos		= Vec2i( 0, 0 );
+    mTouchDragStartPos		= ivec2( 0, 0 );
     mTouchDragStartOffset	= 0.0f;
     mTouchDragPlaylistIndex	= -1;
     
 	mTouchVel				= 0.0f;
-	mTouchPos				= Vec2i( 0, 0 );
-	mTouchPrevPos			= Vec2i( 0, 0 );
+	mTouchPos				= ivec2( 0, 0 );
+	mTouchPrevPos			= ivec2( 0, 0 );
     
     mOffsetX				= 0.0f;
 	
 	mNumPlaylists			= 0;
 	mIsDragging				= false;
 	
-	mPlaylistSize			= Vec2f( 150.f, 30.0f );
+	mPlaylistSize			= vec2( 150.f, 30.0f );
 	mSpacerWidth			= 15.0f;
 	mStartY					= 11.0f;
 
@@ -61,7 +61,7 @@ bool PlaylistChooser::touchBegan( ci::app::TouchEvent::Touch touch )
 	mTouchPos		= globalToLocal( touch.getPos() );
 	mTouchVel		= 0.0f;
 	
-    Vec2f padding	= Vec2f( 10.0f, 10.0f );
+    vec2 padding	= vec2( 10.0f, 10.0f );
     
     // see if we're touching a specific button
     mTouchDragPlaylistIndex = -1;
@@ -220,7 +220,7 @@ void PlaylistChooser::draw()
     // opacity is supplied by UiLayer::draw
     
     gl::color( ColorA( r, g, b, mOpacity * 0.125f ) );
-    gl::drawLine( Vec2f(0,0), Vec2f(mInterfaceSize.x,0) );
+    gl::drawLine( vec2(0,0), vec2(mInterfaceSize.x,0) );
 
 //    float xPos = mOffsetX + mSpacerWidth;
     
@@ -278,7 +278,7 @@ void PlaylistChooser::makeTexture( int index, ipod::PlaylistRef playlist )
 	layout.setFont( mFont );
 	layout.setColor( Color::white() );
 	layout.addLine( name );
-	mTextures[index] = gl::Texture( layout.render( true, false ) );
+	mTextures[index] = gl::Texture::create( layout.render( true, false ) );
 }
 
 float PlaylistChooser::getAlpha( float x )

@@ -25,7 +25,7 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
 	mSmallFont = smallFont;
 	mBigFont = bigFont;
 	mBigBoldFont = bigBoldFont;
-    mInterfaceSize = Vec2f::zero();
+    mInterfaceSize = vec2::zero();
 
     ///////////
         
@@ -63,12 +63,12 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
     
     // calculate layout...
 
-    const Vec2f padding(18,15);
+    const vec2 padding(18,15);
     const float w = mInterfaceSize.x; // initally 0, see update() for correct value
     const float h = mHeadingTex.getHeight() + mBodyTex.getHeight() + (padding.y * 2);
     
     mHeadingPos = padding;
-    mBodyPos = padding + Vec2f(0,mHeadingTex.getHeight());
+    mBodyPos = padding + vec2(0,mHeadingTex.getHeight());
     mBgRect = Rectf( 0, 0, w, h );    
     
     // and animation...
@@ -94,7 +94,7 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
     box.setFont( mSmallFont );
     box.setText( strBodyText );
 
-    std::vector<std::pair<uint16_t,Vec2f> > glyphPositions = box.measureGlyphs();
+    std::vector<std::pair<uint16_t,vec2> > glyphPositions = box.measureGlyphs();
 
 //    cout << strBodyText << endl;
 //    cout << glyphPositions.size() << " glyph positions available" << endl;
@@ -110,7 +110,7 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
     mEmailRect.offset( mBodyPos );    
 }
 
-void HelpLayer::updateRect( Rectf *rect, const std::wstring &fullStr, const std::wstring &rectStr, const std::vector<std::pair<uint16_t,Vec2f> > &glyphPositions )
+void HelpLayer::updateRect( Rectf *rect, const std::wstring &fullStr, const std::wstring &rectStr, const std::vector<std::pair<uint16_t,vec2> > &glyphPositions )
 {
     const size_t startIndex = fullStr.find(rectStr);
     const size_t endIndex = startIndex + rectStr.size();
@@ -119,7 +119,7 @@ void HelpLayer::updateRect( Rectf *rect, const std::wstring &fullStr, const std:
     
     // glyph the first
     uint16_t glyph = glyphPositions[startIndex].first;
-    Vec2f pos = glyphPositions[startIndex].second;
+    vec2 pos = glyphPositions[startIndex].second;
     Rectf bbox = mSmallFont.getGlyphBoundingBox(glyph);
     // account for flipped axis:
     bbox.y1 *= -1.0f;
@@ -146,7 +146,7 @@ bool HelpLayer::touchBegan( TouchEvent::Touch touch )
 
 bool HelpLayer::touchEnded( TouchEvent::Touch touch )
 {
-    Vec2f pos = globalToLocal( touch.getPos() );
+    vec2 pos = globalToLocal( touch.getPos() );
     
     // TODO: should we use a callback for these and handle the actions in the main app?
 	
@@ -155,7 +155,7 @@ bool HelpLayer::touchEnded( TouchEvent::Touch touch )
 //    Url bloomWebsite( "http://bloom.io" );
     Url cinderWebsite( "http://libcinder.org" );
     
-    const Vec2f linkPadding(5,5);
+    const vec2 linkPadding(5,5);
     
     if( mEmailRect.inflated( linkPadding ).contains( pos ) ){
         launchWebBrowser( mailToLink );
@@ -202,7 +202,7 @@ void HelpLayer::update()
         else {
             mCurrentY = mTargetY;
         }
-        setTransform( Matrix44f::createTranslation( Vec3f(0, round(mCurrentY), 0) ) );
+        setTransform( mat4::createTranslation( vec3(0, round(mCurrentY), 0) ) );
     }
     else {
         if (!mShowing) {
@@ -230,7 +230,7 @@ void HelpLayer::draw()
 //    gl::drawStrokedRect( mEmailRect );
 
     glPushMatrix();
-    gl::translate( Vec2f(0, 2.0f) );
+    gl::translate( vec2(0, 2.0f) );
     gl::color( ColorA(dragAlphaPer, dragAlphaPer, dragAlphaPer, 0.5f) );
     gl::drawLine( mCinderRect.getLowerLeft(), mCinderRect.getLowerRight() );
     gl::drawLine( mWebRect.getLowerLeft(), mWebRect.getLowerRight() );

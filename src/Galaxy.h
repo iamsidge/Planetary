@@ -16,8 +16,8 @@ class Galaxy {
 public:
 
     struct VertexData {
-        ci::Vec3f vertex;
-        ci::Vec2f texture;
+        ci::vec3 vertex;
+        ci::vec2 texture;
     };    
     
     Galaxy() {
@@ -37,17 +37,17 @@ public:
     void setup(float initialCamDist, 
                ci::Color lightMatterColor,
                ci::Color centerColor,
-               ci::gl::Texture galaxyDome, 
-               ci::gl::Texture galaxyTex, 
-               ci::gl::Texture darkMatterTex, 
-               ci::gl::Texture starGlowTex);
+               ci::gl::TextureRef galaxyDome, 
+               ci::gl::TextureRef galaxyTex, 
+               ci::gl::TextureRef darkMatterTex, 
+               ci::gl::TextureRef starGlowTex);
     
-    void update(const ci::Vec3f &eye, 
+    void update(const ci::vec3 &eye, 
                 const float &fadeInAlphaToArtist, 
                 const float rotSpeed,
 				const float eclipseAmt,
-                const ci::Vec3f &bbRight, 
-                const ci::Vec3f &bbUp);
+                const ci::vec3 &bbRight, 
+                const ci::vec3 &bbUp);
     
     void drawLightMatter( float fadeInAlphaToArtist );
     void drawSpiralPlanes();
@@ -58,10 +58,10 @@ private:
     
     // set in update()
 	float mZoomOff, mCamGalaxyAlpha, mInvAlpha, mElapsedSeconds;
-    ci::Vec3f mBbRight, mBbUp;
+    ci::vec3 mBbRight, mBbUp;
 
     // set in setup()
-    ci::gl::Texture mGalaxyDome, mGalaxyTex, mDarkMatterTex, mStarGlowTex;
+    ci::gl::TextureRef mGalaxyDome, mGalaxyTex, mDarkMatterTex, mStarGlowTex;
     ci::Color mCenterColor, mLightMatterColor;
     
     // called in setup()

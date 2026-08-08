@@ -57,7 +57,7 @@ bool Slider::touchBegan(ci::app::TouchEvent::Touch touch)
         // slider can only handle one touch
         return false;
     }
-    Vec2f touchPos = globalToLocal( touch.getPos() );
+    vec2 touchPos = globalToLocal( touch.getPos() );
     Rectf hitRect = Rectf( mRect.x1 - 10.0f, mRect.y1 - 3.0f, mRect.x2 + 10.0f, mRect.y2 + 3.0f );
     bool inside = hitRect.contains( globalToLocal( touch.getPos() ) );
     setIsDragging(inside);
@@ -71,7 +71,7 @@ bool Slider::touchMoved(ci::app::TouchEvent::Touch touch)
     }
     
     // adjust for orientation and offset
-    Vec2f pos = globalToLocal( touch.getPos() );
+    vec2 pos = globalToLocal( touch.getPos() );
     
     // FIXME: assumes slider is horizontal :)
     float sliderPer = (pos.x - mRect.x1) / (mRect.x2 - mRect.x1);

@@ -39,7 +39,7 @@ class HelpLayer : public BloomNode {
         
  private:
     
-    void updateRect( ci::Rectf *rect, const std::wstring &fullStr, const std::wstring &rectStr, const std::vector<std::pair<uint16_t,ci::Vec2f> > &glyphPositions );
+    void updateRect( ci::Rectf *rect, const std::wstring &fullStr, const std::wstring &rectStr, const std::vector<std::pair<uint16_t,ci::vec2> > &glyphPositions );
     
     // control visibility, animation
     bool mShowing, mAnimating;
@@ -49,10 +49,10 @@ class HelpLayer : public BloomNode {
     ci::Font mBigFont, mBigBoldFont, mSmallFont;
 
     // textures
-    ci::gl::Texture mHeadingTex, mBodyTex;
+    ci::gl::TextureRef mHeadingTex, mBodyTex;
     
     // dimensions and positions
-    ci::Vec2f mInterfaceSize, mHeadingPos, mBodyPos;
+    ci::vec2 mInterfaceSize, mHeadingPos, mBodyPos;
     ci::Rectf mBgRect;
     
     // hit rects for links:

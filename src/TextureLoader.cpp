@@ -27,13 +27,13 @@ void TextureLoader::addRequest( int texId, std::string fileName, ci::gl::Texture
     mTotalRequests++;
 }
 
-//void TextureLoader::addRequest( int texId, std::string compressedFileName, ci::Vec2i size )
+//void TextureLoader::addRequest( int texId, std::string compressedFileName, ci::ivec2 size )
 //{
 //    // FIXME
 ////    mTotalRequests++;
 //}
 
-//gl::Texture KeplerApp::loadCompressedTexture(const std::string &dataPath, const Vec2i &imageSize)
+//gl::TextureRef KeplerApp::loadCompressedTexture(const std::string &dataPath, const ivec2 &imageSize)
 //{
 //    // NB:- compressed textures *must* be square
 //    //      also, file sizes are actually larger than jpg 
@@ -52,7 +52,7 @@ void TextureLoader::addRequest( int texId, std::string fileName, ci::gl::Texture
 
 void TextureLoader::start()
 {
-    TaskQueue::pushTask( std::bind( std::mem_fun( &TextureLoader::loadSurfaces ), this ) );    
+    TaskQueue::pushTask( std::bind( &TextureLoader::loadSurfaces, this ) );    
 }
 
 void TextureLoader::loadSurfaces()
@@ -68,7 +68,7 @@ void TextureLoader::loadSurfaces()
         mRequestsMutex.unlock();
         mRequestsComplete++;
         // called on the UI thread...
-        UiTaskQueue::pushTask( std::bind( std::mem_fun( &TextureLoader::surfaceLoaded ), this ) );
+        UiTaskQueue::pushTask( std::bind( &TextureLoader::surfaceLoaded, this ) );
     }    
 }
 
@@ -88,14 +88,14 @@ void TextureLoader::surfaceLoaded()
         if (mRequestsMutex.try_lock()) {
 //            std::cout << " got lock!" << std::endl;
             int index = mTextures.size();
-            mTextures[ mRequests[index].mTexId ] = gl::Texture( mRequests[index].mSurface, mRequests[index].mFormat );
-            mRequests[index].mSurface.reset();
+            mTextures[ mRequests[index].mTexId ] = gl::Texture::create( mRequests[index].mSurface, mRequests[index].mFormat );
+            mRequests[index].mSurface = Surface();
             mRequestsMutex.unlock();
         }
         else {
 //            std::cout << " try again next time!" << std::endl;
             // try again
-            UiTaskQueue::pushTask( std::bind( std::mem_fun( &TextureLoader::surfaceLoaded ), this ) );            
+            UiTaskQueue::pushTask( std::bind( &TextureLoader::surfaceLoaded, this ) );            
         }
     }
     

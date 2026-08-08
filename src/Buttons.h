@@ -16,7 +16,7 @@ public:
     
     ToggleButton( const int &buttonId, 
                   const bool &on, 
-                  const ci::gl::Texture &texture,
+                  const ci::gl::TextureRef &texture,
                   const ci::Area &onTextureArea, 
                   const ci::Area &offTextureArea ):
         BloomNode(buttonId),
@@ -42,7 +42,7 @@ protected:
     
     bool mOn;
     ci::Area mOnTextureArea, mOffTextureArea;
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
     ci::Rectf mRect;
 };
 
@@ -51,7 +51,7 @@ class SimpleButton : public BloomNode {
 public:
     
     SimpleButton( const int &buttonId, 
-                 const ci::gl::Texture &texture,
+                 const ci::gl::TextureRef &texture,
                  const ci::Area &downTextureArea, 
                  const ci::Area &upTextureArea ):
         BloomNode(buttonId),
@@ -74,7 +74,7 @@ protected:
     
     int mDownCount;
     ci::Area mUpTextureArea, mDownTextureArea;
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
     ci::Rectf mRect;
     
 };
@@ -85,7 +85,7 @@ public:
     
     TwoStateButton( const int &buttonId, 
                     const bool &on,
-                    const ci::gl::Texture &texture,
+                    const ci::gl::TextureRef &texture,
                     const ci::Area &offDownTextureArea, 
                     const ci::Area &offUpTextureArea,
                     const ci::Area &onDownTextureArea, 
@@ -117,7 +117,7 @@ protected:
     int mDownCount;
     bool mOn;
     ci::Area mOnUpTextureArea, mOnDownTextureArea, mOffUpTextureArea, mOffDownTextureArea;
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
     ci::Rectf mRect;
     
 };
@@ -129,7 +129,7 @@ public:
     
     ThreeStateButton( const int &buttonId, 
                       const int &state,
-                      const ci::gl::Texture &texture,
+                      const ci::gl::TextureRef &texture,
                       const ci::Area &firstTextureArea, 
                       const ci::Area &secondTextureArea,
                       const ci::Area &thirdTextureArea ):
@@ -157,7 +157,7 @@ protected:
     
     int mState;
     ci::Area mFirstTextureArea, mSecondTextureArea, mThirdTextureArea;
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
     ci::Rectf mRect;
     
 };

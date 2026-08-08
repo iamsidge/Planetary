@@ -89,7 +89,7 @@ void BloomNode::deepDraw()
     }        
 }
 
-Matrix44f BloomNode::getConcatenatedTransform() const
+mat4 BloomNode::getConcatenatedTransform() const
 {
     if ( BloomNodeRef parent = mParent.lock() ) {
         return parent->getConcatenatedTransform() * mTransform;
@@ -97,15 +97,15 @@ Matrix44f BloomNode::getConcatenatedTransform() const
     return mTransform;
 }
 
-Vec2f BloomNode::localToGlobal( const Vec2f &pos )
+vec2 BloomNode::localToGlobal( const vec2 &pos )
 {
-    return (getConcatenatedTransform() * Vec3f( pos.x, pos.y, 0)).xy();
+    return (getConcatenatedTransform() * vec3( pos.x, pos.y, 0)).xy();
 }
 
-Vec2f BloomNode::globalToLocal( const Vec2f &pos )
+vec2 BloomNode::globalToLocal( const vec2 &pos )
 {
-    Matrix44f invMtx = getConcatenatedTransform().inverted();
-    return (invMtx * Vec3f(pos.x,pos.y,0)).xy();    
+    mat4 invMtx = getConcatenatedTransform().inverted();
+    return (invMtx * vec3(pos.x,pos.y,0)).xy();    
 }
 
 bool BloomNode::deepTouchBegan( TouchEvent::Touch touch )
@@ -183,7 +183,7 @@ bool BloomNode::deepTouchEnded( TouchEvent::Touch touch )
     return consumed;
 }
 
-bool BloomNode::deepHitTest( const Vec2f &screenPos )
+bool BloomNode::deepHitTest( const vec2 &screenPos )
 {
     if (mVisible) {
         // test children

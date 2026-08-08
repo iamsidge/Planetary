@@ -61,12 +61,12 @@ protected:
     
     ci::app::Orientation mInterfaceOrientation;
     float                mInterfaceAngle;       // animated, not always right-angle   
-    ci::Vec2f            mTargetInterfaceSize;  // depends on mInterfaceOrientation
+    ci::vec2            mTargetInterfaceSize;  // depends on mInterfaceOrientation
     float                mTargetInterfaceAngle; // normalized for shortest rotation animation
     
     // for lerping:
     float mLastOrientationChangeTime;
     float mOrientationAnimationDuration;
     float mPrevInterfaceAngle;
-    ci::Vec2f mPrevInterfaceSize;
+    ci::vec2 mPrevInterfaceSize;
 };

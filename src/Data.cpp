@@ -25,14 +25,14 @@ void Data::setup()
         mState = LoadStateLoading;
         mArtistProgress = 0.0f;
         mPlaylistProgress = 0.0f;   
-        TaskQueue::pushTask( std::bind( std::mem_fun( &Data::backgroundInit ), this ) );
+        TaskQueue::pushTask( std::bind( &Data::backgroundInit, this ) );
     }
 }
 
 void Data::backgroundInit()
 {
-	mPendingArtists = getArtists( std::bind1st( std::mem_fun(&Data::artistProgress), this ) );
-    mPendingPlaylists = getPlaylists( std::bind1st( std::mem_fun(&Data::playlistProgress), this ) );
+	mPendingArtists = getArtists( std::bind( &Data::artistProgress, this, std::placeholders::_1 ) );
+    mPendingPlaylists = getPlaylists( std::bind( &Data::playlistProgress, this, std::placeholders::_1 ) );
 	
 // QUICK FIX FOR GETTING MORE DATA ONTO THE ALPHAWHEEL
     

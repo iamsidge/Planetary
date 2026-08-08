@@ -44,21 +44,21 @@ class Node {
 	// METHODS
 	void			setSphereData( BloomSphere *hiSphere, BloomSphere *mdSphere, BloomSphere *loSphere, BloomSphere *tySphere );
 	virtual void	update( float param1, float param2 );
-	virtual void	updateGraphics( const ci::CameraPersp &cam, const ci::Vec2f &center, const ci::Vec3f &bbRight, const ci::Vec3f &bbUp, const float &w, const float &h );
+	virtual void	updateGraphics( const ci::CameraPersp &cam, const ci::vec2 &center, const ci::vec3 &bbRight, const ci::vec3 &bbUp, const float &w, const float &h );
 	virtual void	drawEclipseGlow();
-	virtual void	drawStarGlow( const ci::Vec3f &camEye, const ci::Vec3f &camNormal, const ci::gl::Texture &tex ){};
-	virtual void	drawPlanet( const ci::gl::Texture &tex ) {};
-	virtual void	drawExtraGlow( const ci::Vec3f &camEye, const ci::gl::Texture &texGlow, const ci::gl::Texture &texCore ) {};
-	virtual void	drawClouds( const std::vector< ci::gl::Texture> &clouds ) {};
-	virtual void	drawAtmosphere( const ci::Vec3f &camEye, const ci::Vec2f &center, const ci::gl::Texture &tex, const ci::gl::Texture &directionalTex, float pinchAlphaPer, float scaleSliderOffset ) {};
-	virtual void	drawRings( const ci::gl::Texture &tex, const PlanetRing &planetRing, float camZPos );
+	virtual void	drawStarGlow( const ci::vec3 &camEye, const ci::vec3 &camNormal, const ci::gl::TextureRef &tex ){};
+	virtual void	drawPlanet( const ci::gl::TextureRef &tex ) {};
+	virtual void	drawExtraGlow( const ci::vec3 &camEye, const ci::gl::TextureRef &texGlow, const ci::gl::TextureRef &texCore ) {};
+	virtual void	drawClouds( const std::vector< ci::gl::TextureRef> &clouds ) {};
+	virtual void	drawAtmosphere( const ci::vec3 &camEye, const ci::vec2 &center, const ci::gl::TextureRef &tex, const ci::gl::TextureRef &directionalTex, float pinchAlphaPer, float scaleSliderOffset ) {};
+	virtual void	drawRings( const ci::gl::TextureRef &tex, const PlanetRing &planetRing, float camZPos );
 	virtual void	findShadows( float camAlpha ) {};
 	virtual void	drawOrbitRing( float pinchAlphaOffset, float camAlpha, const OrbitRing &orbitRing, float fadeInAlphaToArtist, float fadeInArtistToAlbum );
 
 	void			drawName( const ci::CameraPersp &cam, float pinchAlphaOffset, float angle );
 	void			wasTapped(){ mIsTapped = true; mHighlightStrength = 1.0f; }
 	void			drawTouchHighlight( float zoomAlpha );
-	void			checkForNameTouch( std::vector<Node*> &nodes, const ci::Vec2f &pos );
+	void			checkForNameTouch( std::vector<Node*> &nodes, const ci::vec2 &pos );
 
 	void			setIsDying( bool isDying );
     bool            isDying() { return mIsDying; }
@@ -83,13 +83,13 @@ class Node {
 	std::vector<Node*>	mChildNodes;
 	
 	// POSITION/VELOCITY
-	ci::Vec3f			mPos;				// global position
-	ci::Vec3f			mPosDest;			// artist node final position
-	ci::Vec3f			mAcc;				// acceleration used for initial repulsion
-	ci::Vec2f			mScreenPos;			// screen position
-	ci::Vec3f			mRelPos;			// relative position
-	ci::Vec3f			mVel;               // velocity based on mPos for helping the camera
-	ci::Vec3f			mBbRight, mBbUp;
+	ci::vec3			mPos;				// global position
+	ci::vec3			mPosDest;			// artist node final position
+	ci::vec3			mAcc;				// acceleration used for initial repulsion
+	ci::vec2			mScreenPos;			// screen position
+	ci::vec3			mRelPos;			// relative position
+	ci::vec3			mVel;               // velocity based on mPos for helping the camera
+	ci::vec3			mBbRight, mBbUp;
 	
 // CHARACTERISTICS
     
@@ -111,7 +111,7 @@ class Node {
 	
 // ROTATION
 	float				mAngularVelocity;	// Change in angle per frame
-	ci::Vec3f			mAxialRot;
+	ci::vec3			mAxialRot;
     float               mAxialTilt;         // Planetary axis
     float               mAxialVel;          // Speed of rotation around mAxialTilt axis;
     
@@ -119,7 +119,7 @@ class Node {
 	float				mDistFromCamZAxis;	// Node's distance from Cam eye
 	float				mPrevDistFromCamZAxis;	// Node's previous distance from Cam eye
 	float				mDistFromCamZAxisPer; // normalized range.
-	ci::Vec2f			mScreenDirToCenter;	// Direction from screenpos to center
+	ci::vec2			mScreenDirToCenter;	// Direction from screenpos to center
 	float				mScreenDistToCenterPer;
     
 // MUSIC LIB DATA
@@ -136,7 +136,7 @@ class Node {
 	
 	// NAME
 	ci::Font			mFont, mSmallFont;
-	ci::gl::Texture		mNameTex;			// Texture of the name
+	ci::gl::TextureRef		mNameTex;			// Texture of the name
 	float				mHashPer;			// Unique 0.0 to 1.0 from artist name
 	ci::Surface			mHighResSurfaces;	// Images for Track moon surface
 	ci::Surface			mLowResSurfaces;	// Images for Track moon surface

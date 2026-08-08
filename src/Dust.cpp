@@ -10,18 +10,18 @@ Dust::Dust()
 {
 }
 
-Dust::Dust( int index, Vec3f pos, Vec3f vel )
+Dust::Dust( int index, vec3 pos, vec3 vel )
 {
 	mIndex			= index;
 	mLifespan       = Rand::randInt( 50, 100 );
 	mIsDead			= false;
 	
-	setup( Vec3f( 0.0f, 0.0f, 0.0f ) );
+	setup( vec3( 0.0f, 0.0f, 0.0f ) );
 }
 
-void Dust::setup( const Vec3f &camEye )
+void Dust::setup( const vec3 &camEye )
 {
-	Vec3f randVec  = Rand::randVec3f();
+	vec3 randVec  = Rand::randVec3f();
 	
 	mPos		= randVec;
 	
@@ -31,7 +31,7 @@ void Dust::setup( const Vec3f &camEye )
 	mAge		= 0;
 }
 
-void Dust::update( const Vec3f &camEye )
+void Dust::update( const vec3 &camEye )
 {
 	mPrevPos = mPos;
     mPos += mVel;

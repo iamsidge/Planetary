@@ -20,7 +20,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-void AlphaChooser::setup( const Font &font, const Vec2f &interfaceSize )
+void AlphaChooser::setup( const Font &font, const vec2 &interfaceSize )
 {	
 	// Textures
 	mAlphaString	= "ABCDEFGHIJKLMNOPQRSTUVWXYZ#";
@@ -32,7 +32,7 @@ void AlphaChooser::setup( const Font &font, const Vec2f &interfaceSize )
 		layout.setFont( font );
 		layout.setColor( Color::white() );
 		layout.addCenteredLine( ci::toString(mAlphaString[i]) );
-		mAlphaTextures.push_back( gl::Texture( layout.render( true, false ) ) );
+		mAlphaTextures.push_back( gl::Texture::create( layout.render( true, false ) ) );
 	}
     
     mInterfaceSize = interfaceSize;
@@ -68,7 +68,7 @@ void AlphaChooser::setRects()
 bool AlphaChooser::touchBegan( TouchEvent::Touch touch )
 {
     if (!isVisible()) return false;    
-    Vec2f pos = globalToLocal( touch.getPos() );
+    vec2 pos = globalToLocal( touch.getPos() );
     return mFullRect.contains( pos );
 }
 
@@ -76,7 +76,7 @@ bool AlphaChooser::touchMoved( TouchEvent::Touch touch )
 {	
     if (!isVisible()) return false;
     
-    Vec2f pos = globalToLocal( touch.getPos() );
+    vec2 pos = globalToLocal( touch.getPos() );
     for (int i = 0; i < mAlphaRects.size(); i++) {
         if ( mNumberAlphaPerChar[i] ) {                        
             if ( mAlphaHitRects[i].contains( pos ) ) {
@@ -97,7 +97,7 @@ bool AlphaChooser::touchEnded( TouchEvent::Touch touch )
 {	
     if (!isVisible()) return false;
 
-    Vec2f pos = globalToLocal( touch.getPos() );
+    vec2 pos = globalToLocal( touch.getPos() );
     for (int i = 0; i < mAlphaRects.size(); i++) {
         if ( mNumberAlphaPerChar[i] ) {            
             if ( mAlphaHitRects[i].contains( pos ) ) {
@@ -119,7 +119,7 @@ void AlphaChooser::setNumberAlphaPerChar( float *numberAlphaPerChar )
 
 void AlphaChooser::update( )
 {    
-    Vec2f interfaceSize = getRoot()->getInterfaceSize();    
+    vec2 interfaceSize = getRoot()->getInterfaceSize();    
     if (mInterfaceSize != interfaceSize) {
         mInterfaceSize = interfaceSize;
         setRects();        

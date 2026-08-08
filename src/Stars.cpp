@@ -28,7 +28,7 @@ Stars::~Stars()
     }
 }
 
-void Stars::setup( const vector<NodeArtist*> &nodes, const ci::Vec3f &bbRight, const ci::Vec3f &bbUp, const float &zoomAlpha )
+void Stars::setup( const vector<NodeArtist*> &nodes, const ci::vec3 &bbRight, const ci::vec3 &bbUp, const float &zoomAlpha )
 {
 	mTotalVertices = nodes.size() * 6;
         
@@ -49,9 +49,9 @@ void Stars::setup( const vector<NodeArtist*> &nodes, const ci::Vec3f &bbRight, c
 	
 	for( vector<NodeArtist*>::const_iterator it = nodes.begin(); it != nodes.end(); ++it ){
 		
-        Vec3f pos = (*it)->mPos;
+        vec3 pos = (*it)->mPos;
         Color c = (*it)->mColor;
-		Vec4f col = Vec4f(c.r, c.g, c.b, 1.0);
+		vec4 col = vec4(c.r, c.g, c.b, 1.0);
 
 		float radius = (*it)->mRadius * scaleOffset * 0.85f + ( 0.5f - scaleOffset );
         
@@ -59,41 +59,41 @@ void Stars::setup( const vector<NodeArtist*> &nodes, const ci::Vec3f &bbRight, c
 			radius -= zoomOffset;
 		}
                 
-        Vec3f right			= bbRight * radius;
-        Vec3f up			= bbUp * radius;
+        vec3 right			= bbRight * radius;
+        vec3 up			= bbUp * radius;
         
-        Vec3f p1			= pos - right - up;
-        Vec3f p2			= pos + right - up;
-        Vec3f p3			= pos - right + up;
-        Vec3f p4			= pos + right + up;
+        vec3 p1			= pos - right - up;
+        vec3 p2			= pos + right - up;
+        vec3 p3			= pos - right + up;
+        vec3 p4			= pos + right + up;
         
         mVerts[vIndex].vertex  = p1;
-        mVerts[vIndex].texture = Vec2f(0.0f,0.0f);
+        mVerts[vIndex].texture = vec2(0.0f,0.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
         
         mVerts[vIndex].vertex  = p2;
-        mVerts[vIndex].texture = Vec2f(1.0f,0.0f);
+        mVerts[vIndex].texture = vec2(1.0f,0.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
         
         mVerts[vIndex].vertex  = p3;
-        mVerts[vIndex].texture = Vec2f(0.0f,1.0f);
+        mVerts[vIndex].texture = vec2(0.0f,1.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
         
         mVerts[vIndex].vertex  = p2;
-        mVerts[vIndex].texture = Vec2f(1.0f,0.0f);
+        mVerts[vIndex].texture = vec2(1.0f,0.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
         
         mVerts[vIndex].vertex  = p3;
-        mVerts[vIndex].texture = Vec2f(0.0f,1.0f);
+        mVerts[vIndex].texture = vec2(0.0f,1.0f);
         mVerts[vIndex].color   = col;
         vIndex++;
         
         mVerts[vIndex].vertex  = p4;
-        mVerts[vIndex].texture = Vec2f(1.0f,1.0f);
+        mVerts[vIndex].texture = vec2(1.0f,1.0f);
         mVerts[vIndex].color   = col;
         vIndex++;        
 	}    

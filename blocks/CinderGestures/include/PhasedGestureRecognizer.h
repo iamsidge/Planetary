@@ -19,15 +19,15 @@ public:
     
     template<typename T>
     CallbackId registerBegan(T *obj, bool (T::*callback)(EventType)){
-        return mCallbacksBegan.registerCb(std::bind1st(std::mem_fun(callback), obj));
+        return mCallbacksBegan.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
     }
     template<typename T>
     CallbackId registerMoved(T *obj, bool (T::*callback)(EventType)){
-        return mCallbacksMoved.registerCb(std::bind1st(std::mem_fun(callback), obj));
+        return mCallbacksMoved.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
     }
     template<typename T>
     CallbackId registerEnded(T *obj, bool (T::*callback)(EventType)){
-        return mCallbacksEnded.registerCb(std::bind1st(std::mem_fun(callback), obj));
+        return mCallbacksEnded.registerCb(std::bind( callback, obj, std::placeholders::_1 ));
     }
 
 };

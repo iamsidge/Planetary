@@ -13,8 +13,8 @@
 
 class LoadingScreen : public BloomNode {  
   public:
-    void setup( const ci::gl::Texture &planetaryTex, const ci::gl::Texture &planetTex,
-               const ci::gl::Texture &backgroundTex, const ci::gl::Texture &starGlowTex );
+    void setup( const ci::gl::TextureRef &planetaryTex, const ci::gl::TextureRef &planetTex,
+               const ci::gl::TextureRef &backgroundTex, const ci::gl::TextureRef &starGlowTex );
     void draw();
     void update();
     bool touchBegan( ci::app::TouchEvent::Touch touch ) { return isVisible(); };
@@ -28,9 +28,9 @@ class LoadingScreen : public BloomNode {
     float mTextureProgress, mTextureProgressDest;
     float mArtistProgress, mArtistProgressDest;
     float mPlaylistProgress, mPlaylistProgressDest;
-    ci::gl::Texture mStarGlowTex;
-	ci::gl::Texture	mPlanetaryTex;
-	ci::gl::Texture mPlanetTex;
-	ci::gl::Texture mBackgroundTex;	
-    ci::Vec2f mInterfaceSize;
+    ci::gl::TextureRef mStarGlowTex;
+	ci::gl::TextureRef	mPlanetaryTex;
+	ci::gl::TextureRef mPlanetTex;
+	ci::gl::TextureRef mBackgroundTex;	
+    ci::vec2 mInterfaceSize;
 };

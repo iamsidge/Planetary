@@ -51,7 +51,7 @@ private:
     std::string mText;
     float mLastChangeTime;
     
-    ci::gl::Texture mTexture;
+    ci::gl::TextureRef mTexture;
 	
 	bool mIsScrolling;
     

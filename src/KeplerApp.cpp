@@ -116,7 +116,7 @@ class KeplerApp : public AppCocoaTouch {
 	
     bool			onSelectedNodeChanged( Node *node );
 
-	void			checkForNodeTouch( const Ray &ray, const Vec2f &pos );
+	void			checkForNodeTouch( const Ray &ray, const vec2 &pos );
 	
     bool			onPlayerStateChanged( ipod::Player *player );
     bool			onPlayerTrackChanged( ipod::Player *player );
@@ -150,12 +150,12 @@ class KeplerApp : public AppCocoaTouch {
 // ORIENTATION
     OrientationHelper mOrientationHelper;    
     Orientation       mInterfaceOrientation;
-    Matrix44f         mOrientationMatrix;
-    Matrix44f         mInverseOrientationMatrix;    
+    mat4         mOrientationMatrix;
+    mat4         mInverseOrientationMatrix;    
     
 // GYRO
     GyroHelper			mGyroHelper;
-	Quatf				mPrevGyro;
+	quat				mPrevGyro;
     
 // AUDIO
 	ipod::Player		mIpodPlayer;
@@ -169,9 +169,9 @@ class KeplerApp : public AppCocoaTouch {
 	CameraPersp		mCam;
 	
 	float			mFov, mFovDest;
-	Vec3f			mEye, mCenter, mUp;
-	Vec3f			mCenterDest, mCenterFrom;
-	Vec3f			mCenterOffset;		// if pinch threshold is exceeded, look towards parent?
+	vec3			mEye, mCenter, mUp;
+	vec3			mCenterDest, mCenterFrom;
+	vec3			mCenterOffset;		// if pinch threshold is exceeded, look towards parent?
 	float			mCamDist, mCamDistDest, mCamDistFrom;
 	float			mPinchPerInit;
 	float			mPinchPer;			// 0.0 (max pinched) to 1.0 (max spread)
@@ -203,17 +203,17 @@ class KeplerApp : public AppCocoaTouch {
     Font            mFontUltraBig; // Unit Ultra
 	
 // MULTITOUCH
-	Vec2f			mTouchPos;
-	Vec2f			mTouchVel;
+	vec2			mTouchPos;
+	vec2			mTouchVel;
 	bool			mIsDragging;
     bool            mIsTouching; // set true in touchesBegan if there's one touch and it's in-world
 	bool			onPinchBegan( PinchEvent event );
     bool			onPinchMoved( PinchEvent event );
     bool			onPinchEnded( PinchEvent event );
     bool            keepTouchForPinching( TouchEvent::Touch touch );
-    bool            positionTouchesWorld( Vec2f pos );
+    bool            positionTouchesWorld( vec2 pos );
     vector<Ray>		mPinchRays;
-	vector<Vec2f>	mPinchPositions;
+	vector<vec2>	mPinchPositions;
     PinchRecognizer mPinchRecognizer;
 	float			mTimePinchEnded;
 	float			mPinchAlphaPer;
@@ -267,13 +267,13 @@ class KeplerApp : public AppCocoaTouch {
     TextureLoader mTextures;
     
     // groups cloud textures together
-    vector<gl::Texture> mCloudTextures;
+    vector<gl::TextureRef> mCloudTextures;
 	
     // needed for load screen:
-    gl::Texture mPlanetaryTex, mPlanetTex, mBackgroundTex, mStarGlowTex;
+    gl::TextureRef mPlanetaryTex, mPlanetTex, mBackgroundTex, mStarGlowTex;
     
     // loaded on demand for empty music libraries
-	gl::Texture		mNoArtistsTex;    
+	gl::TextureRef		mNoArtistsTex;    
     
     // FIXME: load these in a thread sometime
 	Surface			mHighResSurfaces;
@@ -468,7 +468,7 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 	mArcball.setWindowSize( getWindowSize() );
 	mArcball.setCenter( getWindowCenter() );
 	mArcball.setRadius( G_DEFAULT_ARCBALL_RADIUS );
-	mArcball.setQuat( Quatf( -0.2, 0.0f, -0.3f ) );
+	mArcball.setQuat( quat( -0.2, 0.0f, -0.3f ) );
 	
 	// CAMERA PERSP
 	mCamDist			= G_INIT_CAM_DIST;
@@ -491,12 +491,12 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 
 	
 	mCamDistFrom		= mCamDist;
-	mEye				= Vec3f( 0.0f, 0.0f, mCamDist );
-	mCenter				= Vec3f::zero();
+	mEye				= vec3( 0.0f, 0.0f, mCamDist );
+	mCenter				= vec3::zero();
 	mCenterDest			= mCenter;
 	mCenterFrom			= mCenter;
 	mCenterOffset		= mCenter;
-	mUp					= Vec3f::yAxis();
+	mUp					= vec3::yAxis();
 	mFov				= G_DEFAULT_FOV;
 	mFovDest			= G_DEFAULT_FOV;
 	mCam.setPerspective( mFov, getWindowAspectRatio(), 0.0001f, 1200.0f );
@@ -509,7 +509,7 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 	
 // TOUCH VARS
 	mTouchPos			= getWindowCenter();
-	mTouchVel			= Vec2f(2.1f, 0.3f );
+	mTouchVel			= vec2(2.1f, 0.3f );
 	mIsDragging			= false;
     mIsTouching         = false;
 	mSelectionTime		= getElapsedSeconds();
@@ -634,10 +634,10 @@ void KeplerApp::initLoadingTextures()
     fmt.enableMipmapping( true );
     fmt.setMinFilter( GL_LINEAR_MIPMAP_LINEAR );    
     fmt.setMagFilter( GL_LINEAR ); // TODO: experiment with GL_NEAREST where appropriate
-    mBackgroundTex	= gl::Texture( loadImage( loadResource( "background.jpg" ) )/*, fmt*/ );        
-    mPlanetTex		= gl::Texture( loadImage( loadResource( "planet.png" ) ), fmt );
-	mStarGlowTex    = gl::Texture( loadImage( loadResource( "starGlow.png" ) ), fmt);
-    mPlanetaryTex	= gl::Texture( loadImage( loadResource( "planetary.png" ) )/*, fmt*/ );
+    mBackgroundTex	= gl::Texture::create( loadImage( loadResource( "background.jpg" ) )/*, fmt*/ );        
+    mPlanetTex		= gl::Texture::create( loadImage( loadResource( "planet.png" ) ), fmt );
+	mStarGlowTex    = gl::Texture::create( loadImage( loadResource( "starGlow.png" ) ), fmt);
+    mPlanetaryTex	= gl::Texture::create( loadImage( loadResource( "planetary.png" ) )/*, fmt*/ );
 }
 
 void KeplerApp::touchesBegan( TouchEvent event )
@@ -650,11 +650,11 @@ void KeplerApp::touchesBegan( TouchEvent event )
 	if( touches.size() == 1 && timeSincePinchEnded > 0.2f && keepTouchForPinching(*touches.begin()) ) {
         mIsTouching = true;
         mTouchPos		= touches.begin()->getPos();
-        mTouchVel		= Vec2f::zero();
-		Vec3f worldTouchPos;
-		if( G_USE_GYRO ) worldTouchPos = Vec3f(mTouchPos,0);
-		else			 worldTouchPos = mInverseOrientationMatrix * Vec3f(mTouchPos,0);
-        mArcball.mouseDown( Vec2i(worldTouchPos.x, worldTouchPos.y) );
+        mTouchVel		= vec2::zero();
+		vec3 worldTouchPos;
+		if( G_USE_GYRO ) worldTouchPos = vec3(mTouchPos,0);
+		else			 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
+        mArcball.mouseDown( ivec2(worldTouchPos.x, worldTouchPos.y) );
 	}
     else {
         mIsTouching = false;
@@ -669,16 +669,16 @@ void KeplerApp::touchesMoved( TouchEvent event )
         float timeSincePinchEnded = getElapsedSeconds() - mTimePinchEnded;	
         const vector<TouchEvent::Touch> touches = getActiveTouches();
         if( touches.size() == 1 && timeSincePinchEnded > 0.2f ){
-            Vec2f currentPos = touches.begin()->getPos();
-            Vec2f prevPos = touches.begin()->getPrevPos();        
+            vec2 currentPos = touches.begin()->getPos();
+            vec2 prevPos = touches.begin()->getPrevPos();        
             if (positionTouchesWorld(currentPos) && positionTouchesWorld(prevPos)) {
                 mIsDragging = true;
                 mTouchVel		= currentPos - prevPos;
                 mTouchPos		= currentPos;
-                Vec3f worldTouchPos;
-				if( G_USE_GYRO ) worldTouchPos = Vec3f(mTouchPos,0);
-				else			 worldTouchPos = mInverseOrientationMatrix * Vec3f(mTouchPos,0);
-                mArcball.mouseDrag( Vec2i( worldTouchPos.x, worldTouchPos.y ) );
+                vec3 worldTouchPos;
+				if( G_USE_GYRO ) worldTouchPos = vec3(mTouchPos,0);
+				else			 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
+                mArcball.mouseDrag( ivec2( worldTouchPos.x, worldTouchPos.y ) );
             }
         }
     }
@@ -691,8 +691,8 @@ void KeplerApp::touchesEnded( TouchEvent event )
 	float timeSincePinchEnded = getElapsedSeconds() - mTimePinchEnded;	
 	const vector<TouchEvent::Touch> touches = event.getTouches();
 	if( touches.size() == 1 && timeSincePinchEnded > 0.2f ){        
-        Vec2f currentPos = touches.begin()->getPos();
-        Vec2f prevPos = touches.begin()->getPrevPos();   
+        vec2 currentPos = touches.begin()->getPos();
+        vec2 prevPos = touches.begin()->getPrevPos();   
         // if your touch isn't hitting the uiLayer panel and the Help panel isnt showing
         if (positionTouchesWorld(currentPos) && positionTouchesWorld(prevPos)) {
             mTouchPos = currentPos;
@@ -721,9 +721,9 @@ bool KeplerApp::onPinchBegan( PinchEvent event )
     mPinchRays = event.getTouchRays( mCam );
 	mPinchPositions.clear();
 	
-	mTouchVel	= Vec2f::zero();
+	mTouchVel	= vec2::zero();
 	vector<PinchEvent::Touch> touches = event.getTouches();
-	Vec2f averageTouchPos = Vec2f::zero();
+	vec2 averageTouchPos = vec2::zero();
 	
 	for( vector<PinchEvent::Touch>::iterator it = touches.begin(); it != touches.end(); ++it ){
 		averageTouchPos += it->mPos;
@@ -734,8 +734,8 @@ bool KeplerApp::onPinchBegan( PinchEvent event )
 	
 // using pinch to control arcball is weird because of the pop
 // from one finger to two fingers. disabled until a fix is found.
-//	Vec3f worldTouchPos = mInverseOrientationMatrix * Vec3f(mTouchPos,0);
-//	mArcball.mouseDrag( Vec2i( worldTouchPos.x, worldTouchPos.y ) );
+//	vec3 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
+//	mArcball.mouseDrag( ivec2( worldTouchPos.x, worldTouchPos.y ) );
 	
     return false;
 }
@@ -749,7 +749,7 @@ bool KeplerApp::onPinchMoved( PinchEvent event )
 	mPinchTotalDest = constrain( mPinchTotalDest, mPinchScaleMin, mPinchScaleMax );
 	
 	vector<PinchEvent::Touch> touches = event.getTouches();
-	Vec2f averageTouchPos = Vec2f::zero();
+	vec2 averageTouchPos = vec2::zero();
 	for( vector<PinchEvent::Touch>::iterator it = touches.begin(); it != touches.end(); ++it ){
 		averageTouchPos += it->mPos;
 		mPinchPositions.push_back( it->mPos );
@@ -757,8 +757,8 @@ bool KeplerApp::onPinchMoved( PinchEvent event )
 	averageTouchPos /= touches.size();
 // using pinch to control arcball is weird because of the pop
 // from one finger to two fingers. disabled until a fix is found.
-//	Vec3f worldTouchPos = mInverseOrientationMatrix * Vec3f(mTouchPos,0);
-//	mArcball.mouseDrag( Vec2i( worldTouchPos.x, worldTouchPos.y ) );
+//	vec3 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
+//	mArcball.mouseDrag( ivec2( worldTouchPos.x, worldTouchPos.y ) );
 	
 	//mTouchThrowVel	= ( averageTouchPos - mTouchPos );
 	//mTouchVel		= mTouchThrowVel;
@@ -794,7 +794,7 @@ bool KeplerApp::keepTouchForPinching( TouchEvent::Touch touch )
     return positionTouchesWorld(touch.getPos());
 }
 
-bool KeplerApp::positionTouchesWorld( Vec2f screenPos )
+bool KeplerApp::positionTouchesWorld( vec2 screenPos )
 {
     const bool inUi              = mUiLayer.hitTest(screenPos);
     const bool inAlphaChooser    = mAlphaChooser.hitTest(screenPos);
@@ -842,7 +842,7 @@ void KeplerApp::setInterfaceOrientation( const Orientation &orientation )
     mInverseOrientationMatrix = mOrientationMatrix.inverted();
     
 //    if( ! G_USE_GYRO ) mUp = getUpVectorForOrientation( mInterfaceOrientation );
-//	else			   mUp = Vec3f::yAxis();
+//	else			   mUp = vec3::yAxis();
 }
 
 bool KeplerApp::onVignetteToggled( bool on )
@@ -1159,7 +1159,7 @@ bool KeplerApp::onSettingsPanelButtonPressed( BloomSceneEventRef event )
 				if( !G_USE_GYRO ) {
                     mUp = getUpVectorForOrientation( mInterfaceOrientation );
                 } else {
-                    mUp = Vec3f::yAxis();
+                    mUp = vec3::yAxis();
                 }				
 				
 				if( G_USE_GYRO )	mNotificationOverlay.show( mTextures[UI_BUTTONS_TEX], Area( uw*4, uh*1, uw*5, uh*2 ), "GYROSCOPE" );
@@ -1183,10 +1183,10 @@ bool KeplerApp::onSettingsPanelButtonPressed( BloomSceneEventRef event )
 				if( G_AUTO_MOVE ){
 					if( isLandscapeOrientation( mInterfaceOrientation ) ){
 						mTouchPos = getWindowCenter();
-						mTouchVel = Vec2f( Rand::randFloat( -0.2f, 0.2f ), Rand::randPosNegFloat( 0.5f, 1.0f ) );
+						mTouchVel = vec2( Rand::randFloat( -0.2f, 0.2f ), Rand::randPosNegFloat( 0.5f, 1.0f ) );
 					} else {
 						mTouchPos = getWindowCenter();
-						mTouchVel = Vec2f( Rand::randPosNegFloat( 0.5f, 1.0f ), Rand::randFloat( -0.2f, 0.2f ) );
+						mTouchVel = vec2( Rand::randPosNegFloat( 0.5f, 1.0f ), Rand::randFloat( -0.2f, 0.2f ) );
 					}
 					
 					mNotificationOverlay.show( mTextures[UI_BUTTONS_TEX], Area( uw*3, uh*2, uw*4, uh*3 ), "ANIMATE CAMERA" );
@@ -1465,7 +1465,7 @@ void KeplerApp::togglePlayPaused()
     }    
 }
  
-void KeplerApp::checkForNodeTouch( const Ray &ray, const Vec2f &pos )
+void KeplerApp::checkForNodeTouch( const Ray &ray, const vec2 &pos )
 {
 	vector<Node*> nodes;
 	mWorld.checkForNameTouch( nodes, pos );
@@ -1621,12 +1621,12 @@ void KeplerApp::update()
 		
         updateCamera();
         
-        Vec3f bbRight, bbUp;
+        vec3 bbRight, bbUp;
         mCam.getBillboardVectors( &bbRight, &bbUp );        
         
 		// use raw getWindowSize (without swizzle) because 3D stuff is always drawn portrait
         // the labels and interactions are rotated for landscape left/right and upside-down modes
-		Vec2f interfaceSize = getWindowSize();
+		vec2 interfaceSize = getWindowSize();
         mWorld.updateGraphics( mCam, interfaceSize * 0.5f, bbRight, bbUp, mFadeInAlphaToArtist );
 		
 		Node *selectedArtistNode = mState.getSelectedArtistNode();
@@ -1679,27 +1679,27 @@ void KeplerApp::updateArcball()
 {	
 	if( !G_AUTO_MOVE ){
 		if( mTouchVel.length() > 2.0f && !mIsDragging ){
-			Vec3f downPos;
-			if( G_USE_GYRO )	downPos = ( Vec3f(mTouchPos,0) );
-			else				downPos = mInverseOrientationMatrix * ( Vec3f(mTouchPos,0) );
-			mArcball.mouseDown( Vec2i(downPos.x, downPos.y) );
+			vec3 downPos;
+			if( G_USE_GYRO )	downPos = ( vec3(mTouchPos,0) );
+			else				downPos = mInverseOrientationMatrix * ( vec3(mTouchPos,0) );
+			mArcball.mouseDown( ivec2(downPos.x, downPos.y) );
 			
-			Vec3f dragPos;
-			if( G_USE_GYRO )	dragPos = ( Vec3f(mTouchPos + mTouchVel,0) );
-			else				dragPos = mInverseOrientationMatrix * ( Vec3f(mTouchPos + mTouchVel,0) );
-			mArcball.mouseDrag( Vec2i(dragPos.x, dragPos.y) );        
+			vec3 dragPos;
+			if( G_USE_GYRO )	dragPos = ( vec3(mTouchPos + mTouchVel,0) );
+			else				dragPos = mInverseOrientationMatrix * ( vec3(mTouchPos + mTouchVel,0) );
+			mArcball.mouseDrag( ivec2(dragPos.x, dragPos.y) );        
 		}
 	} else {
 		if( !mIsDragging ){
-			Vec3f downPos;
-			if( G_USE_GYRO )	downPos = ( Vec3f(mTouchPos,0) );
-			else				downPos = mInverseOrientationMatrix * ( Vec3f(mTouchPos,0) );
-			mArcball.mouseDown( Vec2i(downPos.x, downPos.y) );
+			vec3 downPos;
+			if( G_USE_GYRO )	downPos = ( vec3(mTouchPos,0) );
+			else				downPos = mInverseOrientationMatrix * ( vec3(mTouchPos,0) );
+			mArcball.mouseDown( ivec2(downPos.x, downPos.y) );
 			
-			Vec3f dragPos;
-			if( G_USE_GYRO )	dragPos = ( Vec3f(mTouchPos + mTouchVel,0) );
-			else				dragPos = mInverseOrientationMatrix * ( Vec3f(mTouchPos + mTouchVel,0) );
-			mArcball.mouseDrag( Vec2i(dragPos.x, dragPos.y) );        
+			vec3 dragPos;
+			if( G_USE_GYRO )	dragPos = ( vec3(mTouchPos + mTouchVel,0) );
+			else				dragPos = mInverseOrientationMatrix * ( vec3(mTouchPos + mTouchVel,0) );
+			mArcball.mouseDrag( ivec2(dragPos.x, dragPos.y) );        
 		}
 	}
 }
@@ -1781,9 +1781,9 @@ void KeplerApp::updateCamera()
 				float timeForAnim	= getElapsedSeconds();;
 				mPerlinForAutoMove	= mPerlin.fBm( timeForAnim * 0.01f );
 				
-				Vec3f dirToParent	= selectedNode->mParentNode->mPos - selectedNode->mPos;
+				vec3 dirToParent	= selectedNode->mParentNode->mPos - selectedNode->mPos;
 				float amt			= 0.3f + sin( timeForAnim * 0.1f ) * 0.45f;
-				Vec3f lookToPos		= dirToParent * amt;
+				vec3 lookToPos		= dirToParent * amt;
 				mCenterOffset -= ( mCenterOffset - lookToPos ) * 0.01f;
 				
 				mAutoMoveScale -= ( mAutoMoveScale - ( ( mPerlinForAutoMove + 1.0f ) * G_ZOOM ) ) * 0.01f;
@@ -1795,12 +1795,12 @@ void KeplerApp::updateCamera()
 			
 			if( selectedNode->mParentNode && mPinchPer > mPinchPerThresh ){				// IF THERE IS A PARENT AND THE PINCH THRESH HAS BEEN PASSED...
 																						// LOOK BACK TOWARDS THE PARENT NODE
-				Vec3f dirToParent = selectedNode->mParentNode->mPos - selectedNode->mPos;
+				vec3 dirToParent = selectedNode->mParentNode->mPos - selectedNode->mPos;
 				mCenterOffset -= ( mCenterOffset - ( dirToParent * ( mPinchPer - mPinchPerThresh ) * 2.5f ) ) * 0.2f;
 				
 			} else {																	// ELSE DONT LOOK ANYWHERE SPECIAL... 
 																						// KEEP ON DOING WHAT YOU ARE DOING...
-				mCenterOffset -= ( mCenterOffset - Vec3f::zero() ) * 0.2f;
+				mCenterOffset -= ( mCenterOffset - vec3::zero() ) * 0.2f;
 			}
 		}
 		
@@ -1811,9 +1811,9 @@ void KeplerApp::updateCamera()
 		
 	} else {																	// ELSE JUST SET CAMERA VARS TO DEFAULTS AND ZEROS
 		mCamDistDest	= G_INIT_CAM_DIST * cameraDistMulti;
-		mCenterDest		= Vec3f::zero();
+		mCenterDest		= vec3::zero();
         mZoomDest       = G_ALPHA_LEVEL;
-		mCenterOffset -= ( mCenterOffset - Vec3f::zero() ) * 0.05f;
+		mCenterOffset -= ( mCenterOffset - vec3::zero() ) * 0.05f;
 	}
 	
 	G_CURRENT_LEVEL = mZoomDest;
@@ -1859,19 +1859,19 @@ void KeplerApp::updateCamera()
 
     // apply the Arcball to the camera eye/up vectors
     // (instead of to the whole scene)
-    Quatf q = mArcball.getQuat();
+    quat q = mArcball.getQuat();
     q.w *= -1.0; // reverse the angle, keep the axis
 	if( G_IS_IPAD2 && G_USE_GYRO ){
 		q = mGyroHelper.getQuat();
 	}
 	
     // set up vector according to screen orientation
-	mUp = Vec3f::yAxis();
+	mUp = vec3::yAxis();
 	if( !G_USE_GYRO ){
         mUp.rotateZ( -1.0f * mOrientationNodeRef->getInterfaceAngle() );
     }
     
-    Vec3f camOffset = q * Vec3f( 0, 0, mCamDist);
+    vec3 camOffset = q * vec3( 0, 0, mCamDist);
     mEye = mCenter - camOffset;
 
     // FIXME: what causes camera to sometimes destroy itself?
@@ -1907,23 +1907,23 @@ void KeplerApp::draw()
 void KeplerApp::drawNoArtists()
 {
     if( !mNoArtistsTex ) {
-        mNoArtistsTex = gl::Texture( loadImage( loadResource( "noArtists.png" ) ) );
+        mNoArtistsTex = gl::Texture::create( loadImage( loadResource( "noArtists.png" ) ) );
     }
     
 	gl::setMatricesWindow( getWindowSize() );    
 	
     glPushMatrix();
     glMultMatrixf( mOrientationMatrix );
-	Vec2f interfaceSize = getWindowSize();
+	vec2 interfaceSize = getWindowSize();
 	if( isLandscapeOrientation( mInterfaceOrientation ) ){
 		interfaceSize = interfaceSize.yx();
 	}
-    Vec2f center = interfaceSize * 0.5f;
+    vec2 center = interfaceSize * 0.5f;
     gl::color( Color::white() );
 	
 	mNoArtistsTex.enableAndBind();
-	Vec2f v1( center - mNoArtistsTex.getSize() * 0.5f );
-	Vec2f v2( v1 + mNoArtistsTex.getSize() );
+	vec2 v1( center - mNoArtistsTex.getSize() * 0.5f );
+	vec2 v2( v1 + mNoArtistsTex.getSize() );
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 	gl::drawSolidRect( Rectf( v1, v2 ) );
 	mNoArtistsTex.disable();
@@ -1960,7 +1960,7 @@ void KeplerApp::drawScene()
     glCullFace(GL_FRONT);
     mTextures[SKY_DOME_TEX].enableAndBind();
     glPushMatrix();
-    gl::scale( Vec3f(G_SKYDOME_RADIUS,G_SKYDOME_RADIUS,G_SKYDOME_RADIUS) );
+    gl::scale( vec3(G_SKYDOME_RADIUS,G_SKYDOME_RADIUS,G_SKYDOME_RADIUS) );
     mSkySphere.draw();
     glPopMatrix();
     mTextures[SKY_DOME_TEX].disable();
@@ -1991,7 +1991,7 @@ void KeplerApp::drawScene()
 		artistNode->drawStarGlow( mEye - mCenterOffset, ( mEye - mCenter ).normalized(), mStarGlowTex );
     }
 		
-    Vec2f interfaceSize = getWindowSize();
+    vec2 interfaceSize = getWindowSize();
     
     //float zoomOffset = constrain( 1.0f - ( G_ALBUM_LEVEL - G_ZOOM ), 0.0f, 1.0f );
     if (artistNode) {
@@ -2009,7 +2009,7 @@ void KeplerApp::drawScene()
         // LIGHT FROM ARTIST
         glEnable( GL_LIGHT0 );
         glEnable( GL_LIGHT1 );
-        Vec3f lightPos          = artistNode->mPos;
+        vec3 lightPos          = artistNode->mPos;
         GLfloat artistLight[]	= { lightPos.x, lightPos.y, lightPos.z, 1.0f };
         glLightfv( GL_LIGHT0, GL_POSITION, artistLight );
         glLightfv( GL_LIGHT0, GL_DIFFUSE, ColorA( artistNode->mColor, 1.0f ) );
@@ -2119,13 +2119,13 @@ void KeplerApp::drawScene()
 // SPLINE
 //	const int numSegments = 200;
 //	gl::color( ColorA( 0.8f, 0.2f, 0.8f, 0.5f ) );
-//	Vec3f pos	  = mEye;
-//	Vec3f prevPos = pos;
+//	vec3 pos	  = mEye;
+//	vec3 prevPos = pos;
 //	for( int s = 0; s <= numSegments; ++s ) {
 //		float t = s / (float)numSegments;
 //		prevPos = pos;
 //		pos		= mSpline.getPosition( t );
-//		gl::drawLine( pos + Vec3f( 0.1f, 0.1f, 0.1f ), prevPos + Vec3f( 0.1f, 0.1f, 0.1f ) );
+//		gl::drawLine( pos + vec3( 0.1f, 0.1f, 0.1f ), prevPos + vec3( 0.1f, 0.1f, 0.1f ) );
 //	}
 	
 	
@@ -2159,9 +2159,9 @@ void KeplerApp::drawScene()
         gl::enableAdditiveBlending();		
         mTextures[LENS_FLARE_TEX].enableAndBind();
 		
-		Vec2f flarePos = getWindowCenter() - artistNode->mScreenPos;
+		vec2 flarePos = getWindowCenter() - artistNode->mScreenPos;
 		float flareDist = flarePos.length();
-		Vec2f flarePosNorm = flarePos.normalized();
+		vec2 flarePosNorm = flarePos.normalized();
 
 		gl::color( ColorA( BRIGHT_BLUE, alpha ) );
 		for( int i=0; i<numFlares; i++ ){
@@ -2180,7 +2180,7 @@ void KeplerApp::drawScene()
 		float alpha = mPinchPer > mPinchPerThresh ? 0.2f : 1.0f;
         mStarGlowTex.enableAndBind();					  
 		gl::color( ColorA( c, max( mPinchPer - mPinchPerInit, 0.0f ) * alpha ) );
-		for( vector<Vec2f>::iterator it = mPinchPositions.begin(); it != mPinchPositions.end(); ++it ){
+		for( vector<vec2>::iterator it = mPinchPositions.begin(); it != mPinchPositions.end(); ++it ){
 			gl::drawSolidRect( Rectf( it->x - radius, it->y - radius, it->x + radius, it->y + radius ) );
 		}
 		mStarGlowTex.disable();                

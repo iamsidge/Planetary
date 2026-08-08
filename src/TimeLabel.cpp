@@ -59,7 +59,7 @@ void TimeLabel::draw()
 {
     // to keep the digit left-aligned in the box, squeeze the minus sign in before it
     if (mHyphenTexture) {
-        bloom::gl::batchRect( mHyphenTexture, mRect.getUpperLeft() - Vec2f(mHyphenTexture.getWidth()-1.0f,0) );
+        bloom::gl::batchRect( mHyphenTexture, mRect.getUpperLeft() - vec2(mHyphenTexture.getWidth()-1.0f,0) );
     }    
     if (mTexture) {
         bloom::gl::batchRect( mTexture, mRect.getUpperLeft() );

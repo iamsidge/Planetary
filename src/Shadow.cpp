@@ -27,10 +27,10 @@ Shadow::~Shadow()
 
 void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
 {
-	Vec3f P0, P1, P2, P4;
-	Vec3f P3a, P3b;
-	Vec3f P5a, P5b, P6a, P6b;
-	Vec3f outerTanADir, outerTanBDir, innerTanADir, innerTanBDir;
+	vec3 P0, P1, P2, P4;
+	vec3 P3a, P3b;
+	vec3 P5a, P5b, P6a, P6b;
+	vec3 outerTanADir, outerTanBDir, innerTanADir, innerTanBDir;
 	
 	float r0, r1, r0Inner, rTotal;
 	float d, dMid, dMidSqrd;
@@ -65,16 +65,16 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
 		
 		float h = sqrt( dMidSqrd - a * a ) * 0.5f;
 		
-		Vec3f p = ( P1 - P0 )/dMid;
+		vec3 p = ( P1 - P0 )/dMid;
 		
-		P3a = P2 + h * Vec3f( -p.z, p.y, p.x );
-		P3b = P2 - h * Vec3f( -p.z, p.y, p.x );
+		P3a = P2 + h * vec3( -p.z, p.y, p.x );
+		P3b = P2 - h * vec3( -p.z, p.y, p.x );
 		
 		
-		Vec3f P3aDirNorm = P3a - P0;
+		vec3 P3aDirNorm = P3a - P0;
 		P3aDirNorm.normalize();
 		
-		Vec3f P3bDirNorm = P3b - P0;
+		vec3 P3bDirNorm = P3b - P0;
 		P3bDirNorm.normalize();
 		
 		P5a = P3a + P3aDirNorm * r1;
@@ -88,8 +88,8 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
 		innerTanADir = ( P6a - P5b ) * amt;
 		innerTanBDir = ( P6b - P5a ) * amt;
 		
-		Vec3f P7a = P6a + outerTanBDir;
-		Vec3f P7b = P6b + outerTanADir;
+		vec3 P7a = P6a + outerTanBDir;
+		vec3 P7b = P6b + outerTanADir;
         
 		float distOfShadow = math<float>::max( 1.0f - r0, 0.01f );
 		P7a = P6a + ( P7a - P6a ).normalized() * distOfShadow;
@@ -116,29 +116,29 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
          glPushMatrix();
          gl::translate( P0 );
 //         gl::rotate( mMatrix );
-         gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( Vec2f::zero(), r0, 50 );
+         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::drawStrokedCircle( vec2::zero(), r0, 50 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P0 );
 //         gl::rotate( mMatrix );
-         gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( Vec2f::zero(), r0Inner, 50 );
+         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::drawStrokedCircle( vec2::zero(), r0Inner, 50 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P1 );
 //         gl::rotate( mMatrix );
-         gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( Vec2f::zero(), r1, 25 );
+         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::drawStrokedCircle( vec2::zero(), r1, 25 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P2 );
 //         gl::rotate( mMatrix );
-         gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
          glPopMatrix();
          
          
@@ -146,35 +146,35 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
          glPushMatrix();
          gl::translate( P3a );
          //gl::rotate( mMatrix );
-         //gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+         //gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P3b );
          //gl::rotate( mMatrix );
-         //gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+         //gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P5a );
-         gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P5b );
-         gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P6a );
-         gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
          glPopMatrix();
          
          glPushMatrix();
          gl::translate( P6b );
-         gl::drawStrokedCircle( Vec2f::zero(), 0.01f, 16 );
+         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
          glPopMatrix();
          
          
@@ -191,15 +191,15 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
          glPushMatrix();
          gl::translate( P4 );
 //         gl::rotate( mMatrix );
-         gl::rotate( Vec3f( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( Vec2f::zero(), dMid, 50 );
+         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::drawStrokedCircle( vec2::zero(), dMid, 50 );
          glPopMatrix();
          
          glEnable( GL_TEXTURE_2D );
      }
 }
 
-void Shadow::buildVerts( Vec3f p1, Vec3f p2, Vec3f p3, Vec3f p4 )
+void Shadow::buildVerts( vec3 p1, vec3 p2, vec3 p3, vec3 p4 )
 {
     if( mShadowVerts != NULL )		delete[] mShadowVerts;
     if( mShadowTexCoords != NULL )  delete[] mShadowTexCoords;
@@ -210,8 +210,8 @@ void Shadow::buildVerts( Vec3f p1, Vec3f p2, Vec3f p3, Vec3f p4 )
 	int i = 0;
 	int t = 0;
 	
-	Vec3f v1 = ( p1 + p2 ) * 0.5f;	// midpoint between base vertices
-	Vec3f v2 = ( p3 + p4 ) * 0.5f;	// midpoint between end vertices
+	vec3 v1 = ( p1 + p2 ) * 0.5f;	// midpoint between base vertices
+	vec3 v2 = ( p3 + p4 ) * 0.5f;	// midpoint between end vertices
 	
 //    std::cout << v1 << " " 
 //              << v2 << " " 

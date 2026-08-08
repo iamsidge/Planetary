@@ -18,8 +18,8 @@ class Constellation
 public:
     
     struct VertexData {
-        ci::Vec3f vertex;
-        ci::Vec2f texture;
+        ci::vec3 vertex;
+        ci::vec2 texture;
     };
     
     Constellation()
@@ -40,7 +40,7 @@ public:
     
 private:
 
-	std::vector<ci::Vec3f> mConstellation;
+	std::vector<ci::vec3> mConstellation;
 	std::vector<float> mConstellationDistances;
 	int mTotalConstellationVertices;
 	int mPrevTotalConstellationVertices;

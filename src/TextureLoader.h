@@ -34,13 +34,13 @@ public:
 
     void addRequest( int texId, std::string fileName );
     void addRequest( int texId, std::string fileName, ci::gl::Texture::Format format );
-//    void addRequest( int texId, std::string compressedFileName, ci::Vec2i size );
+//    void addRequest( int texId, std::string compressedFileName, ci::ivec2 size );
         
-    ci::gl::Texture operator[](const int &index){ return mTextures[index]; };
+    ci::gl::TextureRef operator[](const int &index){ return mTextures[index]; };
     
     template<typename T>
 	ci::CallbackId registerComplete( T *obj, void ( T::*callback )( TextureLoader* ) ){
-		return mCbComplete.registerCb(std::bind1st( std::mem_fun( callback ), obj ) );
+		return mCbComplete.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
 
     // begin the thread
@@ -62,7 +62,7 @@ private:
     int mTotalRequests; // mRequests.size() but threadsafe
     int mRequestsComplete;
 
-    std::map<int, ci::gl::Texture> mTextures;
+    std::map<int, ci::gl::TextureRef> mTextures;
     
     ci::CallbackMgr<void(TextureLoader*)> mCbComplete;        
 

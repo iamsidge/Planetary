@@ -50,16 +50,16 @@ void Stats::update(const float &fps,
 //	s << "mPinchTotalDest: " << pinchPer;
 //	layout.addLine( s.str() );
 	
-	mParamsTex = gl::Texture( layout.render( true, false ) );    
+	mParamsTex = gl::Texture::create( layout.render( true, false ) );    
 }
 
-void Stats::draw(const Matrix44f &mtx)
+void Stats::draw(const mat4 &mtx)
 {
     if (mParamsTex) {
-        glPushMatrix();
-        glMultMatrixf( mtx );
+        gl::pushModelMatrix();
+        gl::multModelMatrix( mtx );
         gl::color( ColorA( Color::white(), 0.1f ) );
-        gl::draw( mParamsTex, Vec2f( 23.0f, 15.0f ) );
-        glPopMatrix();    
+        gl::draw( mParamsTex, vec2( 23.0f, 15.0f ) );
+        gl::popModelMatrix();
     }
 }
