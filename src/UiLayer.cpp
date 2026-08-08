@@ -10,12 +10,10 @@
 
 #include "cinder/gl/gl.h"
 #include "UiLayer.h"
-#include "CinderFlurry.h"
 #include "Globals.h"
 #include "BloomGl.h"
 #include "BloomScene.h"
 
-using namespace pollen::flurry;
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -132,9 +130,7 @@ bool UiLayer::touchEnded( TouchEvent::Touch touch )
         else {
             mIsPanelOpen = !mIsPanelOpen;
 //            if (mIsPanelOpen) {
-//                Flurry::getInstrumentation()->logEvent("UIPanel Opened");
 //            } else {
-//                Flurry::getInstrumentation()->logEvent("UIPanel Closed");
 //            }
 		}
 	}

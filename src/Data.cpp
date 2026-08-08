@@ -9,13 +9,11 @@
 
 #include "Data.h"
 #include "cinder/Utilities.h" // for toString
-#include "CinderFlurry.h"     // for loggin
 #include "TaskQueue.h"        // for backgrounding tasks
 
 using namespace ci;
 using namespace ci::ipod;
 using namespace std;
-using namespace pollen::flurry;
 
 void Data::setup()
 {
@@ -33,15 +31,8 @@ void Data::setup()
 
 void Data::backgroundInit()
 {
-	Flurry::getInstrumentation()->startTimeEvent("Music Loading");
-
 	mPendingArtists = getArtists( std::bind1st( std::mem_fun(&Data::artistProgress), this ) );
     mPendingPlaylists = getPlaylists( std::bind1st( std::mem_fun(&Data::playlistProgress), this ) );
-
-    map<string, string> params;
-    params["NumArtists"]   = toString( mPendingArtists.size() );
-    params["NumPlaylists"] = toString( mPendingPlaylists.size() );
-	Flurry::getInstrumentation()->stopTimeEvent("Music Loading", params);
 	
 // QUICK FIX FOR GETTING MORE DATA ONTO THE ALPHAWHEEL
     

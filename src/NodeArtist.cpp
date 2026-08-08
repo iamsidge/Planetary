@@ -15,14 +15,12 @@
 #include "cinder/Rand.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Utilities.h"
-#include "CinderFlurry.h"
 #include "NodeArtist.h"
 #include "NodeAlbum.h"
 #include "NodeTrack.h"
 #include "Globals.h"
 #include "BloomGl.h"
 
-using namespace pollen::flurry;
 using namespace ci;
 using namespace ci::ipod;
 using namespace std;
@@ -258,29 +256,19 @@ void NodeArtist::select()
 	{
 		if( mChildNodes.size() == 0 ){
 
-            Flurry::getInstrumentation()->startTimeEvent("Albums loaded");
-            
             vector<ipod::PlaylistRef> albums = getAlbumsWithArtistId( getId() );
             mNumAlbums = albums.size();
             
 			int i=0;
-			int trackcount = 0;
             BOOST_FOREACH(PlaylistRef album, albums) {
 				NodeAlbum *newNode = new NodeAlbum( this, i, mFont, mSmallFont, mHighResSurfaces, mLowResSurfaces, mNoAlbumArtSurface );
                 newNode->setSphereData( mHiSphere, mMdSphere, mLoSphere, mTySphere );
 				mChildNodes.push_back( newNode );
-				trackcount += album->size();
 				newNode->setData( album );
 				i++;
 			}
 			
 			setChildOrbitRadii();
-			
-			map<string, string> params;
-			params["Artist"] = mPlaylist->getArtistName();
-			params["NumAlbums"] = toString(mChildNodes.size());
-			params["NumTracks"] = toString(trackcount);
-			Flurry::getInstrumentation()->stopTimeEvent("Albums loaded", params);
 			
 		} else {
 			for( vector<Node*>::iterator it = mChildNodes.begin(); it != mChildNodes.end(); ++it ){

@@ -16,7 +16,6 @@
 
 #include "CinderIPod.h"
 #include "CinderIPodPlayer.h"
-#include "CinderFlurry.h"
 
 #include "OrientationHelper.h"
 #include "GyroHelper.h"
@@ -56,7 +55,6 @@
 using namespace ci;
 using namespace ci::app;
 using namespace std;
-using namespace pollen::flurry;
 using namespace bloom;
 
 float G_ZOOM			= 0;
@@ -96,7 +94,7 @@ class KeplerApp : public AppCocoaTouch {
 	void			drawNoArtists();
     void            drawScene();
 
-    // convenience methods for Flurry
+    // analytics hooks (see KeplerApp.cpp)
     void            logEvent(const string &event);
     void            logEvent(const string &event, const map<string,string> &params);
     
@@ -297,10 +295,8 @@ void KeplerApp::prepareSettings(Settings *settings)
 {
 #ifdef DEBUG
     // "Kepler" ID:
-    Flurry::getInstrumentation()->init("DZ7HPD6FE1GGADVNJ3EX");
 #else
     // "Planetary" ID:
-    Flurry::getInstrumentation()->init("7FY9M7BIVCFVJRGNSD1E");
 #endif
     
     // start requesting events ASAP
@@ -311,7 +307,6 @@ void KeplerApp::setup()
 {
 //    float t = getElapsedSeconds();
     
-	Flurry::getInstrumentation()->startTimeEvent("Setup");
     
     mRemainingSetupCalled = false;
     mUiComplete = false;
@@ -350,7 +345,6 @@ void KeplerApp::setup()
     mOrientationNodeRef->addChild( mMainBloomNodeRef );
     mMainBloomNodeRef->setVisible(false);    
     
-    Flurry::getInstrumentation()->stopTimeEvent("Setup");
     
 //    std::cout << (getElapsedSeconds() - t) << " seconds to setup()" << std::endl;
 }
@@ -363,7 +357,6 @@ void KeplerApp::remainingSetup()
 
 //    float t = getElapsedSeconds();
     
-    Flurry::getInstrumentation()->startTimeEvent("Remaining Setup");
 
 	mLoadingScreen.setVisible( true );
     
@@ -378,7 +371,6 @@ void KeplerApp::remainingSetup()
 
 void KeplerApp::initTextures()
 {
-    Flurry::getInstrumentation()->startTimeEvent("Load Textures and Fonts");    
     
     // FONTS
     //   Note to would-be optimizers: loadResource is fairly fast (~7ms for 5 fonts)
@@ -459,7 +451,6 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 {
 //    float t = getElapsedSeconds();
     
-    Flurry::getInstrumentation()->stopTimeEvent("Load Textures and Fonts");        
 	
     // CLOUD TEXTURE VECTOR
 	mCloudTextures.push_back( mTextures[P_CLOUDS_1] );
@@ -629,7 +620,6 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 	mNotificationOverlay.setup( mFontBig );
     mMainBloomNodeRef->addChild( BloomNodeRef(&mNotificationOverlay) );	
 
-    Flurry::getInstrumentation()->stopTimeEvent("Remaining Setup");
 
     //console() << "setupEnd: " << getElapsedSeconds() << std::endl;
 
@@ -1292,7 +1282,6 @@ bool KeplerApp::onPlayControlsButtonPressed( BloomSceneEventRef event )
             break;
 
         case PlayControls::SLIDER:
-            // TODO: Flurry log?
             break;
         
 		case PlayControls::SHOW_ALPHA_FILTER:
@@ -2415,15 +2404,16 @@ bool KeplerApp::onPlayerStateChanged( ipod::Player *player )
     return false;
 }
 
+// Analytics hooks. Flurry was removed when the service shut down; these are
+// kept as no-ops so the call sites still document what was worth measuring,
+// and so a replacement can be dropped in at one place.
 void KeplerApp::logEvent(const string &event)
 {
-//    if (G_DEBUG) std::cout << "logging: " << event << std::endl;
-    Flurry::getInstrumentation()->logEvent(event);
+    if (G_DEBUG) std::cout << "logging: " << event << std::endl;
 }
 void KeplerApp::logEvent(const string &event, const map<string,string> &params)
 {
-//    if (G_DEBUG) std::cout << "logging: " << event << " with params..." << std::endl;
-    Flurry::getInstrumentation()->logEvent(event, params);
+    if (G_DEBUG) std::cout << "logging: " << event << " (" << params.size() << " params)" << std::endl;
 }
 
 

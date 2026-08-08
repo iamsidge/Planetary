@@ -12,12 +12,10 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Color.h"
 #include "cinder/Utilities.h" // for launchWebBrowser()
-#include "CinderFlurry.h"     // for logging
 #include "Globals.h"          // for color constants
 #include "BloomScene.h"       // for getRoot() functionality (FIXME)
 #include "StringHelpers.h"    // for string/wstring UTF8/UTF32 conversion
 
-using namespace pollen::flurry;
 using namespace ci;
 using namespace ci::app;
 using namespace std;
@@ -160,18 +158,14 @@ bool HelpLayer::touchEnded( TouchEvent::Touch touch )
     const Vec2f linkPadding(5,5);
     
     if( mEmailRect.inflated( linkPadding ).contains( pos ) ){
-//        Flurry::getInstrumentation()->logEvent("Email Link Selected");             
         launchWebBrowser( mailToLink );
     } else if( mWebRect.inflated( linkPadding ).contains( pos ) ){
-//        Flurry::getInstrumentation()->logEvent("Planetary Link Selected");            
         launchWebBrowser( planetaryWebsite );
         
 //    } else if( mBloomButton.inflated( linkPadding ).contains( pos ) ){
-//        Flurry::getInstrumentation()->logEvent("Bloom Link Selected");            
 //        launchWebBrowser( bloomWebsite );
 //        
     } else if( mCinderRect.inflated( linkPadding ).contains( pos ) ){
-//        Flurry::getInstrumentation()->logEvent("Cinder Link Selected");            
         launchWebBrowser( cinderWebsite );
     }
 	
