@@ -26,7 +26,7 @@ methods.
 | User playlists | done |
 | Albums and tracks per artist | done |
 | Artwork | done, asynchronous — see below |
-| **Playback** | **not started** |
+| Playback (transport, state, modes) | done |
 | Wired into the app | no — still builds against CinderIPod |
 
 It compiles and is built as part of the app, but nothing calls it yet. The
@@ -84,25 +84,41 @@ with. `getStarRating()` is derived from Spotify's 0–100 popularity because
 Planetary drives track glow from the rating and a constant would flatten the
 visuals; it is not the user's own rating and must not be presented as one.
 
-## Playback, when it comes
+## Playback
 
-Playback is the part that cannot be done with the Web API. On iOS it means the
-**App Remote SDK**, which controls the user's installed Spotify app rather than
-playing audio itself, and requires Spotify Premium. That is a binary framework
-dependency the Web API work deliberately avoided, which is why sign-in and the
-library are done first.
+`SpotifyPlayer.h` mirrors `ci::ipod::Player`, so KeplerApp's ~18 call sites are
+unchanged.
 
-Mapping the remaining `Player` surface onto App Remote:
+**Web API, not the App Remote SDK.** The obvious route was Spotify's App Remote
+framework. Comparing them: App Remote drives the user's installed Spotify app,
+the Web API drives whichever Spotify device is active. *Neither plays audio
+itself* — Planetary does not become an audio player either way. Since the
+capability is identical, App Remote's binary `.xcframework` buys nothing while
+costing a vendored blob and the ability to run in the simulator. So this is
+plain HTTPS on the auth we already have.
 
-| CinderIPod | App Remote |
-| --- | --- |
-| `play(playlist)` / `play(playlist, index)` | `playUri:` with the context URI, then skip to index |
-| `pause()`, `skipNext()`, `skipPrev()` | direct equivalents |
-| `setPlayheadTime()` / `getPlayheadTime()` | `seekToPosition:` / player state |
-| `setShuffleMode()` / `setRepeatMode()` | `setShuffle:` / `setRepeat:` |
-| `getPlayingTrack()` | player state's current track |
-| `registerTrackChanged` etc. | player state subscription |
+**What it needs to work:** Spotify Premium, and an active Spotify device —
+their phone, desktop app, or a speaker. When nothing is active this transfers
+playback to the first available device; with no devices at all, `play()` fails
+and `getPlayStateString()` says why, which is what Planetary already displays.
 
-The good news for the visuals: Planetary never touches audio samples. There is
-no FFT anywhere in it — the only playback signal the rendering uses is
-`getPlayheadTime()`, which App Remote provides.
+**Polling, because the Web API has no push channel.** State is fetched once a
+second. That is also how playback started on another device is noticed.
+`getPlayheadTime()` interpolates between polls — Planetary drives visuals from
+the playhead and would visibly step at 1Hz otherwise — and a seek updates the
+cached position immediately rather than letting the visuals jump backwards for
+up to a second.
+
+Callbacks fire on the main thread, since Planetary's handlers touch scene state.
+
+Three places where Spotify and the iPod interface do not line up:
+
+- **Shuffle** is a boolean in Spotify. `ShuffleModeSongs` and
+  `ShuffleModeAlbums` both map to on.
+- **Stop** does not exist; `stop()` pauses, which is what Planetary means by it.
+- **`registerLibraryChanged`** never fires. Spotify has no library-change
+  notification. It is kept so the registration compiles.
+
+One piece of luck worth recording: Planetary never touches audio samples. There
+is no FFT anywhere in it, so the only playback signal the rendering needs is
+`getPlayheadTime()`.

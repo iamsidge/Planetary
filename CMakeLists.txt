@@ -47,6 +47,7 @@ list( APPEND BLOCK_SRC
 	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyId.cpp"
 	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyAuth.mm"
 	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/CinderSpotify.mm"
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyPlayer.mm"
 )
 
 # Cinder 0.8 bundled Boost; 0.9 dropped it. The app uses seven Boost headers

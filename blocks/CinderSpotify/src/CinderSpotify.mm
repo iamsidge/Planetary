@@ -6,6 +6,7 @@
 #include "CinderSpotify.h"
 #include "SpotifyAuth.h"
 #include "SpotifyId.h"
+#include "SpotifyModelData.h"
 
 #include "cinder/cocoa/CinderCocoa.h"
 #include "cinder/cocoa/CinderCocoaTouch.h"
@@ -187,23 +188,6 @@ Surface artworkFor( const std::string &url )
 // Track
 // ---------------------------------------------------------------------------
 
-struct Track::Data {
-	std::string title;
-	std::string albumTitle;
-	std::string artist;
-	std::string albumArtist;
-	std::string uri;
-	std::string artworkUrl;
-
-	uint64_t itemId   = 0;
-	uint64_t albumId  = 0;
-	uint64_t artistId = 0;
-
-	int    popularity  = 0;
-	int    releaseYear = 0;
-	double lengthSeconds = 0.0;
-};
-
 Track::Track()  : mData( std::make_shared<Data>() ) {}
 Track::~Track() {}
 
@@ -242,18 +226,6 @@ Surface Track::getArtwork( const ivec2 &size ) const
 // ---------------------------------------------------------------------------
 // Playlist
 // ---------------------------------------------------------------------------
-
-struct Playlist::Data {
-	std::vector<TrackRef> tracks;
-	std::string           name;
-	std::string           artistName;
-	std::string           albumArtistName;
-	std::string           albumTitle;
-	std::string           genre;
-	std::string           uri;
-	uint64_t              albumId  = 0;
-	uint64_t              artistId = 0;
-};
 
 Playlist::Playlist() : mData( std::make_shared<Data>() ) {}
 
