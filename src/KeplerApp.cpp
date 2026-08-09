@@ -479,7 +479,12 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 	mCloudTextures.push_back( mTextures[M_CLOUDS_5] );
     
 	// ARCBALL
-	mArcball.setSphere( Sphere( vec3( getWindowCenter(), 0.0f ), G_DEFAULT_ARCBALL_RADIUS ) );
+	// 0.9's Arcball projects through a camera and dereferences it in
+	// mouseOnSphere; the default constructor leaves that pointer null, and
+	// only the constructor can set it. Cinder 0.8's Arcball needed no camera,
+	// which is why the ported setSphere/setQuat calls alone segfaulted on the
+	// first touch. &mCam is stable: it is a member, configured just below.
+	mArcball = Arcball( &mCam, Sphere( vec3( getWindowCenter(), 0.0f ), G_DEFAULT_ARCBALL_RADIUS ) );
 	// Cinder 0.8's Quatf(x,y,z) took Euler angles; GLM spells that quat(vec3).
 	mArcball.setQuat( quat( vec3( -0.2f, 0.0f, -0.3f ) ) );
 	

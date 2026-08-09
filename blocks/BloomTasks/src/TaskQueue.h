@@ -27,6 +27,17 @@ public:
         // e.g. http://www.justsoftwaresolutions.co.uk/threading/implementing-a-thread-safe-queue-using-condition-variables.html 
         // for now, a thread per task will help spec out the right interface:
         std::thread taskThread( &TaskQueue::doWork, f );
+
+        // Detaching is required, not optional. A std::thread that is still
+        // joinable when it is destroyed calls std::terminate(), and this one
+        // goes out of scope on the next line. That was tolerated by the 2011
+        // toolchain this was written against, when the destructor's behaviour
+        // was still unsettled; C++11 as ratified mandates terminate(), so the
+        // first pushTask killed the process on any current compiler.
+        //
+        // Detaching matches the original intent: doWork is fire-and-forget and
+        // nothing ever joins these threads.
+        taskThread.detach();
     }
     
 private:
