@@ -80,3 +80,19 @@ ci_make_app(
 	INCLUDES    ${BLOCK_INCLUDES}
 	ASSETS_PATH "${PLANETARY_ROOT}/resources"
 )
+
+# Report every diagnostic while the port is in progress. Clang's default cap
+# of 20 per file hides whole classes of error behind whichever ones happen to
+# come first, which makes the remaining work impossible to size.
+target_compile_options( Planetary PRIVATE -ferror-limit=0 )
+
+# On iOS, cinder/app/App.h resolves to AppCocoaTouch.h, which declares
+# Objective-C types (@class UITextView, ...). Any translation unit that
+# reaches it must therefore be Objective-C++, not C++ — otherwise the
+# Foundation headers behind it fail to parse and bury the real errors.
+# Cinder compiles its own sources exactly this way (see platform_ios.cmake).
+set( PLANETARY_CPP_SOURCES ${PLANETARY_SRC} ${BLOCK_SRC} )
+list( FILTER PLANETARY_CPP_SOURCES INCLUDE REGEX "\\.cpp$" )
+set_source_files_properties( ${PLANETARY_CPP_SOURCES}
+	PROPERTIES COMPILE_FLAGS "-x objective-c++"
+)

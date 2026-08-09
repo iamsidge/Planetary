@@ -8,6 +8,7 @@
  */
 
 #include "cinder/app/App.h"
+#include "glm/gtx/rotate_vector.hpp"
 #include "cinder/Rand.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Text.h"
@@ -27,11 +28,11 @@ Node::Node( Node *parent, int index, const Font &font, const Font &smallFont, co
 {
     mZoomPer            = 0.0f;
     
-	mScreenPos			= vec2::zero();
+	mScreenPos			= vec2(0);
 	mEclipseStrength	= 0.0f;
 	mEclipseAngle		= 0.0f;
 	mEclipseDirBasedAlpha = 0.0f;
-	mVel                = vec3::zero();
+	mVel                = vec3(0);
 	
 	mOrbitStartAngle	= Rand::randFloat( TWO_PI );
 	mOrbitAngle			= mOrbitStartAngle;
@@ -42,7 +43,7 @@ Node::Node( Node *parent, int index, const Font &font, const Font &smallFont, co
 	mDistFromCamZAxis	= 1000.0f;
 	mDistFromCamZAxisPer = 1.0f;
 	mPlanetTexIndex		= 0;
-	mScreenDirToCenter	= vec2::zero();
+	mScreenDirToCenter	= vec2(0);
 	mScreenDistToCenterPer = 0.0f;
 	
 	mHitArea			= Rectf( 0.0f, 0.0f, 10.0f, 10.0f ); //just for init.
@@ -217,10 +218,12 @@ void Node::updateGraphics( const CameraPersp &cam, const vec2 &center, const vec
     
 	
 	if( mGen >= G_ALBUM_LEVEL || mIsHighlighted ){
-		mSphereScreenRadius		= cam.getScreenRadius( mSphere, w, h );
+		vec2 projCenter, projAxisA, projAxisB;
+		cam.calcScreenProjection( mSphere, vec2( w, h ), &projCenter, &projAxisA, &projAxisB );
+		mSphereScreenRadius		= std::max( glm::length( projAxisA ), glm::length( projAxisB ) );
         mScreenPos              = cam.worldToScreen( mPos, w, h );
 		mScreenDirToCenter		= mScreenPos - center;
-		mScreenDistToCenterPer	= mScreenDirToCenter.length()/500.0f;
+		mScreenDistToCenterPer	= glm::length(mScreenDirToCenter)/500.0f;
 		mPrevDistFromCamZAxis	= mDistFromCamZAxis;
 		mDistFromCamZAxis		= -cam.worldToEyeDepth( mPos );
 		mDistFromCamZAxisPer	= constrain( mDistFromCamZAxis * 0.5f, 0.0f, 1.0f ); // REL: -0.35f
@@ -294,22 +297,22 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
             else {
 
                 offset0 = vec2( mSphereScreenRadius, mSphereScreenRadius ) * 0.75f;
-                offset0.rotate( angle );
+                offset0 = glm::rotate( offset0, (float)(angle) );
                 pos1 = mScreenPos + offset0;
                 
                 offset1 = vec2( 5.0f, 5.0f ) * ( ( G_TRACK_LEVEL + 1.0f ) - mGen );
-                offset1.rotate( angle );
+                offset1 = glm::rotate( offset1, (float)(angle) );
                 pos2 = pos1 + offset1;
                 offset2 = vec2( 2.0f, -8.0f );
-                offset2.rotate( angle );
+                offset2 = glm::rotate( offset2, (float)(angle) );
 
-                vec2 texCorner = mNameTex.getSize();
+                vec2 texCorner = vec2( mNameTex->getSize() );
                 
-                glPushMatrix();
+                gl::pushModelMatrix();
                 gl::translate( pos2 + offset2 );
                 if (angle != 0) {
                     gl::rotate( angle * 180.0f/M_PI );
-                    texCorner.rotate( angle );
+                    texCorner = glm::rotate( texCorner, (float)(angle) );
                 }
                 if( mIsPlaying ){
                     float s = (mZoomPer * 0.25f) + 1.0f;
@@ -333,9 +336,9 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
                 float labelAlpha = constrain( app::getElapsedSeconds() - mNameTexCreatedTime, 0.0, 0.2 ) * 5.0f;
 
                 gl::color( ColorA( c, alpha * labelAlpha ) );
-                gl::draw( mNameTex, vec2::zero() );
+                gl::draw( mNameTex, vec2(0) );
                 
-                glPopMatrix();
+                gl::popModelMatrix();
                 
                 mHitArea = Rectf( pos2 + offset2, pos2 + offset2 + texCorner);
                 mHitArea.canonicalize();

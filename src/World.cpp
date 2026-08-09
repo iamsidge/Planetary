@@ -307,11 +307,11 @@ void World::repulseNodes()
 			
 			float thresh = 20.0f;
 			if( dir.x > -thresh && dir.x < thresh && dir.y > -thresh && dir.y < thresh && dir.z > -thresh && dir.z < thresh ){
-				float distSqrd = dir.lengthSquared();
+				float distSqrd = glm::dot(dir, dir);
 				
 				if( distSqrd > 0.0f ){
 					float F = constrain( 1.0f/distSqrd, 0.0f, 1.0f );
-					dir = F * dir.normalized() * 0.75f;
+					dir = F * glm::normalize(dir) * 0.75f;
 					dir.y *= 0.5f;
 					
 					// acceleration = force / mass

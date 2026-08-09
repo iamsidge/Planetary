@@ -25,7 +25,7 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
 	mSmallFont = smallFont;
 	mBigFont = bigFont;
 	mBigBoldFont = bigBoldFont;
-    mInterfaceSize = vec2::zero();
+    mInterfaceSize = vec2(0);
 
     ///////////
         
@@ -39,7 +39,7 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
     layout.append( " by " );
     layout.setFont( mBigBoldFont );
     layout.append( "bloom." );
-    mHeadingTex = layout.render( true, false );    
+    mHeadingTex = gl::Texture::create( layout.render( true, false ) );    
     
     layout = TextLayout();	
     layout.setColor( BRIGHT_BLUE );
@@ -57,7 +57,7 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
     layout.append("send us an email");
     layout.setColor( BRIGHT_BLUE );
     layout.append("." );
-    mBodyTex = layout.render( true, false ); 
+    mBodyTex = gl::Texture::create( layout.render( true, false ) ); 
     
     ///////////////////////
     
@@ -65,10 +65,10 @@ void HelpLayer::setup( const ci::Font &smallFont, const ci::Font &bigFont, const
 
     const vec2 padding(18,15);
     const float w = mInterfaceSize.x; // initally 0, see update() for correct value
-    const float h = mHeadingTex.getHeight() + mBodyTex.getHeight() + (padding.y * 2);
+    const float h = mHeadingTex->getHeight() + mBodyTex->getHeight() + (padding.y * 2);
     
     mHeadingPos = padding;
-    mBodyPos = padding + vec2(0,mHeadingTex.getHeight());
+    mBodyPos = padding + vec2(0,mHeadingTex->getHeight());
     mBgRect = Rectf( 0, 0, w, h );    
     
     // and animation...
@@ -202,7 +202,7 @@ void HelpLayer::update()
         else {
             mCurrentY = mTargetY;
         }
-        setTransform( mat4::createTranslation( vec3(0, round(mCurrentY), 0) ) );
+        setTransform( glm::translate(mat4(1.0f), vec3(0, round(mCurrentY), 0) ) );
     }
     else {
         if (!mShowing) {
@@ -229,11 +229,11 @@ void HelpLayer::draw()
 //    gl::drawStrokedRect( mWebRect );
 //    gl::drawStrokedRect( mEmailRect );
 
-    glPushMatrix();
+    gl::pushModelMatrix();
     gl::translate( vec2(0, 2.0f) );
     gl::color( ColorA(dragAlphaPer, dragAlphaPer, dragAlphaPer, 0.5f) );
     gl::drawLine( mCinderRect.getLowerLeft(), mCinderRect.getLowerRight() );
     gl::drawLine( mWebRect.getLowerLeft(), mWebRect.getLowerRight() );
     gl::drawLine( mEmailRect.getLowerLeft(), mEmailRect.getLowerRight() );
-    glPopMatrix();
+    gl::popModelMatrix();
 }

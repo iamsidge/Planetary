@@ -31,10 +31,11 @@ protected:
     virtual bool touchesMoved(TouchEvent event) = 0;
     virtual bool touchesEnded(TouchEvent event) = 0;
     
-    // for cleanup in destructor/setup, keep callback ids
-    CallbackId mTouchesBeganCb;
-    CallbackId mTouchesMovedCb;
-    CallbackId mTouchesEndedCb;
+    // 0.9 replaced registerTouchesX/unregisterTouchesX with window signals,
+    // so the handle to keep for cleanup is a Connection rather than an id.
+    ci::signals::Connection mTouchesBeganCb;
+    ci::signals::Connection mTouchesMovedCb;
+    ci::signals::Connection mTouchesEndedCb;
     
     std::function<bool(TouchEvent::Touch)> mKeepTouchCb;
     std::set<uint32_t>                     mKeptTouchIds;
@@ -51,7 +52,7 @@ protected:
                 }
             }
             if(touchList.size() > 0)
-                return touchesBegan(TouchEvent(touchList));
+                return touchesBegan(TouchEvent(event.getWindow(), touchList));
             return false;
         }
         return touchesBegan(event);
@@ -65,7 +66,7 @@ protected:
                     touchList.push_back(*it);
             }
             if(touchList.size() > 0)
-                return touchesMoved(TouchEvent(touchList));
+                return touchesMoved(TouchEvent(event.getWindow(), touchList));
             return false;
         }
         return touchesMoved(event);
@@ -81,25 +82,27 @@ protected:
                 }
             }
             if(touchList.size() > 0)
-                return touchesEnded(TouchEvent(touchList));
+                return touchesEnded(TouchEvent(event.getWindow(), touchList));
             return false;
         }
         return touchesEnded(event);
     }
     
     void registerTouchCallbacks(){
-        if(mApp){
-            mTouchesBeganCb = mApp->registerTouchesBegan(this, &GestureRecognizer::privateTouchesBegan);
-            mTouchesMovedCb = mApp->registerTouchesMoved(this, &GestureRecognizer::privateTouchesMoved);
-            mTouchesEndedCb = mApp->registerTouchesEnded(this, &GestureRecognizer::privateTouchesEnded);
+        if(mApp && mApp->getWindow()){
+            auto win = mApp->getWindow();
+            mTouchesBeganCb = win->getSignalTouchesBegan().connect(
+                [this]( TouchEvent &event ){ if( privateTouchesBegan( event ) ) event.setHandled(); } );
+            mTouchesMovedCb = win->getSignalTouchesMoved().connect(
+                [this]( TouchEvent &event ){ if( privateTouchesMoved( event ) ) event.setHandled(); } );
+            mTouchesEndedCb = win->getSignalTouchesEnded().connect(
+                [this]( TouchEvent &event ){ if( privateTouchesEnded( event ) ) event.setHandled(); } );
         }
     }
     void unregisterTouchCallbacks(){
-        if(mApp){
-            mApp->unregisterTouchesBegan(mTouchesBeganCb);
-            mApp->unregisterTouchesMoved(mTouchesMovedCb);
-            mApp->unregisterTouchesEnded(mTouchesEndedCb);
-        }
+        mTouchesBeganCb.disconnect();
+        mTouchesMovedCb.disconnect();
+        mTouchesEndedCb.disconnect();
     }
             
 public:		

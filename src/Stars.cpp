@@ -7,6 +7,7 @@
 //
 
 #include "Stars.h"
+#include "cinder/gl/Batch.h"
 #include "cinder/gl/gl.h"
 #include "Globals.h" // mumble
 #include "NodeArtist.h"
@@ -101,20 +102,13 @@ void Stars::setup( const vector<NodeArtist*> &nodes, const ci::vec3 &bbRight, co
 
 void Stars::draw( )
 {
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-	glEnableClientState( GL_COLOR_ARRAY );
-	
-    // TODO: maybe use a DYNAMIC VBO, or a VAO (as Apple recommends)
-    // we don't use POINT_SPRITE because we need to draw BIG stars
-    
-	glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), mVerts );
-	glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), &mVerts[0].texture );
-	glColorPointer( 4, GL_FLOAT, sizeof(VertexData), &mVerts[0].color );
-	
-	glDrawArrays( GL_TRIANGLES, 0, mTotalVertices );
-	
-	glDisableClientState( GL_VERTEX_ARRAY );
-	glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-	glDisableClientState( GL_COLOR_ARRAY );
+	// Client arrays are gone under ES3; VertBatch submits the same vertices
+	// (a static VboMesh would be faster here, as the original TODO noted).
+	gl::VertBatch vb( GL_TRIANGLES );
+	for( int i = 0; i < mTotalVertices; i++ ) {
+		vb.texCoord( mVerts[i].texture );
+		vb.color( ColorA( mVerts[i].color.r, mVerts[i].color.g, mVerts[i].color.b, mVerts[i].color.a ) );
+		vb.vertex( mVerts[i].vertex );
+	}
+	vb.draw();
 }

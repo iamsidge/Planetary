@@ -34,12 +34,12 @@ void Particle::setup( const vec3 &bbRight, const vec3 &bbUp )
 		mLifespan	*= Rand::randFloat( 100.0f, 400.0f );
 	}
 	
-	mPos		= Rand::randVec3f() * 0.95f;
+	mPos		= Rand::randVec3() * 0.95f;
 	mVel		= mPos * ( Rand::randFloat( 0.0075f, 0.02f ) * ( mRadius/5.0f ) );
-	mAcc		= Rand::randVec3f() * 0.01f;
+	mAcc		= Rand::randVec3() * 0.01f;
 	mAge		= 0;
 	mAgePer		= 0.0f;
-	mQuat		= quat( mPos, Rand::randFloat( M_PI * 2.0f ) );
+	mQuat		= glm::angleAxis( Rand::randFloat( (float)M_PI * 2.0f ), glm::normalize( mPos ) );
 }
 
 void Particle::update( float radius, const vec3 &bbRight, const vec3 &bbUp )

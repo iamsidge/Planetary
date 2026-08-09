@@ -11,6 +11,23 @@
 
 using namespace ci;
 
+namespace {
+    // Interleaved position/texcoord geometry, uploaded once and drawn many
+    // times — the same contract the old static VBOs had.
+    ci::gl::BatchRef makeStaticBatch( const void *verts, size_t count, size_t stride,
+                                      size_t posOffset, size_t texOffset )
+    {
+        ci::geom::BufferLayout layout;
+        layout.append( ci::geom::POSITION,    3, stride, posOffset );
+        layout.append( ci::geom::TEX_COORD_0, 2, stride, texOffset );
+
+        auto vbo  = ci::gl::Vbo::create( GL_ARRAY_BUFFER, stride * count, verts, GL_STATIC_DRAW );
+        auto mesh = ci::gl::VboMesh::create( (uint32_t)count, GL_TRIANGLES, { { layout, vbo } } );
+        return ci::gl::Batch::create( mesh, ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
+    }
+}
+
+
 
 void Galaxy::setup(float initialCamDist, ci::Color lightMatterColor, ci::Color centerColor,
 				   ci::gl::TextureRef galaxyDome, ci::gl::TextureRef galaxyTex, ci::gl::TextureRef darkMatterTex, ci::gl::TextureRef starGlowTex)
@@ -42,7 +59,7 @@ void Galaxy::update( const vec3 &eye, const float &fadeInAlphaToArtist, const fl
     mBbRight		= bbRight;
     mBbUp			= bbUp;
 	
-	mDistFromCamZAxis	= eye.length();//-cam.worldToEyeDepth( vec3::zero() );
+	mDistFromCamZAxis	= glm::length(eye);//-cam.worldToEyeDepth( vec3(0) );
 }
 
 
@@ -56,37 +73,29 @@ void Galaxy::drawLightMatter( float fadeInAlphaToArtist )
 		gl::color( ColorA( mLightMatterColor, mInvAlpha ) );
         
 		float radius = mLightMatterBaseRadius;
-		glPushMatrix();
-        mGalaxyDome.enableAndBind();
-        glBindBuffer(GL_ARRAY_BUFFER, mDarkMatterVBO);
-        glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec3) ); // NB:- change if type of VertexData.vertex changes
-        glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.                
+		gl::pushModelMatrix();
+        mGalaxyDome->bind();
 
-        glEnableClientState( GL_VERTEX_ARRAY );
-        glEnableClientState( GL_TEXTURE_COORD_ARRAY );
         
 		
 		float rotationSpeed = -mElapsedSeconds * 0.2f;
         gl::scale( vec3( radius, radius, radius ) );
         gl::rotate( vec3( 0.0f, rotationSpeed, 0.0f ) );
-        glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
+        mDarkMatterBatch->draw();
 		
 		if( G_IS_IPAD2 ){
 			gl::color( ColorA( mLightMatterColor, mInvAlpha * ( 1.0f - fadeInAlphaToArtist ) ) );
 			gl::scale( vec3( 1.15f, 1.15f, 1.15f ) );
 			gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
-			glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
+			mDarkMatterBatch->draw();
 			
 			gl::scale( vec3( 1.15f, 1.15f, 1.15f ) );
 			gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
-			glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
+			mDarkMatterBatch->draw();
 		}
         
-        glDisableClientState( GL_VERTEX_ARRAY );
-        glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-        mGalaxyDome.disable();
-		glPopMatrix();
+        mGalaxyDome->unbind();
+		gl::popModelMatrix();
 	}
 }
 
@@ -98,38 +107,30 @@ void Galaxy::drawSpiralPlanes()
 
         gl::color( ColorA( 1.0f, 1.0f, 1.0f, alpha ) );
 
-        glBindBuffer(GL_ARRAY_BUFFER, mGalaxyVBO);
-        glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec3) ); // NB:- change if type of VertexData.vertex changes
-        glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.                
         
-        glPushMatrix();
-		mGalaxyTex.enableAndBind();
-		glEnableClientState( GL_VERTEX_ARRAY );
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
+        gl::pushModelMatrix();
+		mGalaxyTex->bind();
 		
 		if( G_IS_IPAD2 ){
 			gl::translate( vec3( 0.0f, 3.5f, 0.0f ) );
 			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
-			glDrawArrays( GL_TRIANGLES, 0, 6 );
+			mGalaxyBatch->draw();
 			
 			gl::translate( vec3( 0.0f, -7.0f, 0.0f ) );
 			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
-			glDrawArrays( GL_TRIANGLES, 0, 6 );
+			mGalaxyBatch->draw();
 			
 			gl::translate( vec3( 0.0f, 3.5f, 0.0f ) );
 			gl::scale( vec3( 0.5f, 0.5f, 0.5f ) );
 			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
-			glDrawArrays( GL_TRIANGLES, 0, 6 );
+			mGalaxyBatch->draw();
 		} else {
 			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
-			glDrawArrays( GL_TRIANGLES, 0, 6 );
+			mGalaxyBatch->draw();
 		}
 		
-		glDisableClientState( GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-		mGalaxyTex.disable();        
-        glPopMatrix();
+		mGalaxyTex->unbind();        
+        gl::popModelMatrix();
 	}
 }
 
@@ -139,12 +140,12 @@ void Galaxy::drawCenter()
 	const float alpha = mInvAlpha * mZoomOff;//( 1.25f - mCamGalaxyAlpha ) * mZoomOff;
 	
 	if( alpha > 0.01f ){
-		mStarGlowTex.enableAndBind();
+		mStarGlowTex->bind();
 		gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-		gl::drawBillboard( vec3::zero(), vec2( 400.0f, 400.0f ), mElapsedSeconds * 10.0f, mBbRight, mBbUp );
+		gl::drawBillboard( vec3(0), vec2( 400.0f, 400.0f ), mElapsedSeconds * 10.0f, mBbRight, mBbUp );
 		gl::color( ColorA( BRIGHT_YELLOW, alpha ) );
-		gl::drawBillboard( vec3::zero(), vec2( 200.0f, 200.0f ), -mElapsedSeconds * 7.0f, mBbRight, mBbUp );
-		mStarGlowTex.disable();
+		gl::drawBillboard( vec3(0), vec2( 200.0f, 200.0f ), -mElapsedSeconds * 7.0f, mBbRight, mBbUp );
+		mStarGlowTex->unbind();
 	}
 }
 
@@ -157,16 +158,10 @@ void Galaxy::drawDarkMatter()
 		glEnable( GL_CULL_FACE ); 
 		glCullFace( GL_FRONT ); 
 
-		glPushMatrix();
-		mDarkMatterTex.enableAndBind();
+		gl::pushModelMatrix();
+		mDarkMatterTex->bind();
         
-		glEnableClientState( GL_VERTEX_ARRAY );
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
 
-        glBindBuffer(GL_ARRAY_BUFFER, mDarkMatterVBO);
-        glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec3) ); // NB:- change if type of VertexData.vertex changes
-        glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.                
         
 		float rotationSpeed = -mElapsedSeconds * 0.2f;
 		
@@ -176,7 +171,7 @@ void Galaxy::drawDarkMatter()
 			gl::color( ColorA( BRIGHT_BLUE, alpha ) );
 			gl::rotate( vec3( 0.0f, rotationSpeed, 0.0f ) );
 			gl::scale( vec3( radius, radius * 0.75f, radius ) );
-			glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
+			mDarkMatterBatch->draw();
 		}
 		
 		if( G_IS_IPAD2 ){
@@ -187,7 +182,7 @@ void Galaxy::drawDarkMatter()
 //				gl::color( ColorA( BRIGHT_BLUE, alpha ) );
 //				gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
 //				gl::scale( vec3( multi, multi, multi ) );
-//				glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
+//				mDarkMatterBatch->draw();
 //			}
 			
 			
@@ -198,14 +193,12 @@ void Galaxy::drawDarkMatter()
 				gl::color( ColorA( BRIGHT_BLUE, alpha ) );
 				gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
 				gl::scale( vec3( multi, multi, multi ) );
-				glDrawArrays( GL_TRIANGLES, 0, 6 * mDarkMatterCylinderRes );
+				mDarkMatterBatch->draw();
 			}
 		}
         
-		glDisableClientState( GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-		mDarkMatterTex.disable();
-		glPopMatrix();
+		mDarkMatterTex->unbind();
+		gl::popModelMatrix();
 		glDisable( GL_CULL_FACE ); 
 	}
 }
@@ -221,7 +214,7 @@ void Galaxy::initGalaxyVertexArray()
     int vert = 0;
 
 	galaxyVerts[vert].vertex  = vec3( -w, 0.0f, -w );
-    galaxyVerts[vert].texture = vec2::zero();
+    galaxyVerts[vert].texture = vec2(0);
     vert++;
 	
 	galaxyVerts[vert].vertex  = vec3( w, 0.0f, -w );
@@ -243,11 +236,8 @@ void Galaxy::initGalaxyVertexArray()
     galaxyVerts[vert].vertex  = vec3( -w, 0.0f, w );
     galaxyVerts[vert].texture = vec2(0.0f, 1.0f);
     vert++;
-    
-    glGenBuffers(1, &mGalaxyVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, mGalaxyVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData) * vert, galaxyVerts, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.        
+    mGalaxyBatch = makeStaticBatch( galaxyVerts, vert, sizeof(VertexData),
+                                    offsetof(VertexData, vertex), offsetof(VertexData, texture) );
     
     delete[] galaxyVerts;
 }
@@ -305,11 +295,8 @@ void Galaxy::initDarkMatterVertexArray()
 		darkMatterVerts[vert].texture = vec2(per1 * texRepeat, 1.0f);
 		vert++;
 	}
-    
-    glGenBuffers(1, &mDarkMatterVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, mDarkMatterVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData) * vert, darkMatterVerts, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.        
+    mDarkMatterBatch = makeStaticBatch( darkMatterVerts, vert, sizeof(VertexData),
+                                       offsetof(VertexData, vertex), offsetof(VertexData, texture) );
     
     delete[] darkMatterVerts;
 }

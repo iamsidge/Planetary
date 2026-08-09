@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cinder/app/Event.h"
+#include "glm/gtx/rotate_vector.hpp"
 #include "cinder/Vector.h"
 #include "cinder/Ray.h"
 #include "cinder/Matrix.h"
@@ -31,8 +32,8 @@ private:
     
     static vec3 calcRayPlaneIntersection(const Ray &ray, const vec3 &planeOrigin, const vec3 &planeNormal)
     {
-        float denom = planeNormal.dot(ray.getDirection());
-        float u = planeNormal.dot(planeOrigin - ray.getOrigin()) / denom;
+        float denom = glm::dot(planeNormal, ray.getDirection());
+        float u = glm::dot(planeNormal, planeOrigin - ray.getOrigin()) / denom;
         return ray.calcPosition(u);
     }
     
@@ -63,10 +64,10 @@ public:
     }
 
     float getScale() const {
-        return mTouch1.mPos.distance(mTouch2.mPos) / mTouch1.mPosStart.distance(mTouch2.mPosStart);
+        return glm::distance(mTouch1.mPos, mTouch2.mPos) / glm::distance(mTouch1.mPosStart, mTouch2.mPosStart);
     }
     float getScaleDelta() const {
-        return mTouch1.mPos.distance(mTouch2.mPos) / mTouch1.mPosPrev.distance(mTouch2.mPosPrev);
+        return glm::distance(mTouch1.mPos, mTouch2.mPos) / glm::distance(mTouch1.mPosPrev, mTouch2.mPosPrev);
     }
     
     const vector<Touch>& getTouches() const {
@@ -86,7 +87,7 @@ public:
 
         mat4 mtx;
         mtx.translate(vec3(mTouch1.mPos, 0.0f));
-        mtx.rotate(vec3::zAxis(), getRotation());
+        mtx = glm::rotate( mtx, getRotation(), vec3(0,0,1) );
         mtx.scale(vec3(scale, scale, scale));
         mtx.translate(vec3(getTranslation() - mTouch1.mPos, 0.0f));
         return mtx;
@@ -98,7 +99,7 @@ public:
         
         mat4 mtx;
         mtx.translate(vec3(mTouch1.mPos, 0.0f));
-        mtx.rotate(vec3::zAxis(), getRotationDelta());
+        mtx = glm::rotate( mtx, getRotationDelta(), vec3(0,0,1) );
         mtx.scale(vec3(scale, scale, scale));
         mtx.translate(vec3(getTranslationDelta() - mTouch1.mPos, 0.0f));
         return mtx;
@@ -117,7 +118,7 @@ public:
         
         mat4 mtx;
         mtx.translate(t1Pos);
-        mtx.rotate(cam.getViewDirection(), getRotationDelta());
+        mtx = glm::rotate( mtx, getRotationDelta(), cam.getViewDirection() );
         mtx.scale(vec3(scale, scale, scale));
         mtx.translate(t1Pos - t1pPos - t1Pos);
         return mtx;

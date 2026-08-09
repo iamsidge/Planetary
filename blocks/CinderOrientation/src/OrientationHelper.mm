@@ -1,5 +1,5 @@
 
-#include <UIKit/UIDevice.h>
+#import <UIKit/UIKit.h>
 #include "OrientationHelper.h"
 
 namespace cinder { namespace app {

@@ -77,15 +77,15 @@ void BloomNode::deepUpdate()
 void BloomNode::deepDraw()
 {
     if (mVisible) {
-        glPushMatrix();
-        glMultMatrixf(mTransform); // FIXME only push/mult/pop if mTransform isn't identity
+        gl::pushModelMatrix();
+        gl::multModelMatrix(mTransform); // FIXME only push/mult/pop if mTransform isn't identity
         // draw self    
         draw();
         // draw children
         BOOST_FOREACH(BloomNodeRef child, mChildren) {        
             child->deepDraw();
         }
-        glPopMatrix();
+        gl::popModelMatrix();
     }        
 }
 
@@ -99,13 +99,13 @@ mat4 BloomNode::getConcatenatedTransform() const
 
 vec2 BloomNode::localToGlobal( const vec2 &pos )
 {
-    return (getConcatenatedTransform() * vec3( pos.x, pos.y, 0)).xy();
+    return vec2((getConcatenatedTransform() * vec3( pos.x, pos.y, 0)));
 }
 
 vec2 BloomNode::globalToLocal( const vec2 &pos )
 {
     mat4 invMtx = getConcatenatedTransform().inverted();
-    return (invMtx * vec3(pos.x,pos.y,0)).xy();    
+    return vec2((invMtx * vec3(pos.x,pos.y,0)));    
 }
 
 bool BloomNode::deepTouchBegan( TouchEvent::Touch touch )

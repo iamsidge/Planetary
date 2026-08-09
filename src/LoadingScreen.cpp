@@ -105,40 +105,40 @@ void LoadingScreen::draw()
 	//float fadeInAlpha = constrain( app::getElapsedFrames()/30.0f - 1.0f, 0.0f, 1.0f );
 	
 // BACKGROUND	
-	mBackgroundTex.enableAndBind();
-	vec2 v1( center - mBackgroundTex.getSize() * 0.5f );
-	vec2 v2( v1 + mBackgroundTex.getSize() );
+	mBackgroundTex->bind();
+	vec2 v1( center - vec2( mBackgroundTex->getSize() ) * 0.5f );
+	vec2 v2( v1 + vec2( mBackgroundTex->getSize() ) );
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 	gl::drawSolidRect( Rectf( v1, v2 ) );
-	mBackgroundTex.disable();
+	mBackgroundTex->unbind();
 	
 
 	gl::enableAdditiveBlending();
 	
 	
 // PLANETARY TEXT
-    mPlanetaryTex.enableAndBind();
-	float h		= mPlanetaryTex.getHeight();
+    mPlanetaryTex->bind();
+	float h		= mPlanetaryTex->getHeight();
 	v1			= vec2( center.x + 60.0f, center.y-h*0.5f );
-	v2			= v1 + mPlanetaryTex.getSize();
+	v2			= v1 + vec2( mPlanetaryTex->getSize() );
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
     gl::drawSolidRect( Rectf( v1, v2 ) );
-    mPlanetaryTex.disable();
+    mPlanetaryTex->unbind();
 	
 	
 // STARGLOW
-	mStarGlowTex.enableAndBind();
-	vec2 starSize = mStarGlowTex.getSize() * Rand::randFloat( 0.75f, 0.85f );
+	mStarGlowTex->bind();
+	vec2 starSize = vec2( mStarGlowTex->getSize() ) * Rand::randFloat( 0.75f, 0.85f );
 	v1			= center - starSize;
 	v2			= v1 + starSize * 2.0f;
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 0.2f ) );
 	gl::drawSolidRect( Rectf( v1, v2 ) );
-	mStarGlowTex.disable();
+	mStarGlowTex->unbind();
 	
 
 	gl::enableAlphaBlending();
 
-	mPlanetTex.enableAndBind();
+	mPlanetTex->bind();
 
 // TINY PLANET	
 	float speed		= app::getElapsedFrames() * 0.014f - M_PI_2;
@@ -194,12 +194,12 @@ void LoadingScreen::draw()
 	
 	/*
 // LARGE PLANET
-	v1			= vec2( center - vec2( mPlanetTex.getWidth(), mPlanetTex.getHeight() * 0.5f ) + vec2( app::getElapsedFrames() * 0.25f - 50.0f, 0.0f ) );
-	v2			= v1 + mPlanetTex.getSize();
+	v1			= vec2( center - vec2( mPlanetTex->getWidth(), mPlanetTex->getHeight() * 0.5f ) + vec2( app::getElapsedFrames() * 0.25f - 50.0f, 0.0f ) );
+	v2			= v1 + vec2( mPlanetTex->getSize() );
 	gl::color( ColorA( 1.0f, 1.0f, 1.0f, 1.0f ) );
 	gl::drawSolidRect( Rectf( v1, v2 ) );
 	*/
-	mPlanetTex.disable();
+	mPlanetTex->unbind();
 
 	float barHeight = 2.0f;
     gl::color( BLUE );

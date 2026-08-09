@@ -237,8 +237,8 @@ void SettingsPanel::update()
 void SettingsPanel::deepDraw()
 {
     if (mVisible) {
-        glPushMatrix();
-        glMultMatrixf(mTransform);
+        gl::pushModelMatrix();
+        gl::multModelMatrix(mTransform);
 
         // draw background so we can't see alpha/playlist chooser behind us in transitions
 		gl::color( Color::black() );
@@ -257,7 +257,7 @@ void SettingsPanel::deepDraw()
             child->deepDraw();
         }
         bloom::gl::endBatch();
-        glPopMatrix();
+        gl::popModelMatrix();
     }        
 }
 

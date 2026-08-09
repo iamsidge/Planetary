@@ -29,7 +29,7 @@ NodeArtist::NodeArtist( int index, const Font &font, const Font &smallFont, cons
 	: Node( NULL, index, font, smallFont, hiResSurfaces, loResSurfaces, noAlbumArt )
 {
 	mGen			= G_ARTIST_LEVEL;
-	mAcc			= vec3::zero();
+	mAcc			= vec3(0);
 	
 	mAge			= 0.0f;
 	mBirthPause		= Rand::randFloat( 50.0f );
@@ -60,7 +60,7 @@ void NodeArtist::setData( PlaylistRef playlist )
 	v				*= mHashPer;
 	float height	= mHashPer * 0.2f - 10.0f;
 	mPosDest		= vec3( v.x, height, v.y );
-	mPos			= mPosDest;// + Rand::randVec3f() * 25.0f;
+	mPos			= mPosDest;// + Rand::randVec3() * 25.0f;
 	
 	
 	
@@ -149,9 +149,9 @@ void NodeArtist::drawStarGlow( const vec3 &camEye, const vec3 &camNormal, const 
 	Color c             = mGlowColor;
 	gl::color( ColorA( c.r, c.g, c.b, alpha ) );
 	
-	tex.enableAndBind();
-	bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, vec3::zero(), radius * sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) );
-	tex.disable();
+	tex->bind();
+	bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, vec3(0), radius * (float)( sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) ) );
+	tex->unbind();
 }
 
 
@@ -181,14 +181,13 @@ void NodeArtist::drawPlanet( const gl::TextureRef &tex )
         // FIXME: move rotation calculation to something called from main app's update()
 		mAxialRot = vec3( 0.0f, app::getElapsedSeconds() * mAxialVel * 0.75f, mAxialTilt );
 		
-		glPushMatrix();
+		gl::pushModelMatrix();
 		gl::translate( mPos );
 		gl::scale( vec3( mRadius, mRadius, mRadius ) * mDeathPer * 0.16f );
 		gl::rotate( mAxialRot );
 		gl::color( ColorA( ( mColor + Color::white() ) * 0.5f, 1.0f ) );
 
-		tex.enableAndBind();		
-        glDisable(GL_LIGHTING);
+		tex->bind();		
         
 		if( mSphereScreenRadius < 600.0f ){
 			if( mSphereScreenRadius > 75.0f ){
@@ -204,9 +203,8 @@ void NodeArtist::drawPlanet( const gl::TextureRef &tex )
             mLoSphere->draw();
 		}
         
-        tex.disable();
-        glEnable(GL_LIGHTING);        
-		glPopMatrix();		
+        tex->unbind();
+		gl::popModelMatrix();		
 	}
 }
 
@@ -221,9 +219,9 @@ void NodeArtist::drawAtmosphere( const vec3 &camEye, const vec2 &center, const g
 		float radiusOffset = ( ( mSphereScreenRadius/300.0f ) ) * 0.1f;
 		vec2 radius = vec2( mRadius, mRadius ) * ( 2.42f + radiusOffset ) * 0.16f;
 		
-		tex.enableAndBind();
+		tex->bind();
 		bloom::gl::drawSphericalBillboard( camEye, mPos, radius, 0.0f );
-		tex.disable();
+		tex->unbind();
 	}
 	//}
 }
@@ -234,17 +232,17 @@ void NodeArtist::drawExtraGlow( const vec3 &camEye, const gl::TextureRef &texGlo
 		float alpha = ( 1.0f - mScreenDistToCenterPer ) * sin( mEclipseStrength * M_PI_2 + M_PI_2 ) * mDeathPer;
 		vec2 radius = vec2( mRadius, mRadius ) * 7.5f;
 		
-//		texCore.enableAndBind();
+//		texCore->bind();
 //		gl::color( ColorA( mGlowColor, alpha * 0.1f ) );
 //		bloom::gl::drawBillboard( mPos, radius * 1.25f, 0.0f, mBbRight, mBbUp );
-//		texCore.enableAndBind();
+//		texCore->bind();
 		
 	// SMALLER INNER GLOW
-		texGlow.enableAndBind();
+		texGlow->bind();
 		alpha = sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 0.4f + 0.2f );
 		gl::color( ColorA( Color::white(), alpha ) );
-		bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, vec3::zero(), radius * sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) );
-		texGlow.disable();
+		bloom::gl::drawSphericalRotatedBillboard( mPos, camEye, vec3(0), radius * (float)( sin( ( mEclipseStrength * 0.75f + 0.25f ) * M_PI ) * sin( mEclipseStrength * 1.0f + 0.4f ) ) );
+		texGlow->unbind();
 	}
 	//}
 }

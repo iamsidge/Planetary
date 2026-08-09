@@ -7,6 +7,7 @@
 //
 
 #include "Vignette.h"
+#include "cinder/gl/Batch.h"
 
 #include <sstream>
 
@@ -49,16 +50,16 @@ void Vignette::update()
         mInterfaceSize = interfaceSize;
         mInterfaceCenter = mInterfaceSize * 0.5f;        
 
-        mat4 mat;
-        mat.translate( vec3(mInterfaceCenter, 0) );
+        mat4 mat( 1.0f );
+        mat = glm::translate( mat, vec3(mInterfaceCenter, 0) );
         
         if ( mInterfaceSize.x > mInterfaceSize.y ) {
             // adjust for control panel in landscape
             float amount = (mInterfaceSize.x - mInterfaceSize.y) / (1024-768);            
-            mat.translate( vec3(0, -15.0f * amount, 0) );
+            mat = glm::translate( mat, vec3(0, -15.0f * amount, 0) );
         }
 
-        mat.scale( vec3( mScale, mScale, 1.0f ) );
+        mat = glm::scale( mat, vec3( mScale, mScale, 1.0f ) );
         setTransform(mat);        
     }        
 }
@@ -104,18 +105,15 @@ void Vignette::draw()
         
         gl::color( ColorA( 1.0f, 1.0f, 1.0f, constrain(2.0f - mScale, 0.0f, 1.0f) ) );
         
-        mTex.enableAndBind();
-        glEnableClientState( GL_VERTEX_ARRAY );
-        glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-        
-        glVertexPointer( 2, GL_FLOAT, sizeof(VertexData), mVerts );
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), &mVerts[0].texture );
-        
-        glDrawArrays( GL_TRIANGLES, 0, mTotalVertices );
-        
-        glDisableClientState( GL_VERTEX_ARRAY );
-        glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-        mTex.disable();
+        gl::ScopedGlslProg glsl( gl::getStockShader( gl::ShaderDef().texture().color() ) );
+        gl::ScopedTextureBind texBind( mTex );
+
+        gl::VertBatch vb( GL_TRIANGLES );
+        for( int i = 0; i < mTotalVertices; i++ ) {
+            vb.texCoord( mVerts[i].texture );
+            vb.vertex( mVerts[i].vertex );
+        }
+        vb.draw();
     }
 }
 

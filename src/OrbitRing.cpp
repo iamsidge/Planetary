@@ -15,17 +15,25 @@ using namespace ci;
 
 OrbitRing::OrbitRing()
 {
-    mLowResVBO = 0;
-    mHighResVBO = 0;
 }
 
 OrbitRing::~OrbitRing()
 {
-    if (mLowResVBO != 0) {
-        glDeleteBuffers(1, &mLowResVBO);
-    }
-    if (mHighResVBO != 0) {
-        glDeleteBuffers(1, &mHighResVBO);
+    // Batches own their buffers.
+}
+
+namespace {
+    // Shared description of the interleaved X,Y,U,V vertex used by both rings.
+    ci::gl::BatchRef makeRingBatch( const void *verts, size_t count, size_t stride,
+                                    size_t posOffset, size_t texOffset )
+    {
+        ci::geom::BufferLayout layout;
+        layout.append( ci::geom::POSITION,    2, stride, posOffset );
+        layout.append( ci::geom::TEX_COORD_0, 2, stride, texOffset );
+
+        auto vbo  = ci::gl::Vbo::create( GL_ARRAY_BUFFER, stride * count, verts, GL_STATIC_DRAW );
+        auto mesh = ci::gl::VboMesh::create( (uint32_t)count, GL_LINE_STRIP, { { layout, vbo } } );
+        return ci::gl::Batch::create( mesh, ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
     }
 }
 
@@ -40,10 +48,8 @@ void OrbitRing::setup()
 		mVertsLowRes[i].texture = vec2( per, 0.5f );
 	}
 
-    glGenBuffers(1, &mLowResVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, mLowResVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData) * G_RING_LOW_RES, mVertsLowRes, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.        
+    mLowResBatch = makeRingBatch( mVertsLowRes, G_RING_LOW_RES, sizeof(VertexData),
+                                  offsetof(VertexData, vertex), offsetof(VertexData, texture) );
 
     delete[] mVertsLowRes;
 
@@ -56,38 +62,18 @@ void OrbitRing::setup()
 		mVertsHighRes[i].texture = vec2( per, 0.5f );
 	}    
     
-    glGenBuffers(1, &mHighResVBO);
-    glBindBuffer(GL_ARRAY_BUFFER, mHighResVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(VertexData) * G_RING_HIGH_RES, mVertsHighRes, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0); // Leave no VBO bound.        
+    mHighResBatch = makeRingBatch( mVertsHighRes, G_RING_HIGH_RES, sizeof(VertexData),
+                                   offsetof(VertexData, vertex), offsetof(VertexData, texture) );
 
     delete[] mVertsHighRes;    
 }
 
 void OrbitRing::drawLowRes() const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, mLowResVBO);
-    glVertexPointer( 2, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-    glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec2) );        
-    glBindBuffer(GL_ARRAY_BUFFER,0); // Leave no VBO bound.        
-
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnableClientState( GL_TEXTURE_COORD_ARRAY );    
-    glDrawArrays( GL_LINE_STRIP, 0, G_RING_LOW_RES );
-    glDisableClientState( GL_VERTEX_ARRAY );
-	glDisableClientState( GL_TEXTURE_COORD_ARRAY );    
+    if( mLowResBatch ) mLowResBatch->draw();
 }
 
 void OrbitRing::drawHighRes() const
 {
-    glBindBuffer(GL_ARRAY_BUFFER, mHighResVBO);
-    glVertexPointer( 2, GL_FLOAT, sizeof(VertexData), 0 ); // last arg becomes an offset instead of an address
-    glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), (void*)sizeof(vec2) );        
-    glBindBuffer(GL_ARRAY_BUFFER,0); // Leave no VBO bound. 
-
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnableClientState( GL_TEXTURE_COORD_ARRAY );    
-	glDrawArrays( GL_LINE_STRIP, 0, G_RING_HIGH_RES );
-	glDisableClientState( GL_VERTEX_ARRAY );
-	glDisableClientState( GL_TEXTURE_COORD_ARRAY );    
+    if( mHighResBatch ) mHighResBatch->draw();
 }

@@ -19,22 +19,22 @@ namespace cinder { namespace app {
         }
     }
 
-    // if you usually use vec3::yAxis() for up on your CameraPersp, this will help
+    // if you usually use vec3(0,1,0) for up on your CameraPersp, this will help
     vec3 getUpVectorForOrientation(const Orientation &orientation)
     {
         switch ( orientation )
         {
             case PORTRAIT_ORIENTATION:
-                return vec3::yAxis();
+                return vec3(0,1,0);
             case UPSIDE_DOWN_PORTRAIT_ORIENTATION:
-                return -vec3::yAxis();
+                return -vec3(0,1,0);
             case LANDSCAPE_LEFT_ORIENTATION:
-                return vec3::xAxis();
+                return vec3(1,0,0);
             case LANDSCAPE_RIGHT_ORIENTATION:
-                return -vec3::xAxis();
+                return -vec3(1,0,0);
             default:
                 // if in doubt, just return the normal one
-                return vec3::yAxis();                    
+                return vec3(0,1,0);                    
         }  
     }
 
@@ -43,20 +43,20 @@ namespace cinder { namespace app {
     // isLandscape(event.getInterfaceOrientation()) and apply a .yx() swizzle 
     mat4 getOrientationMatrix44(const Orientation &orientation, const vec2 &deviceSize)
     {
-        mat4 orientationMtx;
+        mat4 orientationMtx( 1.0f );
         switch ( orientation )
         {
             case UPSIDE_DOWN_PORTRAIT_ORIENTATION:
-                orientationMtx.translate( vec3( deviceSize.x, deviceSize.y, 0 ) );            
-                orientationMtx.rotate( vec3( 0, 0, M_PI ) );
+                orientationMtx = glm::translate( orientationMtx, vec3( deviceSize.x, deviceSize.y, 0 ) );            
+                orientationMtx = glm::rotate( orientationMtx, (float)(M_PI), vec3( 0, 0, 1 ) );
                 break;
             case LANDSCAPE_LEFT_ORIENTATION:
-                orientationMtx.translate( vec3( deviceSize.x, 0, 0 ) );
-                orientationMtx.rotate( vec3( 0, 0, M_PI/2.0 ) );
+                orientationMtx = glm::translate( orientationMtx, vec3( deviceSize.x, 0, 0 ) );
+                orientationMtx = glm::rotate( orientationMtx, (float)(M_PI/2.0), vec3( 0, 0, 1 ) );
                 break;
             case LANDSCAPE_RIGHT_ORIENTATION:
-                orientationMtx.translate( vec3( 0, deviceSize.y, 0 ) );
-                orientationMtx.rotate( vec3( 0, 0, -M_PI/2.0 ) );
+                orientationMtx = glm::translate( orientationMtx, vec3( 0, deviceSize.y, 0 ) );
+                orientationMtx = glm::rotate( orientationMtx, (float)(-M_PI/2.0), vec3( 0, 0, 1 ) );
                 break;
             default:
                 break;

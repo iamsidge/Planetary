@@ -41,14 +41,14 @@ void TimeLabel::updateTexture()
     layout.setFont( mFont );
     layout.setColor( mColor );
     layout.addLine( ss.str() );
-    mTexture = layout.render( true, false );
+    mTexture = gl::Texture::create( layout.render( true, false ) );
 
     if (mSeconds <= 0) {
         TextLayout hyphenLayout;
         hyphenLayout.setFont( mFont );
         hyphenLayout.setColor( mColor );
         hyphenLayout.addLine( "-" );
-        mHyphenTexture = hyphenLayout.render( true, false );
+        mHyphenTexture = gl::Texture::create( hyphenLayout.render( true, false ) );
     }
     else {
         mHyphenTexture.reset();
@@ -59,7 +59,7 @@ void TimeLabel::draw()
 {
     // to keep the digit left-aligned in the box, squeeze the minus sign in before it
     if (mHyphenTexture) {
-        bloom::gl::batchRect( mHyphenTexture, mRect.getUpperLeft() - vec2(mHyphenTexture.getWidth()-1.0f,0) );
+        bloom::gl::batchRect( mHyphenTexture, mRect.getUpperLeft() - vec2(mHyphenTexture->getWidth()-1.0f,0) );
     }    
     if (mTexture) {
         bloom::gl::batchRect( mTexture, mRect.getUpperLeft() );

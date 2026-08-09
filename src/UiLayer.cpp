@@ -163,9 +163,9 @@ void UiLayer::update()
     mChooserY += (mChooserDestY - mChooserY) * 0.25f;
     mSettingsY += (mSettingsDestY - mSettingsY) * 0.25f;
     
-    mPlaylistChooser->setTransform( mat4::createTranslation( vec3(0, mChooserY, 0) ) );
-    mAlphaChooser->setTransform( mat4::createTranslation( vec3(0, mChooserY, 0) ) );
-    mSettingsPanel->setTransform( mat4::createTranslation( vec3(0, mSettingsY, 0) ) );        
+    mPlaylistChooser->setTransform( glm::translate(mat4(1.0f), vec3(0, mChooserY, 0) ) );
+    mAlphaChooser->setTransform( glm::translate(mat4(1.0f), vec3(0, mChooserY, 0) ) );
+    mSettingsPanel->setTransform( glm::translate(mat4(1.0f), vec3(0, mSettingsY, 0) ) );        
 
     // don't use mPanelOpenY or current height as a constraint here, 
     // use maximum value because we want things to ease closed
@@ -173,7 +173,7 @@ void UiLayer::update()
     mPanelY = constrain( mPanelY, maxPanelY, mPanelClosedY );
     
     mat4 transform;
-    transform.translate( vec3( 0, ceil( mPanelY ), 0 ) );
+    transform = glm::translate( transform, vec3( 0, ceil( mPanelY ), 0 ) );
     setTransform( transform );
 }
 

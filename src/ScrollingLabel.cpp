@@ -46,7 +46,7 @@ void ScrollingLabel::update()
     if (mTexture) {
     
         float ctSpaceWidth = mRect.x2 - mRect.x1;
-        float ctTexWidth = mTexture.getWidth();
+        float ctTexWidth = mTexture->getWidth();
         
         if( ctTexWidth < ctSpaceWidth ){ 
             mIsScrolling = false;
@@ -63,8 +63,8 @@ void ScrollingLabel::update()
                 x1 = -ctTexWidth-10.0f;
             }
             
-            mFirstArea = Area( x1, 0.0f, x1 + ctSpaceWidth, mTexture.getHeight() );
-            mSecondArea = Area( x1 + ctTexWidth + 10.0f, 0.0f, x1 + ctTexWidth + 10.0f + ctSpaceWidth, mTexture.getHeight() );
+            mFirstArea = Area( x1, 0.0f, x1 + ctSpaceWidth, mTexture->getHeight() );
+            mSecondArea = Area( x1 + ctTexWidth + 10.0f, 0.0f, x1 + ctTexWidth + 10.0f + ctSpaceWidth, mTexture->getHeight() );
         }    
     }
 }
@@ -75,10 +75,10 @@ void ScrollingLabel::draw()
         
         // force texture height to be correct:
         float restoreY2 = mRect.y2;
-        mRect.y2 = mRect.y1 + mTexture.getHeight();
+        mRect.y2 = mRect.y1 + mTexture->getHeight();
         
         float ctSpaceWidth = mRect.x2 - mRect.x1;
-        float ctTexWidth = mTexture.getWidth();
+        float ctTexWidth = mTexture->getWidth();
         
         if( ctTexWidth < ctSpaceWidth ){ 
             // if the texture width is less than the rect to fit it in...

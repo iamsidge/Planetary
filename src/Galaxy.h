@@ -9,6 +9,8 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "cinder/gl/Batch.h"
+#include "cinder/gl/VboMesh.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/Camera.h"
 
@@ -21,17 +23,9 @@ public:
     };    
     
     Galaxy() {
-        mGalaxyVBO = 0;
-        mDarkMatterVBO = 0;
     }
     
     ~Galaxy() {
-        if (mDarkMatterVBO != 0) {
-            glDeleteBuffers(1, &mDarkMatterVBO);
-        }
-        if (mGalaxyVBO != 0) {
-            glDeleteBuffers(1, &mGalaxyVBO);
-        }
     }
     
     void setup(float initialCamDist, 
@@ -69,7 +63,9 @@ private:
     void initDarkMatterVertexArray();
 
     // set in initXXX(), used in drawXXX()
-    GLuint mGalaxyVBO, mDarkMatterVBO;
+    // Batches replace the raw VBOs plus client-array pointers; both are
+    // static geometry drawn repeatedly under different transforms.
+    ci::gl::BatchRef mGalaxyBatch, mDarkMatterBatch;
 
 	int	  mDarkMatterCylinderRes;
 	float mLightMatterBaseRadius;

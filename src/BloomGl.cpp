@@ -69,25 +69,25 @@ namespace bloom { namespace gl {
 
 	void drawSphericalBillboard( const vec3 &camEye, const vec3 &objPos, const vec2 &scale, float rotInRadians )
 	{	
-		glPushMatrix();
+		gl::pushModelMatrix();
 		glTranslatef( objPos.x, objPos.y, objPos.z );
 		
-		vec3 lookAt = vec3::zAxis();
+		vec3 lookAt = vec3(0,0,1);
 		vec3 upAux;
 		float angleCosine;
 		
-		vec3 objToCam = ( camEye - objPos ).normalized();
+		vec3 objToCam = glm::normalize(( camEye - objPos ));
 		vec3 objToCamProj = vec3( objToCam.x, 0.0f, objToCam.z );
-		objToCamProj.normalize();
+		objToCamProj = glm::normalize(objToCamProj);
 		
-		upAux = lookAt.cross( objToCamProj );
+		upAux = glm::cross(lookAt, objToCamProj);
 
 // Cylindrical billboarding
-		angleCosine = constrain( lookAt.dot( objToCamProj ), -1.0f, 1.0f );
+		angleCosine = constrain( glm::dot(lookAt, objToCamProj), -1.0f, 1.0f );
 		glRotatef( toDegrees( acos(angleCosine) ), upAux.x, upAux.y, upAux.z );	
 		
 // Spherical billboarding
-		angleCosine = constrain( objToCamProj.dot( objToCam ), -1.0f, 1.0f );
+		angleCosine = constrain( glm::dot(objToCamProj, objToCam), -1.0f, 1.0f );
 		if( objToCam.y < 0 )	glRotatef( toDegrees( acos(angleCosine) ), 1.0f, 0.0f, 0.0f );	
 		else					glRotatef( toDegrees( acos(angleCosine) ),-1.0f, 0.0f, 0.0f );
 		
@@ -121,34 +121,34 @@ namespace bloom { namespace gl {
 		
 //		glDisable( GL_TEXTURE_2D );
 //		ci::gl::color( Color( 1.0f, 1.0f, 1.0f ) );
-//		ci::gl::drawLine( vec3::zero(), objToCam );
+//		ci::gl::drawLine( vec3(0), objToCam );
 //		glEnable( GL_TEXTURE_2D );
 		
-		glPopMatrix();
+		gl::popModelMatrix();
 	}
 
     void drawSphericalRotatedBillboard( const ci::vec3 &pos, const ci::vec3 &lookAt, const ci::vec3 &turnAt, const ci::vec2 &scale )
     {
-        glPushMatrix();
+        gl::pushModelMatrix();
 
         // hacked together from three.js's Matrix4.lookAt...
         
-		vec3 z = ( pos - lookAt ).normalized();
+		vec3 z = glm::normalize(( pos - lookAt ));
         
-		if ( z.length() == 0 ) {
+		if ( glm::length(z) == 0 ) {
 			z.z = 1;
 		}
         
         vec3 up = turnAt - pos;
         
-		vec3 x = up.cross(z).normalized();
+		vec3 x = up.crossglm::normalize((z));
         
-		if ( x.length() == 0 ) {
+		if ( glm::length(x) == 0 ) {
 			z.x += 0.0001;
-			x = up.cross(z).normalized();
+			x = up.crossglm::normalize((z));
 		}
         
-        vec3 y = z.cross(x).normalized();
+        vec3 y = z.crossglm::normalize((x));
     
         float m[16];
         m[ 0] = x.x; m[ 4] = y.x; m[ 8] = z.x; m[12] = pos.x;
@@ -156,7 +156,7 @@ namespace bloom { namespace gl {
         m[ 2] = x.z; m[ 6] = y.z; m[10] = z.z; m[14] = pos.z;
         m[ 3] = 0;   m[ 7] = 0;   m[11] = 0;   m[15] = 1;
             
-        glMultMatrixf(m);
+        gl::multModelMatrix(m);
         
         ///////////////// and now we just get to draw a square
         // ... might be worth pre-multiplying the verts to avoid the push/mult/pop entirely?
@@ -181,7 +181,7 @@ namespace bloom { namespace gl {
 		glDisableClientState( GL_VERTEX_ARRAY );
 		glDisableClientState( GL_TEXTURE_COORD_ARRAY );	        
         
-        glPopMatrix();
+        gl::popModelMatrix();
     }
     
     /////////////////////////////////////////////////////////
@@ -198,7 +198,7 @@ namespace bloom { namespace gl {
     
     void batchRect( const ci::gl::TextureRef &texture, const ci::Rectf &srcRect, const ci::Rectf &dstRect )
     {
-        GLuint texId = texture.getId();
+        GLuint texId = texture->getId();
         boost::unordered_map<GLuint, BatchRef>::iterator iter = batchByTex.find( texId );
         BatchRef batch;
         if (iter != batchByTex.end()) {
@@ -239,7 +239,7 @@ namespace bloom { namespace gl {
 
     void batchRect( const ci::gl::TextureRef &texture, const ci::vec2 &pos )
     {
-        batchRect( texture, texture.getCleanBounds(), ci::Rectf(pos.x, pos.y, pos.x + texture.getWidth(), pos.y + texture.getHeight()) );        
+        batchRect( texture, texture.getCleanBounds(), ci::Rectf(pos.x, pos.y, pos.x + texture->getWidth(), pos.y + texture->getHeight()) );        
     }
     
     void endBatch()
@@ -247,11 +247,11 @@ namespace bloom { namespace gl {
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_TEXTURE_COORD_ARRAY);
         BOOST_FOREACH(BatchRef batch, batches) {
-            batch->texture.enableAndBind();
+            batch->texture->bind();
             glVertexPointer(2, GL_FLOAT, sizeof(VertexData), &batch->vertices[0].vertex);
             glTexCoordPointer(2, GL_FLOAT, sizeof(VertexData), &batch->vertices[0].texture);
             glDrawArrays(GL_TRIANGLES, 0, batch->vertices.size());
-            batch->texture.disable();
+            batch->texture->unbind();
         }
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_TEXTURE_COORD_ARRAY);

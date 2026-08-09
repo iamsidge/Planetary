@@ -57,7 +57,7 @@ void NotificationOverlay::update()
     vec2 interfaceSize = getRoot()->getInterfaceSize();
     
     mat4 mat;
-    mat.translate(vec3( interfaceSize.x * 0.5f, interfaceSize.y * 0.5f + 184.0f - mMessageTexture.getHeight(), 0.0f ));
+    mat = glm::translate( mat, vec3( interfaceSize.x * 0.5f, interfaceSize.y * 0.5f + 184.0f - mMessageTexture->getHeight(), 0.0f ) );
     setTransform(mat);
 }
 
@@ -111,9 +111,9 @@ void NotificationOverlay::show( const ci::gl::TextureRef &texture, const ci::Are
 	vec2 iconSize = mCurrentSrcArea.getSize();
     mIconRect = Rectf( -iconSize/2.0f, iconSize/2.0f );
     
-	float halfWidth = mMessageTexture.getWidth() * 0.5f;
+	float halfWidth = mMessageTexture->getWidth() * 0.5f;
 	vec2 messageTopLeft( -halfWidth, mIconRect.y2 - 10.0f );
-	vec2 messageBottomRight( halfWidth, mIconRect.y2 + mMessageTexture.getHeight() - 10.0f );
+	vec2 messageBottomRight( halfWidth, mIconRect.y2 + mMessageTexture->getHeight() - 10.0f );
 	mMessageRect = Rectf( messageTopLeft, messageBottomRight );
 	
     mActive = true;
@@ -134,7 +134,7 @@ void NotificationOverlay::showLetter( const char &c, const string &message, cons
     gl::TextureRef texture = gl::Texture::create( charLayout.render( true, true ) );
     
     show( texture, 
-          Area( 0, 0, texture.getWidth(), texture.getHeight() + 15.0f ), 
+          Area( 0, 0, texture->getWidth(), texture->getHeight() + 15.0f ), 
           Area( 0, 0, 0, 0 ),
           message );
 }

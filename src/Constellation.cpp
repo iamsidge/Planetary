@@ -7,6 +7,7 @@
 //
 
 #include "Constellation.h"
+#include "cinder/gl/Batch.h"
 #include "cinder/gl/gl.h"
 #include "Globals.h"
 
@@ -31,7 +32,7 @@ void Constellation::setup(const vector<NodeArtist*> &filteredNodes)
 			NodeArtist *child2 = *it2;
 			
 			vec3 dirBetweenChildren = child1->mPosDest - child2->mPosDest;
-			float distBetweenChildren = dirBetweenChildren.length();
+			float distBetweenChildren = glm::length(dirBetweenChildren);
 			if( distBetweenChildren < shortestDist ){
 				shortestDist = distBetweenChildren;
 				nearestChild = child2;
@@ -72,15 +73,11 @@ void Constellation::draw( const float &alpha ) const
         
         gl::color( ColorA( 0.12f, 0.25f, 0.85f, alpha ) );
         
-        glEnableClientState( GL_VERTEX_ARRAY );
-        glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-
-        glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), mConstellationVerts );
-        glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), &mConstellationVerts[0].texture );
-        
-        glDrawArrays( GL_LINES, 0, mTotalConstellationVertices );
-        
-        glDisableClientState( GL_VERTEX_ARRAY );
-        glDisableClientState( GL_TEXTURE_COORD_ARRAY );	
+        gl::VertBatch vb( GL_LINES );
+        for( int i = 0; i < mTotalConstellationVertices; i++ ) {
+            vb.texCoord( mConstellationVerts[i].texture );
+            vb.vertex( mConstellationVerts[i].vertex );
+        }
+        vb.draw();
     }
 }

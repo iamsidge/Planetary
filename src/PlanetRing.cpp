@@ -7,6 +7,7 @@
 //
 
 #include "PlanetRing.h"
+#include "cinder/gl/Batch.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Vector.h"
 
@@ -50,11 +51,12 @@ void PlanetRing::setup()
 
 void PlanetRing::draw() const
 {
-    glEnableClientState( GL_VERTEX_ARRAY );
-    glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-    glVertexPointer( 3, GL_FLOAT, sizeof(VertexData), mVerts );
-    glTexCoordPointer( 2, GL_FLOAT, sizeof(VertexData), &mVerts[0].texture );    
-    glDrawArrays( GL_TRIANGLES, 0, 6 );
-    glDisableClientState( GL_VERTEX_ARRAY );
-    glDisableClientState( GL_TEXTURE_COORD_ARRAY );    
+    // Client arrays are gone under ES3; VertBatch submits the same six
+    // interleaved vertices through the programmable pipeline.
+    gl::VertBatch vb( GL_TRIANGLES );
+    for( int i = 0; i < 6; i++ ) {
+        vb.texCoord( mVerts[i].texture );
+        vb.vertex( mVerts[i].vertex );
+    }
+    vb.draw();
 }

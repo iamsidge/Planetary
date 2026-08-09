@@ -85,7 +85,7 @@ namespace cinder {
 		std::vector<TouchEvent::Touch> touches = event.getTouches();
 		bool doubleTapped = false;
 		if (wasSingleTapped && timer.getSeconds() > 0.05f && timer.getSeconds() < 0.25f) {
-			if (prevTouchPos.distance( touches[0].getPos()) < 25.0f ) {
+			if (glm::distance(prevTouchPos, touches[0].getPos()) < 25.0f ) {
 				doubleTapped = true;
 				mCallbacksDoubleTap.call( DoubleTapEvent( prevTouchPos, getElapsedSeconds()-timer.getSeconds() ) );
 			}

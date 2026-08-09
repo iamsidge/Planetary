@@ -29,7 +29,7 @@ void TextLabel::updateTexture()
     layout.setFont( mFont );
     layout.setColor( mColor );
     layout.addLine( mText );
-    mTexture = layout.render( true, false );
+    mTexture = gl::Texture::create( layout.render( true, false ) );
 }
 
 void TextLabel::draw()

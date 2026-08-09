@@ -9,6 +9,8 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "cinder/gl/Batch.h"
+#include "cinder/gl/VboMesh.h"
 #include "cinder/Vector.h"
 
 class OrbitRing {
@@ -29,6 +31,8 @@ private:
         ci::vec2 texture;
     };
     
-    GLuint mLowResVBO, mHighResVBO;
+    // Raw VBOs plus client-array pointers are gone under ES3. A Batch keeps
+    // the same upload-once behaviour while going through the shader pipeline.
+    ci::gl::BatchRef mLowResBatch, mHighResBatch;
     
 };

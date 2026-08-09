@@ -2,6 +2,7 @@
 #include "cinder/Rand.h"
 #include "cinder/Vector.h"
 #include "ParticleController.h"
+#include "cinder/gl/Batch.h"
 #include "Globals.h"
 
 using namespace ci;
@@ -15,8 +16,8 @@ ParticleController::ParticleController()
 	mPrevTotalDustVertices = -1;
     mDustVerts			= NULL;
 
-	mBbRight			= vec3::xAxis();
-	mBbUp				= vec3::yAxis();
+	mBbRight			= vec3(1,0,0);
+	mBbUp				= vec3(0,1,0);
 }
 
 void ParticleController::update( const vec3 &camEye, float radius, const vec3 &bbRight, const vec3 &bbUp )
@@ -41,7 +42,7 @@ void ParticleController::update( const vec3 &camEye, float radius, const vec3 &b
 
 void ParticleController::buildParticleVertexArray( float scaleOffset, Color c, float eclipseStrength )
 {
-//	vec3 lookVec = mBbRight.cross( mBbUp ) * 0.025f;
+//	vec3 lookVec = glm::cross(mBbRight, mBbUp) * 0.025f;
 	
 	mTotalParticleVertices = mParticles.size() * 6;
 	
@@ -69,8 +70,8 @@ void ParticleController::buildParticleVertexArray( float scaleOffset, Color c, f
 //		vec3 right				= mBbRight * radius * it->mQuat;
 //		vec3 up				= mBbUp * radius * it->mQuat;
 
-		vec3 right				= vec3::yAxis() * radius * it->mQuat;
-		vec3 up				= vec3::xAxis() * radius * it->mQuat;
+		vec3 right				= vec3(0,1,0) * radius * it->mQuat;
+		vec3 up				= vec3(1,0,0) * radius * it->mQuat;
 		
 		vec3 p1				= pos - right - up;
 		vec3 p2				= pos + right - up;
@@ -142,55 +143,52 @@ void ParticleController::buildDustVertexArray( float scaleOffset, Node *node, fl
 void ParticleController::drawParticleVertexArray( Node *node, float multi )
 {
 	// PARTICLES
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-	glEnableClientState( GL_COLOR_ARRAY );
-	
-	glVertexPointer( 3, GL_FLOAT, sizeof(ParticleVertex), mParticleVerts );
-	glTexCoordPointer( 2, GL_FLOAT, sizeof(ParticleVertex), &mParticleVerts[0].texture );
-	glColorPointer( 4, GL_FLOAT, sizeof(ParticleVertex), &mParticleVerts[0].color );	
-	
-	glPushMatrix();
+	// Client arrays are gone under ES3; VertBatch carries the same
+	// interleaved position/texcoord/colour stream.
+	gl::VertBatch vb( GL_TRIANGLES );
+	for( int i = 0; i < mTotalParticleVertices; i++ ) {
+		vb.texCoord( mParticleVerts[i].texture );
+		vb.color( ColorA( mParticleVerts[i].color.r, mParticleVerts[i].color.g,
+		                  mParticleVerts[i].color.b, mParticleVerts[i].color.a ) );
+		vb.vertex( mParticleVerts[i].vertex );
+	}
+
+	gl::pushModelMatrix();
 	if( node ){
 		gl::translate( node->mPos );
 		float radius = node->mRadius * multi + 0.007f;
 		gl::scale( vec3( radius, radius, radius ) );
 	}
-	glDrawArrays( GL_TRIANGLES, 0, mTotalParticleVertices );
-	glPopMatrix();
-	
-	glDisableClientState( GL_VERTEX_ARRAY );
-	glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-	glDisableClientState( GL_COLOR_ARRAY );
+	vb.draw();
+	gl::popModelMatrix();
 }
 
 void ParticleController::drawDustVertexArray( Node *node, float multi )
 {
 	// DUST
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnableClientState( GL_COLOR_ARRAY );
-	glVertexPointer( 3, GL_FLOAT, sizeof(DustVertex), mDustVerts );
-	glColorPointer( 4, GL_FLOAT, sizeof(DustVertex), &mDustVerts[0].color );
+	gl::VertBatch vb( GL_POINTS );
+	for( int i = 0; i < mTotalDustVertices; i++ ) {
+		vb.color( ColorA( mDustVerts[i].color.r, mDustVerts[i].color.g,
+		                  mDustVerts[i].color.b, mDustVerts[i].color.a ) );
+		vb.vertex( mDustVerts[i].vertex );
+	}
 
-	glPushMatrix();
+	gl::pushModelMatrix();
 	if( node ) {
 		gl::translate( node->mPos );
 		float radius = node->mRadius * multi + 0.007f;
 		gl::scale( vec3( radius, radius, radius ) );
     }
-	glDrawArrays( GL_POINTS, 0, mTotalDustVertices );
-	glPopMatrix();
-	
-	glDisableClientState( GL_VERTEX_ARRAY );
-	glDisableClientState( GL_COLOR_ARRAY );
+	vb.draw();
+	gl::popModelMatrix();
 }
 
 void ParticleController::addDusts( int amt )
 {
 	for( int i=0; i<amt; i++ )
 	{
-		vec3 pos = Rand::randVec3f() * Rand::randFloat( 100.0f, 200.0f );
-		vec3 vel = Rand::randVec3f();
+		vec3 pos = Rand::randVec3() * Rand::randFloat( 100.0f, 200.0f );
+		vec3 vel = Rand::randVec3();
 		
 		mDusts.push_back( Dust( i, pos, vel ) );
 	}
@@ -200,8 +198,8 @@ void ParticleController::addParticles( int amt )
 {
 	for( int i=0; i<amt; i++ )
 	{
-		vec3 pos = Rand::randVec3f() * Rand::randFloat( 100.0f, 200.0f );
-		vec3 vel = Rand::randVec3f();
+		vec3 pos = Rand::randVec3() * Rand::randFloat( 100.0f, 200.0f );
+		vec3 vel = Rand::randVec3();
 		
 		mParticles.push_back( Particle( i, pos, vel, mBbRight, mBbUp ) );
 	}

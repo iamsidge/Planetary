@@ -108,7 +108,7 @@ void State::setSelectedNode( Node* node )
 		mSelectedNode = node;
 		
 		if( prevSelectedNode && mSelectedNode && (prevSelectedNode != mSelectedNode) ) {
-			mDistBetweenPrevAndCurrentNode = prevSelectedNode->mPos.distance( mSelectedNode->mPos );
+			mDistBetweenPrevAndCurrentNode = glm::distance(prevSelectedNode->mPos, mSelectedNode->mPos);
 		}
 				
 		// ensure everything in the next chain is selected

@@ -8,6 +8,7 @@
 
 #include "cinder/CinderMath.h"
 #include "Shadow.h"
+#include "cinder/gl/Batch.h"
 #include "Node.h"
 #include "Globals.h"
 
@@ -46,7 +47,7 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
 	rTotal			= r0 + r1;
 	r0Inner			= abs( r0 - r1 );
 	
-	d				= P0.distance( P1 );
+	d				= glm::distance(P0, P1);
 	dMid			= d * 0.5f;
 	dMidSqrd		= dMid * dMid;
 	
@@ -72,10 +73,10 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
 		
 		
 		vec3 P3aDirNorm = P3a - P0;
-		P3aDirNorm.normalize();
+		P3aDirNorm = glm::normalize(P3aDirNorm);
 		
 		vec3 P3bDirNorm = P3b - P0;
-		P3bDirNorm.normalize();
+		P3bDirNorm = glm::normalize(P3bDirNorm);
 		
 		P5a = P3a + P3aDirNorm * r1;
 		P5b = P3b + P3bDirNorm * r1;
@@ -92,8 +93,8 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
 		vec3 P7b = P6b + outerTanADir;
         
 		float distOfShadow = math<float>::max( 1.0f - r0, 0.01f );
-		P7a = P6a + ( P7a - P6a ).normalized() * distOfShadow;
-		P7b = P6b + ( P7b - P6b ).normalized() * distOfShadow;
+		P7a = P6a + glm::normalize(( P7a - P6a )) * distOfShadow;
+		P7b = P6b + glm::normalize(( P7b - P6b )) * distOfShadow;
 		
         // move draw() call back into NodeAlbum/NodeTrack, clear verts if there's no shadow
 		glEnable( GL_TEXTURE_2D );
@@ -113,69 +114,69 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
          gl::color( ColorA( node->mGlowColor, 0.4f ) );
          gl::drawLine( P0, P1 );
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P0 );
 //         gl::rotate( mMatrix );
          gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( vec2::zero(), r0, 50 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), r0, 50 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P0 );
 //         gl::rotate( mMatrix );
          gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( vec2::zero(), r0Inner, 50 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), r0Inner, 50 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P1 );
 //         gl::rotate( mMatrix );
          gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( vec2::zero(), r1, 25 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), r1, 25 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P2 );
 //         gl::rotate( mMatrix );
          gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
+         gl::popModelMatrix();
          
          
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P3a );
          //gl::rotate( mMatrix );
          //gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P3b );
          //gl::rotate( mMatrix );
          //gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P5a );
-         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P5b );
-         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P6a );
-         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
+         gl::popModelMatrix();
          
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P6b );
-         gl::drawStrokedCircle( vec2::zero(), 0.01f, 16 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
+         gl::popModelMatrix();
          
          
 //         gl::drawLine( P6a, ( P6a + mMatrix * outerTanBDir ) );
@@ -188,12 +189,12 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
          gl::drawLine( P6b, ( P6b + innerTanBDir ) );
          
          gl::color( ColorA( 1.0f, 1.0f, 1.0f, 0.4f ) );	
-         glPushMatrix();
+         gl::pushModelMatrix();
          gl::translate( P4 );
 //         gl::rotate( mMatrix );
          gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
-         gl::drawStrokedCircle( vec2::zero(), dMid, 50 );
-         glPopMatrix();
+         gl::drawStrokedCircle( vec2(0), dMid, 50 );
+         gl::popModelMatrix();
          
          glEnable( GL_TEXTURE_2D );
      }
@@ -266,12 +267,13 @@ void Shadow::buildVerts( vec3 p1, vec3 p2, vec3 p3, vec3 p4 )
 
 void Shadow::draw()
 {
-    glVertexPointer( 3, GL_FLOAT, 0, mShadowVerts );
-    glTexCoordPointer( 2, GL_FLOAT, 0, mShadowTexCoords );
-    
-    glEnableClientState( GL_VERTEX_ARRAY );
-    glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-    glDrawArrays( GL_TRIANGLES, 0, 12 ); // dont forget to change the vert count in buildVerts ^^^
-    glDisableClientState( GL_VERTEX_ARRAY );
-    glDisableClientState( GL_TEXTURE_COORD_ARRAY );    
+    // Client arrays are gone under ES3; VertBatch feeds the same 12 vertices
+    // through the programmable pipeline. Positions are 3 floats each and tex
+    // coords 2, interleaved across the two flat arrays as before.
+    gl::VertBatch vb( GL_TRIANGLES );
+    for( int i = 0; i < 12; i++ ) { // keep in step with the vert count in buildVerts
+        vb.texCoord( mShadowTexCoords[i*2], mShadowTexCoords[i*2+1] );
+        vb.vertex( mShadowVerts[i*3], mShadowVerts[i*3+1], mShadowVerts[i*3+2] );
+    }
+    vb.draw();
 }

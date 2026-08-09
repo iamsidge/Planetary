@@ -56,5 +56,5 @@ void GyroHelper::update()
     
     // flip w around so quat can be applied to camera eye/up
     // flip y around because who knows why
-	mQuat.set( -quat.w, quat.x, -quat.y, quat.z );
+	mQuat = glm::quat( -quat.w, quat.x, -quat.y, quat.z );
 }

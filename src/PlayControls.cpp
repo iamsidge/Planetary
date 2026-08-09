@@ -275,8 +275,8 @@ void PlayControls::enablePlayerControls( bool enable )
 void PlayControls::deepDraw()
 {
     if (mVisible) {
-        glPushMatrix();
-        glMultMatrixf(mTransform);
+        gl::pushModelMatrix();
+        gl::multModelMatrix(mTransform);
         
         // opacity is set by UiLayer...
         gl::color( ColorA(1,1,1,mOpacity) );
@@ -288,7 +288,7 @@ void PlayControls::deepDraw()
         }
         bloom::gl::endBatch();
         
-        glPopMatrix();
+        gl::popModelMatrix();
     }        
 }
 

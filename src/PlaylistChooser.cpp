@@ -108,7 +108,7 @@ bool PlaylistChooser::touchEnded( ci::app::TouchEvent::Touch touch )
     
     if (mTouchDragPlaylistIndex >= 0) {
         
-        float movement	= mTouchDragStartPos.distance( mTouchPos );
+        float movement	= glm::distance(mTouchDragStartPos, vec2(mTouchPos));
         if (movement < 15.0f) {
             // TODO: also measure time and don't allow long selection gaps
             mCurrentIndex = mTouchDragPlaylistIndex;
@@ -193,7 +193,7 @@ void PlaylistChooser::update()
             }            
             // put texture rect at center of playlist rect
 			const float cx = xPos + mPlaylistSize.x * 0.5f;
-			const float w2 = mTextures[i].getWidth() * 0.5f;
+			const float w2 = mTextures[i]->getWidth() * 0.5f;
 			mPlaylistRects.push_back( RectRef( new Rectf( cx - w2, y, cx + w2, y + h ) ) );
         } 
         else {

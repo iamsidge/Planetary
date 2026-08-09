@@ -122,10 +122,12 @@ void OrientationNode::update()
         }
         
         // update matrix (for globalToLocal etc)
-        mTransform.setToIdentity();
-        mTransform.translate( vec3( app::getWindowCenter(), 0 ) );
-        mTransform.rotate( vec3( 0, 0, mInterfaceAngle ) );
-        mTransform.translate( vec3( getRoot()->getInterfaceSize() * -0.5f, 0 ) );                        
+        mTransform = mat4( 1.0f );
+        mTransform = glm::translate( mTransform, vec3( app::getWindowCenter(), 0 ) );
+        // Cinder 0.8's Matrix44::rotate took per-axis Euler angles; GLM's
+        // rotate is a single angle about an axis, so this is a Z rotation.
+        mTransform = glm::rotate( mTransform, mInterfaceAngle, vec3( 0, 0, 1 ) );
+        mTransform = glm::translate( mTransform, vec3( getRoot()->getInterfaceSize() * -0.5f, 0 ) );
     }    
 }
 

@@ -21,7 +21,7 @@ Dust::Dust( int index, vec3 pos, vec3 vel )
 
 void Dust::setup( const vec3 &camEye )
 {
-	vec3 randVec  = Rand::randVec3f();
+	vec3 randVec  = Rand::randVec3();
 	
 	mPos		= randVec;
 	

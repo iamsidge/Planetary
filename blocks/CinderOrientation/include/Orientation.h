@@ -27,7 +27,7 @@ namespace cinder { namespace app {
     // how much to rotate from PORTRAIT_ORIENTATION to the given orientation
     float getAngleForOrientation(const Orientation &orientation);    
 
-    // if you usually use vec3::yAxis() for up on your CameraPersp, this will help
+    // if you usually use vec3(0,1,0) for up on your CameraPersp, this will help
     vec3 getUpVectorForOrientation(const Orientation &orientation);
 
     // if you're doing 2D drawing, this matrix moves the origin to the correct device corner

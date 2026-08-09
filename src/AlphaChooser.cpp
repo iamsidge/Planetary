@@ -47,8 +47,8 @@ void AlphaChooser::setRects()
     float totalWidth = 0.0f;
     float maxHeight = 0.0f;
 	for( int i=0; i<mAlphaString.length(); i++ ){
-        totalWidth += mAlphaTextures[i].getWidth();
-        maxHeight = max( maxHeight, (float)mAlphaTextures[i].getHeight() );
+        totalWidth += mAlphaTextures[i]->getWidth();
+        maxHeight = max( maxHeight, (float)mAlphaTextures[i]->getHeight() );
     }    
     const float hPadding = 20.0f;
     const float vTopPadding = 11.0f;
@@ -56,8 +56,8 @@ void AlphaChooser::setRects()
     const float spacing = (mInterfaceSize.x - totalWidth - (hPadding * 2.0f)) / 26.0f;
     float x = hPadding;
 	for( int i = 0; i < mAlphaString.length(); i++ ){
-		const float w = mAlphaTextures[i].getWidth();
-		const float h = mAlphaTextures[i].getHeight();
+		const float w = mAlphaTextures[i]->getWidth();
+		const float h = mAlphaTextures[i]->getHeight();
 		mAlphaRects.push_back( Rectf( x, vTopPadding, x + w, h + vTopPadding ) );
 		mAlphaHitRects.push_back( Rectf( x - spacing/2.0f, 0.0f, x + w + spacing/2.0f, h + vTopPadding + vBottomPadding ) );
         x += w + spacing;
@@ -146,9 +146,9 @@ void AlphaChooser::draw()
         } else {
             gl::color( ColorA( 0.1f, 0.1f, 0.15f, mOpacity ) );
         }
-        mAlphaTextures[i].enableAndBind();
+        mAlphaTextures[i]->bind();
         gl::drawSolidRect( mAlphaRects[i] );
-        mAlphaTextures[i].disable();            
+        mAlphaTextures[i]->unbind();            
     }
 }
 

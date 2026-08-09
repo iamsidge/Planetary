@@ -9,6 +9,8 @@
 #pragma once
 
 #include "cinder/gl/gl.h"
+#include "cinder/gl/Batch.h"
+#include "cinder/gl/VboMesh.h"
 
 namespace bloom {
 
@@ -24,9 +26,7 @@ namespace bloom {
         
         BloomSphere(): mInited(false) {}
         ~BloomSphere() {
-            if (mInited) {
-                glDeleteBuffers(1, &mVBO);
-            }
+            // The Batch owns its buffer.
         }
         
         void setup( int segments );
@@ -35,7 +35,7 @@ namespace bloom {
       private:
         
         bool mInited;
-        GLuint mVBO;
+        ci::gl::BatchRef mBatch;
         int mNumVerts; 
         
     };
