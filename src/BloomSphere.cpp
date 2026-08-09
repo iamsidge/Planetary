@@ -99,7 +99,10 @@ namespace bloom {
 
         auto vbo  = ci::gl::Vbo::create( GL_ARRAY_BUFFER, sizeof(VertexData) * mNumVerts, verts, GL_STATIC_DRAW );
         auto mesh = ci::gl::VboMesh::create( (uint32_t)mNumVerts, GL_TRIANGLES, { { layout, vbo } } );
-        mBatch = ci::gl::Batch::create( mesh, ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
+        mBatch = ci::gl::Batch::create( mesh, // The mesh supplies no COLOR attribute, so this must be the
+        // uniform-colour shader; requesting .color() would read an
+        // attribute that was never filled.
+        ci::gl::getStockShader( ci::gl::ShaderDef().texture() ) );
 
         delete[] verts;
         

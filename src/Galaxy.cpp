@@ -23,7 +23,10 @@ namespace {
 
         auto vbo  = ci::gl::Vbo::create( GL_ARRAY_BUFFER, stride * count, verts, GL_STATIC_DRAW );
         auto mesh = ci::gl::VboMesh::create( (uint32_t)count, GL_TRIANGLES, { { layout, vbo } } );
-        return ci::gl::Batch::create( mesh, ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
+        return ci::gl::Batch::create( mesh, // The mesh supplies no COLOR attribute, so this must be the
+        // uniform-colour shader; requesting .color() would read an
+        // attribute that was never filled.
+        ci::gl::getStockShader( ci::gl::ShaderDef().texture() ) );
     }
 }
 
@@ -140,12 +143,15 @@ void Galaxy::drawCenter()
 	const float alpha = mInvAlpha * mZoomOff;//( 1.25f - mCamGalaxyAlpha ) * mZoomOff;
 	
 	if( alpha > 0.01f ){
-		mStarGlowTex->bind();
+		// gl::drawBillboard draws with whatever program is bound. Without a
+		// textured stock shader the glow renders as a flat opaque quad
+		// instead of sampling starGlow's alpha.
+		gl::ScopedGlslProg glsl( gl::getStockShader( gl::ShaderDef().texture() ) );
+		gl::ScopedTextureBind texBind( mStarGlowTex );
 		gl::color( ColorA( BRIGHT_BLUE, alpha ) );
 		gl::drawBillboard( vec3(0), vec2( 400.0f, 400.0f ), mElapsedSeconds * 10.0f, mBbRight, mBbUp );
 		gl::color( ColorA( BRIGHT_YELLOW, alpha ) );
 		gl::drawBillboard( vec3(0), vec2( 200.0f, 200.0f ), -mElapsedSeconds * 7.0f, mBbRight, mBbUp );
-		mStarGlowTex->unbind();
 	}
 }
 

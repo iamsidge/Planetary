@@ -596,7 +596,7 @@ void NodeTrack::drawPlayheadProgress( float pinchAlphaPer, float camAlpha, float
 		
 		// The ES3 pipeline has no implicit program: VertBatch draws with
 		// whatever shader happens to be bound, so bind the matching stock one.
-		gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
+		gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture() ) );
 		gl::VertBatch vbOrbit( GL_TRIANGLE_STRIP );
 		for( int i = 0; i < mTotalOrbitVertices; i++ ) {
 			vbOrbit.texCoord( mOrbitTexCoords[i*2], mOrbitTexCoords[i*2+1] );
@@ -698,7 +698,7 @@ void NodeTrack::findShadows( float camAlpha )
 			
 			// The ES3 pipeline has no implicit program: VertBatch draws with
 			// whatever shader happens to be bound, so bind the matching stock one.
-			gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
+			gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture() ) );
 			gl::VertBatch vbShadow( GL_TRIANGLES );
 			for( int i = 0; i < 12; i++ ) { // keep in step with buildShadowVertexArray
 				vbShadow.texCoord( mShadowTexCoords[i*2], mShadowTexCoords[i*2+1] );
