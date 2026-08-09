@@ -8,31 +8,31 @@
 
 #include "PlaylistFilter.h"
 
-FilterRef PlaylistFilter::create(ci::ipod::PlaylistRef playlist)
+FilterRef PlaylistFilter::create(music::PlaylistRef playlist)
 {
     return FilterRef( new PlaylistFilter( playlist ) );
 }
 
-PlaylistFilter::PlaylistFilter(ci::ipod::PlaylistRef playlist)
+PlaylistFilter::PlaylistFilter(music::PlaylistRef playlist)
 {
-    for( ci::ipod::Playlist::Iter i = playlist->begin(); i != playlist->end(); i++ ){
+    for( music::Playlist::Iter i = playlist->begin(); i != playlist->end(); i++ ){
         mArtistSet.insert( (*i)->getArtistId() );
         mAlbumSet.insert( (*i)->getAlbumId() );
         mTrackSet.insert( (*i)->getItemId() );
     }
 }
 
-bool PlaylistFilter::testArtist(ci::ipod::PlaylistRef artist) const
+bool PlaylistFilter::testArtist(music::PlaylistRef artist) const
 {
     return mArtistSet.find( artist->getArtistId() ) != mArtistSet.end();
 }
 
-bool PlaylistFilter::testAlbum(ci::ipod::PlaylistRef album) const
+bool PlaylistFilter::testAlbum(music::PlaylistRef album) const
 {
     return mAlbumSet.find( album->getAlbumId() ) != mAlbumSet.end();
 }
 
-bool PlaylistFilter::testTrack(ci::ipod::TrackRef track) const
+bool PlaylistFilter::testTrack(music::TrackRef track) const
 {
     return mTrackSet.find( track->getItemId() ) != mTrackSet.end();
 }

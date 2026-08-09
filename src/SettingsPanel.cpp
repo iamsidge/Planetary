@@ -16,7 +16,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-void SettingsPanel::setup( const vec2 &interfaceSize, ipod::Player *player, const Font &font, const gl::TextureRef &uiSmallButtonsTex )
+void SettingsPanel::setup( const vec2 &interfaceSize, music::Player *player, const Font &font, const gl::TextureRef &uiSmallButtonsTex )
 {   
     // create, add, and position everything...
     createChildren( font, uiSmallButtonsTex );
@@ -27,7 +27,7 @@ void SettingsPanel::setup( const vec2 &interfaceSize, ipod::Player *player, cons
     setLabelsOn( G_DRAW_TEXT );
     setHelpOn( false ); // this is the default in KeplerApp
     setDebugOn( G_DEBUG );	    
-    setShuffleOn( player->getShuffleMode() != ipod::Player::ShuffleModeOff );
+    setShuffleOn( player->getShuffleMode() != music::Player::ShuffleModeOff );
     setRepeatMode( player->getRepeatMode() );    
 
     if( G_IS_IPAD2 ) {

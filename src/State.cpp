@@ -47,7 +47,7 @@ void State::setAlphaChar( const string &name )
 }
 
 
-void State::setPlaylist( ci::ipod::PlaylistRef playlist )
+void State::setPlaylist( music::PlaylistRef playlist )
 {
 	mCurrentPlaylist = playlist;
 	mCallbacksPlaylistStateChanged.call( playlist );

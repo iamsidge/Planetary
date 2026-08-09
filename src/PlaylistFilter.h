@@ -9,16 +9,16 @@
 #pragma once
 #include <boost/unordered_set.hpp>
 #include "Filter.h"
-#include "CinderIPod.h"
+#include "MusicBackend.h"
 
 class PlaylistFilter : public Filter {
   public:
-    static FilterRef create(ci::ipod::PlaylistRef playlist);
-    bool testArtist( ci::ipod::PlaylistRef artist ) const;
-    bool testAlbum( ci::ipod::PlaylistRef album ) const;
-    bool testTrack( ci::ipod::TrackRef track ) const;
+    static FilterRef create(music::PlaylistRef playlist);
+    bool testArtist( music::PlaylistRef artist ) const;
+    bool testAlbum( music::PlaylistRef album ) const;
+    bool testTrack( music::TrackRef track ) const;
   private:
-    PlaylistFilter(ci::ipod::PlaylistRef playlist);
+    PlaylistFilter(music::PlaylistRef playlist);
     boost::unordered_set<uint64_t> mArtistSet;    
     boost::unordered_set<uint64_t> mAlbumSet;    
     boost::unordered_set<uint64_t> mTrackSet;    

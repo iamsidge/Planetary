@@ -24,7 +24,7 @@
 using std::stringstream;
 using namespace ci;
 using namespace ci::app;
-using namespace ci::ipod;
+using namespace music;
 using namespace std;
 
 void World::setup()

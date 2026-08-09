@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "CinderIPod.h"
+#include "MusicBackend.h"
 #include "Node.h"
 #include "cinder/Vector.h"
 
@@ -29,13 +29,13 @@ class NodeArtist : public Node
 	void setChildOrbitRadii();
     std::string getName();
     uint64_t getId();
-	void setData( ci::ipod::PlaylistRef playlist );
+	void setData( music::PlaylistRef playlist );
 	int getNumAlbums(){ return mNumAlbums; }
-    ci::ipod::PlaylistRef getPlaylist() { return mPlaylist; }
+    music::PlaylistRef getPlaylist() { return mPlaylist; }
 	
   private:
 	void setColors();
-	ci::ipod::PlaylistRef mPlaylist;
+	music::PlaylistRef mPlaylist;
 	int mNumAlbums;
     uint64_t mId;
 };

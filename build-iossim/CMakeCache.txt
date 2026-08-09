@@ -263,8 +263,8 @@ COREMOTION_FRAMEWORK:FILEPATH=/Users/simonash/Downloads/Xcode-beta.app/Contents/
 //Path to a library.
 CORETEXT_FRAMEWORK:FILEPATH=/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework
 
-//Path to a library.
-MEDIAPLAYER_FRAMEWORK:FILEPATH=/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework
+//Build against Spotify rather than the local music library
+PLANETARY_SPOTIFY:BOOL=ON
 
 //Value Computed by CMake
 Planetary_BINARY_DIR:STATIC=/Users/simonash/Developer/Planetary/build-iossim
@@ -274,6 +274,9 @@ Planetary_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Planetary_SOURCE_DIR:STATIC=/Users/simonash/Developer/Planetary
+
+//Path to a library.
+SECURITY_FRAMEWORK:FILEPATH=/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Security.framework
 
 
 ########################
@@ -419,7 +422,7 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Deprecated.  Use -W[no-]deprecated instead.
 CMAKE_WARN_DEPRECATED:INTERNAL=ON
 //Stored Xcode object GUID
-PROJECT_Planetary_GUID_CMAKE:INTERNAL=010264922149466B99DB0F48
+PROJECT_Planetary_GUID_CMAKE:INTERNAL=4E11C39B66A04BB7A03C0F26
 //Stored Xcode object GUID
 Planetary_GUID_CMAKE:INTERNAL=952F277250299AF449AC4AD5
 //Stored Xcode object GUID

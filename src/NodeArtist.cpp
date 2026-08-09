@@ -22,7 +22,7 @@
 #include "BloomGl.h"
 
 using namespace ci;
-using namespace ci::ipod;
+using namespace music;
 using namespace std;
 
 NodeArtist::NodeArtist( int index, const Font &font, const Font &smallFont, const Surface &hiResSurfaces, const Surface &loResSurfaces, const Surface &noAlbumArt )
@@ -254,7 +254,7 @@ void NodeArtist::select()
 	{
 		if( mChildNodes.size() == 0 ){
 
-            vector<ipod::PlaylistRef> albums = getAlbumsWithArtistId( getId() );
+            vector<music::PlaylistRef> albums = getAlbumsWithArtistId( getId() );
             mNumAlbums = albums.size();
             
 			int i=0;

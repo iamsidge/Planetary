@@ -10,6 +10,7 @@
 #pragma once
 
 #include <sstream>
+#include "MusicBackend.h"
 
 #include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/gl/Texture.h"
@@ -24,7 +25,6 @@
 #include "TimeLabel.h"
 #include "TextureRect.h"
 #include "ScrollingLabel.h"
-#include "CinderIPodPlayer.h"
 
 class PlayControls;
 typedef std::shared_ptr<PlayControls> PlayControlsRef;
@@ -43,7 +43,7 @@ public:
     ~PlayControls() {};
     
     void setup( vec2 interfaceSize, 
-                ci::ipod::Player *player,
+                music::Player *player,
                 const ci::Font &font, 
                 const ci::Font &fontSmall, 
                 const ci::gl::TextureRef &buttonsTex );

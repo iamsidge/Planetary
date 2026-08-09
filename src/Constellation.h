@@ -35,7 +35,7 @@ public:
         }
     }
     
-    void setup( const vector<NodeArtist*> &filteredNodes );
+    void setup( const std::vector<NodeArtist*> &filteredNodes );
     void draw( const float &alpha ) const;
     
 private:

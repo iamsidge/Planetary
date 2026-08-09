@@ -17,7 +17,7 @@
 #include "cinder/Color.h"
 #include "cinder/Camera.h"
 
-#include "CinderIPod.h"
+#include "MusicBackend.h"
 
 #include "Data.h"
 #include "World.h"
@@ -45,12 +45,12 @@ public:
     void setDataWorldCam(Data *data, World *world, ci::CameraPersp *cam);
 
     template<typename T>
-	ci::CallbackId registerPlaylistSelected( T *obj, bool ( T::*callback )( ci::ipod::PlaylistRef ) ){
+	ci::CallbackId registerPlaylistSelected( T *obj, bool ( T::*callback )( music::PlaylistRef ) ){
 		return mCbPlaylistSelected.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
 
     template<typename T>
-	ci::CallbackId registerPlaylistTouched( T *obj, bool ( T::*callback )( ci::ipod::PlaylistRef ) ){
+	ci::CallbackId registerPlaylistTouched( T *obj, bool ( T::*callback )( music::PlaylistRef ) ){
 		return mCbPlaylistTouched.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
     
@@ -66,7 +66,7 @@ public:
 private:
     
 	float			getAlpha( float x );
-	void            makeTexture( int index, ci::ipod::PlaylistRef playlist );
+	void            makeTexture( int index, music::PlaylistRef playlist );
 	
 	int				mNumPlaylists;	
 	int				mCurrentIndex;
@@ -102,5 +102,5 @@ private:
     
     ci::vec2		mInterfaceSize;
 			
-	ci::CallbackMgr<bool(ci::ipod::PlaylistRef)> mCbPlaylistSelected, mCbPlaylistTouched;        
+	ci::CallbackMgr<bool(music::PlaylistRef)> mCbPlaylistSelected, mCbPlaylistTouched;        
 };

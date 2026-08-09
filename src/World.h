@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "CinderIPod.h"
+#include "MusicBackend.h"
 #include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/Vector.h"
 #include "cinder/Font.h"
@@ -39,7 +39,7 @@ public:
     
 	void setup();
 
-	void initNodes( const vector<ci::ipod::PlaylistRef> &artists, 
+	void initNodes( const std::vector<music::PlaylistRef> &artists, 
                     const ci::Font &font, 
                     const ci::Font &smallFont, 
                     const ci::Surface &hiResSurfaces, 

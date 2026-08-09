@@ -10,6 +10,7 @@
 #pragma once
 
 #include "cinder/Vector.h"
+#include "MusicBackend.h"
 #include "Node.h"
 #include "OrbitRing.h"
 //#include "Shadow.h"
@@ -19,7 +20,7 @@ class NodeAlbum : public Node
   public:
 	NodeAlbum( Node *parent, int index, const ci::Font &font, const ci::Font &smallFont, const ci::Surface &hiResSurfaces, const ci::Surface &loResSurfaces, const ci::Surface &noAlbumArt );
 	
-	void setData( ci::ipod::PlaylistRef album );
+	void setData( music::PlaylistRef album );
 	void update( float param1, float param2 );
 	void drawEclipseGlow();
 	void drawPlanet( const ci::gl::TextureRef &tex );
@@ -31,11 +32,11 @@ class NodeAlbum : public Node
     void buildShadowVertexArray( ci::vec3 p1, ci::vec3 p2, ci::vec3 p3, ci::vec3 p4 );
 	void select();
 	void setChildOrbitRadii();
-	string getName();
+	std::string getName();
 	float getReleaseYear();
     uint64_t getId();
 
-	ci::ipod::PlaylistRef getPlaylist() { return mAlbum; }
+	music::PlaylistRef getPlaylist() { return mAlbum; }
     
 	// TODO: should this be private?
 	int mNumTracks;
@@ -57,7 +58,7 @@ class NodeAlbum : public Node
 	bool		mIsBlockedBySun;
 	float		mBlockedBySunPer;
 	ci::gl::TextureRef mAlbumArtTex;
-	ci::ipod::PlaylistRef mAlbum;
+	music::PlaylistRef mAlbum;
 	float		mCloudLayerRadius;
 	uint64_t    mId;
 //    Shadow      mShadow;	

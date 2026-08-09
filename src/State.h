@@ -9,6 +9,7 @@
 
 #pragma once
 #include "cinder/app/cocoa/AppCocoaTouch.h"
+#include "MusicBackend.h"
 #include "cinder/Vector.h"
 #include "cinder/Font.h"
 #include "cinder/gl/gl.h"
@@ -34,7 +35,7 @@ class State {
 	// Alpha char for filtering artist name
 	char getAlphaChar(){ return mAlphaChar; }
 	void setAlphaChar( char c );
-	void setAlphaChar( const string &artistName );
+	void setAlphaChar( const std::string &artistName );
 	template<typename T>
 	CallbackId registerAlphaCharStateChanged( T *obj, bool ( T::*callback )( char ) ){
 		return mCallbacksAlphaCharStateChanged.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
@@ -42,10 +43,10 @@ class State {
 	
 	
 	// Playlist filtering
-	ci::ipod::PlaylistRef getPlaylist(){ return mCurrentPlaylist; }
-	void setPlaylist( ci::ipod::PlaylistRef playlist );
+	music::PlaylistRef getPlaylist(){ return mCurrentPlaylist; }
+	void setPlaylist( music::PlaylistRef playlist );
 	template<typename T>
-	CallbackId registerPlaylistStateChanged( T *obj, bool ( T::*callback )( ci::ipod::PlaylistRef ) ){
+	CallbackId registerPlaylistStateChanged( T *obj, bool ( T::*callback )( music::PlaylistRef ) ){
 		return mCallbacksPlaylistStateChanged.registerCb(std::bind( callback, obj, std::placeholders::_1 ) );
 	}
 	
@@ -82,7 +83,7 @@ class State {
 	}
     
 private:
-	CallbackMgr<bool(ci::ipod::PlaylistRef)> mCallbacksPlaylistStateChanged;
+	CallbackMgr<bool(music::PlaylistRef)> mCallbacksPlaylistStateChanged;
 	CallbackMgr<bool(char)> mCallbacksAlphaCharStateChanged;	
 	CallbackMgr<bool(FilterMode)> mCallbacksFilterModeStateChanged;
 	CallbackMgr<bool(Node*)> mCallbacksNodeSelected;
@@ -93,6 +94,6 @@ private:
     
     FilterMode mFilterMode;
 	char mAlphaChar;
-	ci::ipod::PlaylistRef mCurrentPlaylist;
+	music::PlaylistRef mCurrentPlaylist;
 };
 

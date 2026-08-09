@@ -9,14 +9,14 @@
 #pragma once
 
 #include "Filter.h"
-#include "CinderIPod.h"
+#include "MusicBackend.h"
 
 class LetterFilter : public Filter {
   public:
     static FilterRef create( char letter );
-    bool testArtist( ci::ipod::PlaylistRef artist ) const;
-    bool testAlbum( ci::ipod::PlaylistRef album ) const;
-    bool testTrack( ci::ipod::TrackRef track ) const;
+    bool testArtist( music::PlaylistRef artist ) const;
+    bool testAlbum( music::PlaylistRef album ) const;
+    bool testTrack( music::TrackRef track ) const;
   private:
     LetterFilter( char letter );    
     char mLetter; // always uppercase, unless '#'

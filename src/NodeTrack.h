@@ -10,7 +10,7 @@
 #pragma once
 
 #include "Node.h"
-#include "CinderIPod.h"
+#include "MusicBackend.h"
 #include "TaskQueue.h"
 
 class NodeTrack : public Node
@@ -26,7 +26,7 @@ class NodeTrack : public Node
         }
     }
     
-	void setData( ci::ipod::TrackRef track, ci::ipod::PlaylistRef album, const ci::Surface &albumArt );
+	void setData( music::TrackRef track, music::PlaylistRef album, const ci::Surface &albumArt );
     void initVertexArray();
 	void updateAudioData( double currentPlayheadTime );
 	void update( float param1, float param2 );
@@ -47,13 +47,13 @@ class NodeTrack : public Node
 	void setStartAngle();
 	int getTrackNumber();
 
-	string getName();
+	std::string getName();
     uint64_t getId();
 	bool isMostPlayed() { return mIsMostPlayed; }
 
 	// FIXME: should this be from a getData() function? or private?
-	ci::ipod::TrackRef      mTrack;
-	ci::ipod::PlaylistRef   mAlbum;	
+	music::TrackRef      mTrack;
+	music::PlaylistRef   mAlbum;	
 	
 private:
 	float		mShadowPer;
@@ -66,7 +66,7 @@ private:
 	int			mStarRating;
 	int			mNumTracks;
 	ci::vec3	mStartPos, mTransStartPos, mStartRelPos;
-	vector<ci::vec3> mOrbitPath;
+	std::vector<ci::vec3> mOrbitPath;
 	
 	float		mPrevTime, mCurrentTime, mMyTime;
 	double		mStartTime;

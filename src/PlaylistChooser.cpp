@@ -266,7 +266,7 @@ void PlaylistChooser::draw()
 	gl::enableAlphaBlending();
 }
 
-void PlaylistChooser::makeTexture( int index, ipod::PlaylistRef playlist )
+void PlaylistChooser::makeTexture( int index, music::PlaylistRef playlist )
 {
     // FIXME: measure the texture and shorten the name if needed
 	string name = playlist->getPlaylistName();

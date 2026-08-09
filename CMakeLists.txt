@@ -12,6 +12,11 @@ cmake_minimum_required( VERSION 3.16 FATAL_ERROR )
 
 project( Planetary CXX OBJCXX )
 
+# Which music backend to build against. ON selects blocks/CinderSpotify;
+# OFF goes back to the original local library via blocks/CinderIPod. Both
+# implement the same interface — see src/MusicBackend.h.
+option( PLANETARY_SPOTIFY "Build against Spotify rather than the local music library" ON )
+
 get_filename_component( PLANETARY_ROOT "${CMAKE_CURRENT_SOURCE_DIR}" ABSOLUTE )
 # Cinder is vendored under vendor/ so a clean clone builds without an external
 # checkout, and so the iOS 26 scene-adoption patch travels with the source.
@@ -29,9 +34,6 @@ file( GLOB PLANETARY_SRC "${PLANETARY_ROOT}/src/*.cpp" "${PLANETARY_ROOT}/src/*.
 # The Bloom blocks are vendored as submodules rather than Cinder blocks
 # proper, so their sources are compiled straight into the app.
 set( BLOCK_SRC
-	"${PLANETARY_ROOT}/blocks/CinderIPod/src/CinderIPod.mm"
-	"${PLANETARY_ROOT}/blocks/CinderIPod/src/CinderIPodPlayer.mm"
-	"${PLANETARY_ROOT}/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm"
 	"${PLANETARY_ROOT}/blocks/BloomTasks/src/TaskQueue.cpp"
 	"${PLANETARY_ROOT}/blocks/BloomScene/src/BloomNode.cpp"
 	"${PLANETARY_ROOT}/blocks/BloomScene/src/BloomScene.cpp"
@@ -40,15 +42,29 @@ set( BLOCK_SRC
 	"${PLANETARY_ROOT}/blocks/CinderOrientation/src/OrientationHelper.mm"
 )
 
-# The Spotify backend. Compiled but not yet wired into the app: it is being
-# built out against the same interface CinderIPod presents, and the swap
-# happens once playback is in place. See blocks/CinderSpotify/README.md.
-list( APPEND BLOCK_SRC
-	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyId.cpp"
-	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyAuth.mm"
-	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/CinderSpotify.mm"
-	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyPlayer.mm"
-)
+# Only the selected backend is compiled. Building both would link
+# MPMusicPlayerController and MPMediaQuery into a Spotify build, which makes
+# iOS prompt for Apple Music access an app in that configuration never uses.
+if( PLANETARY_SPOTIFY )
+	list( APPEND BLOCK_SRC
+		"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyId.cpp"
+		"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyAuth.mm"
+		"${PLANETARY_ROOT}/blocks/CinderSpotify/src/CinderSpotify.mm"
+		"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyPlayer.mm"
+	)
+else()
+	list( APPEND BLOCK_SRC
+		"${PLANETARY_ROOT}/blocks/CinderIPod/src/CinderIPod.mm"
+		"${PLANETARY_ROOT}/blocks/CinderIPod/src/CinderIPodPlayer.mm"
+		"${PLANETARY_ROOT}/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm"
+	)
+endif()
+
+if( PLANETARY_SPOTIFY )
+	message( STATUS "Planetary: music backend = Spotify" )
+else()
+	message( STATUS "Planetary: music backend = local library (CinderIPod)" )
+endif()
 
 # Cinder 0.8 bundled Boost; 0.9 dropped it. The app uses seven Boost headers
 # (foreach, tokenizer, unordered_map/set, algorithm/string, functional/hash),
@@ -94,28 +110,57 @@ elseif( NOT TARGET cinder )
 	message( FATAL_ERROR "Cinder is not built for iOS. Expected ${CINDER_BUILT_CONFIG} — see README." )
 endif()
 
-# Frameworks Cinder's own iOS list doesn't pull in: CoreText backs its Font
-# and TextBox rendering, and MediaPlayer is what CinderIPod is built on.
-find_library( CORETEXT_FRAMEWORK CoreText REQUIRED )
-find_library( MEDIAPLAYER_FRAMEWORK MediaPlayer REQUIRED )
+# Frameworks Cinder's own iOS list doesn't pull in.
+find_library( CORETEXT_FRAMEWORK CoreText REQUIRED )   # backs Font and TextBox
 find_library( COREMOTION_FRAMEWORK CoreMotion REQUIRED )
-# ASWebAuthenticationSession, for the Spotify PKCE sign-in flow.
-find_library( AUTHSERVICES_FRAMEWORK AuthenticationServices REQUIRED )
+
+# Backend-specific. A Spotify build links neither MediaPlayer nor anything
+# else that could reach the local library, so iOS never prompts for Apple
+# Music access in that configuration.
+set( BACKEND_FRAMEWORKS )
+if( PLANETARY_SPOTIFY )
+	find_library( AUTHSERVICES_FRAMEWORK AuthenticationServices REQUIRED ) # sign-in
+	find_library( SECURITY_FRAMEWORK Security REQUIRED )                   # PKCE randomness
+	list( APPEND BACKEND_FRAMEWORKS ${AUTHSERVICES_FRAMEWORK} ${SECURITY_FRAMEWORK} )
+else()
+	find_library( MEDIAPLAYER_FRAMEWORK MediaPlayer REQUIRED )             # CinderIPod
+	list( APPEND BACKEND_FRAMEWORKS ${MEDIAPLAYER_FRAMEWORK} )
+endif()
 
 ci_make_app(
 	APP_NAME    "Planetary"
 	CINDER_PATH ${CINDER_PATH}
 	SOURCES     ${PLANETARY_SRC} ${BLOCK_SRC}
 	INCLUDES    ${BLOCK_INCLUDES}
-	LIBRARIES   ${CORETEXT_FRAMEWORK} ${MEDIAPLAYER_FRAMEWORK} ${COREMOTION_FRAMEWORK}
-	            ${AUTHSERVICES_FRAMEWORK}
-	ASSETS_PATH "${PLANETARY_ROOT}/resources"
+	LIBRARIES   ${CORETEXT_FRAMEWORK} ${COREMOTION_FRAMEWORK} ${BACKEND_FRAMEWORKS}
+)
+
+# Planetary loads its art and fonts with loadResource(), which on iOS resolves
+# names against the bundle root — not an assets subdirectory, and not the
+# resources/ tree's subfolders. The original Xcode project added them as flat
+# bundle resources, so do the same. Verified free of basename collisions.
+file( GLOB_RECURSE PLANETARY_RESOURCES
+	"${PLANETARY_ROOT}/resources/*.png"
+	"${PLANETARY_ROOT}/resources/*.jpg"
+	"${PLANETARY_ROOT}/resources/*.ttf"
+	"${PLANETARY_ROOT}/resources/*.otf"
+)
+add_custom_command( TARGET Planetary POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	        ${PLANETARY_RESOURCES}
+	        "$<TARGET_BUNDLE_CONTENT_DIR:Planetary>"
+	COMMENT "Copying Planetary resources into the app bundle"
+	VERBATIM
 )
 
 # Report every diagnostic while the port is in progress. Clang's default cap
 # of 20 per file hides whole classes of error behind whichever ones happen to
 # come first, which makes the remaining work impossible to size.
 target_compile_options( Planetary PRIVATE -ferror-limit=0 )
+
+if( PLANETARY_SPOTIFY )
+	target_compile_definitions( Planetary PRIVATE PLANETARY_USE_SPOTIFY )
+endif()
 
 # CMake's default bundle template has no CFBundleIdentifier, and simctl
 # refuses to install without one. UIDeviceFamily 2 keeps this an iPad app,

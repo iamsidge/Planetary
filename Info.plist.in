@@ -76,8 +76,35 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 
-	<!-- CinderIPod reads the local music library via MPMediaQuery. -->
+	<!-- Used only by the CinderIPod backend (-DPLANETARY_SPOTIFY=OFF). -->
 	<key>NSAppleMusicUsageDescription</key>
 	<string>Planetary reads your music library to build a solar system from it.</string>
+
+	<!--
+	  Spotify backend configuration. Paste the client id from
+	  https://developer.spotify.com/dashboard here; it is intentionally empty
+	  in source so no credential is committed. Register the same redirect URI
+	  on the Spotify app, exactly as written.
+
+	  With the id blank the app still runs: sign-in fails with an explanatory
+	  message and the galaxy is simply empty.
+	-->
+	<key>SpotifyClientID</key>
+	<string></string>
+	<key>SpotifyRedirectURI</key>
+	<string>planetary://spotify-callback</string>
+
+	<!-- The redirect scheme must be registered or the callback never returns. -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>org.cooperhewitt.planetary.spotify</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>planetary</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -17,7 +17,7 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-void PlayControls::setup( vec2 interfaceSize, ipod::Player *player, const Font &font, const Font &fontSmall, const gl::TextureRef &uiButtonsTex )
+void PlayControls::setup( vec2 interfaceSize, music::Player *player, const Font &font, const Font &fontSmall, const gl::TextureRef &uiButtonsTex )
 {   
 
     // create, add, and position everything...
@@ -25,7 +25,7 @@ void PlayControls::setup( vec2 interfaceSize, ipod::Player *player, const Font &
     setInterfaceSize( interfaceSize );
         
     // set initial state...
-    setPlayingOn( player->getPlayState() == ipod::Player::StatePlaying );    
+    setPlayingOn( player->getPlayState() == music::Player::StatePlaying );    
     setAlphaOn( false ); // this is the default in Vignette::setup()
     setPlaylistOn( false );
     setShowSettingsOn( G_SHOW_SETTINGS );

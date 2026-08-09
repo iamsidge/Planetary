@@ -24,17 +24,17 @@ LetterFilter::LetterFilter(char letter)
     }
 }
 
-bool LetterFilter::testArtist(ci::ipod::PlaylistRef artist) const
+bool LetterFilter::testArtist(music::PlaylistRef artist) const
 {
     return testArtistName(artist->getArtistName());
 }
 
-bool LetterFilter::testAlbum(ci::ipod::PlaylistRef album) const
+bool LetterFilter::testAlbum(music::PlaylistRef album) const
 {
     return testArtistName(album->getArtistName());
 }
 
-bool LetterFilter::testTrack(ci::ipod::TrackRef track) const
+bool LetterFilter::testTrack(music::TrackRef track) const
 {
     return testArtistName(track->getArtist());    
 }

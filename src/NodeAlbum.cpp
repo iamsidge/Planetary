@@ -20,7 +20,7 @@
 #include "BloomGl.h"
 
 using namespace ci;
-using namespace ci::ipod;
+using namespace music;
 using namespace std;
 
 NodeAlbum::NodeAlbum( Node *parent, int index, const Font &font, const Font &smallFont, const Surface &hiResSurfaces, const Surface &loResSurfaces, const Surface &noAlbumArt )

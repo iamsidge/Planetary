@@ -9,6 +9,7 @@
 #pragma once
 
 #include <sstream>
+#include "MusicBackend.h"
 
 #include "cinder/app/cocoa/AppCocoaTouch.h"
 #include "cinder/gl/Texture.h"
@@ -20,7 +21,6 @@
 #include "Buttons.h"
 #include "Slider.h"
 #include "TextLabel.h"
-#include "CinderIPodPlayer.h"
 
 class SettingsPanel;
 typedef std::shared_ptr<SettingsPanel> SettingsPanelRef;
@@ -38,7 +38,7 @@ public:
     ~SettingsPanel() {};
     
     void setup( const ci::vec2 &interfaceSize, 
-                ci::ipod::Player *player,
+                music::Player *player,
                 const ci::Font &font, 
                 const ci::gl::TextureRef &smallButtonsTex );
     
@@ -52,11 +52,11 @@ public:
     void setLabelsOn(bool on) { mLabelsButton->setOn(on); };	
 	void setShuffleOn(bool on) { mShuffleButton->setOn(on); };
 	void setScreensaverOn(bool on){ mScreensaverButton->setOn(on); };
-	void setRepeatMode(ci::ipod::Player::RepeatMode state)
+	void setRepeatMode(music::Player::RepeatMode state)
     { 
-        int stateInt = state == ci::ipod::Player::RepeatModeNone ? 0 :
-        state == ci::ipod::Player::RepeatModeAll ? 1 :
-        state == ci::ipod::Player::RepeatModeOne ? 2 : 0; // 0 for RepeatModeDefault
+        int stateInt = state == music::Player::RepeatModeNone ? 0 :
+        state == music::Player::RepeatModeAll ? 1 :
+        state == music::Player::RepeatModeOne ? 2 : 0; // 0 for RepeatModeDefault
         mRepeatButton->setState(stateInt); 
     };	
 	float getParamSlider1Value(){ return mParamSlider1->getValue(); }

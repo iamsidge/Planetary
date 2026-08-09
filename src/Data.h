@@ -10,7 +10,7 @@
 #pragma once 
 
 #include <map>
-#include "CinderIPod.h" // for PlaylistRef
+#include "MusicBackend.h"
 
 class Data {
   public:
@@ -23,8 +23,8 @@ class Data {
     void setup();
 	void update();
     
-	std::vector<ci::ipod::PlaylistRef> mArtists;
-	std::vector<ci::ipod::PlaylistRef> mPlaylists;
+	std::vector<music::PlaylistRef> mArtists;
+	std::vector<music::PlaylistRef> mPlaylists;
     
 	std::map< char, float > mNumArtistsPerChar;
 	float mNormalizedArtistsPerChar[27];
@@ -44,7 +44,7 @@ class Data {
     float mArtistProgress, mPlaylistProgress;
     
     LoadState mState;
-	std::vector<ci::ipod::PlaylistRef> mPendingArtists;
-	std::vector<ci::ipod::PlaylistRef> mPendingPlaylists;	
+	std::vector<music::PlaylistRef> mPendingArtists;
+	std::vector<music::PlaylistRef> mPendingPlaylists;	
 	
 };

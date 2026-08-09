@@ -12,7 +12,7 @@
 #include "TaskQueue.h"        // for backgrounding tasks
 
 using namespace ci;
-using namespace ci::ipod;
+using namespace music;
 using namespace std;
 
 void Data::setup()
@@ -41,7 +41,7 @@ void Data::backgroundInit()
 		mNumArtistsPerChar[alphaString[i]] = 0;
 	}
 	float maxCount = 0.0001f;
-	for( vector<ci::ipod::PlaylistRef>::iterator it = mPendingArtists.begin(); it != mPendingArtists.end(); ++it ){
+	for( vector<music::PlaylistRef>::iterator it = mPendingArtists.begin(); it != mPendingArtists.end(); ++it ){
         
 		string name		= (*it)->getArtistName();
 		string the		= name.substr( 0, 4 );
