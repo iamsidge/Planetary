@@ -10,6 +10,7 @@
 #include "cinder/CinderMath.h"
 #include "cinder/Vector.h"
 #include "BloomSphere.h"
+#include "PlanetLighting.h"
 
 using namespace ci;
 using namespace std;
@@ -112,6 +113,12 @@ namespace bloom {
     void BloomSphere::draw()
     {
         if( mBatch ) mBatch->draw();
+    }
+
+    void BloomSphere::drawLit()
+    {
+        if( mLitBatch ) mLitBatch->draw();
+        else            draw();   // shader unavailable; unlit is better than nothing
     }
     
 }

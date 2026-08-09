@@ -467,13 +467,13 @@ void NodeTrack::drawPlanet( const gl::TextureRef &tex )
 			gl::enableAdditiveBlending();
 		}
             if( mSphereScreenRadius > 60.0f ){
-                mHiSphere->draw();
+                mHiSphere->drawLit();
             } else if( mSphereScreenRadius > 30.0f  ){
-                mMdSphere->draw();
+                mMdSphere->drawLit();
             } else if( mSphereScreenRadius > 15.0f  ){
-                mLoSphere->draw();
+                mLoSphere->drawLit();
             } else {
-                mTySphere->draw();
+                mTySphere->drawLit();
             }
 //        }
         
@@ -512,13 +512,13 @@ void NodeTrack::drawClouds( const vector<gl::TextureRef> &clouds )
 			
 			gl::enableAdditiveBlending();
             if( mSphereScreenRadius > 60.0f ){
-                mHiSphere->draw();
+                mHiSphere->drawLit();
             } else if( mSphereScreenRadius > 30.0f  ){
-                mMdSphere->draw();
+                mMdSphere->drawLit();
             } else if( mSphereScreenRadius > 15.0f  ){
-                mLoSphere->draw();
+                mLoSphere->drawLit();
             } else {
-                mTySphere->draw();
+                mTySphere->drawLit();
             }
 
             clouds[mCloudTexIndex]->unbind();

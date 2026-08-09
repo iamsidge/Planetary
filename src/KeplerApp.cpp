@@ -34,6 +34,7 @@
 #include "NodeAlbum.h"
 #include "Galaxy.h"
 #include "BloomSphere.h"
+#include "PlanetLighting.h"
 
 #include "BloomScene.h"
 #include "OrientationNode.h"
@@ -2038,18 +2039,21 @@ void KeplerApp::drawScene()
 
     glEnable( GL_CULL_FACE );
     glCullFace( GL_BACK );
-    // TODO: KNOWN VISUAL REGRESSION — fixed-function lighting is gone.
-    //
-    // The original lit the planets with two GL_LIGHTs positioned at the artist
-    // node (its own colour, plus a blue fill), with GL_COLOR_MATERIAL and
-    // rescaled normals. None of that exists in ES3, and there is no mechanical
-    // equivalent: it needs a GLSL program with the light position and the two
-    // colours as uniforms, applied to the sphere batches.
-    //
-    // Until then the spheres draw unlit, so they will look flat rather than
-    // shaded. Everything else renders correctly. The light parameters that
-    // would feed such a shader are artistNode->mPos, artistNode->mColor and
-    // BRIGHT_BLUE.
+
+    // Planet lighting. The original used two GL_LIGHTs at the artist node —
+    // its own colour plus a blue fill — which ES3 has no equivalent for; see
+    // PlanetLighting for the shader that replaces them. glLightfv transformed
+    // its position by the modelview in force at the time, i.e. view space, so
+    // the position is transformed here to match.
+    if( artistNode ) {
+        vec3 lightPosView = vec3( mCam.getViewMatrix() * vec4( artistNode->mPos, 1.0f ) );
+        bloom::setPlanetLight( lightPosView, artistNode->mColor, BRIGHT_BLUE );
+    }
+    else {
+        // Neither light was enabled without a selected artist, leaving only
+        // the light model's ambient.
+        bloom::setPlanetLightOff();
+    }
     
     for( int i = 0; i < sortedNodes.size(); i++ ){
         

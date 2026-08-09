@@ -191,16 +191,16 @@ void NodeArtist::drawPlanet( const gl::TextureRef &tex )
         
 		if( mSphereScreenRadius < 600.0f ){
 			if( mSphereScreenRadius > 75.0f ){
-                mHiSphere->draw();
+                mHiSphere->drawLit();
 			} else if( mSphereScreenRadius > 35.0f ){
-                mMdSphere->draw();
+                mMdSphere->drawLit();
 			} else if( mSphereScreenRadius > 10.0f ){
-                mLoSphere->draw();
+                mLoSphere->drawLit();
 			} else {
-                mTySphere->draw();
+                mTySphere->drawLit();
 			}
 		} else {
-            mLoSphere->draw();
+            mLoSphere->drawLit();
 		}
         
         tex->unbind();

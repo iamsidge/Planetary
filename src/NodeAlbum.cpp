@@ -348,16 +348,16 @@ void NodeAlbum::drawPlanet( const gl::TextureRef &tex )
 		// consider frustum culling?
 		if( mSphereScreenRadius < 800.0f ){
 			if( mSphereScreenRadius > 50.0f ){
-                mHiSphere->draw();
+                mHiSphere->drawLit();
 			} else if( mSphereScreenRadius > 30.0f ){
-                mMdSphere->draw();
+                mMdSphere->drawLit();
 			} else if( mSphereScreenRadius > 10.0f ){
-                mLoSphere->draw();
+                mLoSphere->drawLit();
 			} else {
-                mTySphere->draw();
+                mTySphere->drawLit();
 			}
 		} else {
-            mLoSphere->draw();
+            mLoSphere->drawLit();
 		}
         
         mAlbumArtTex->unbind();
@@ -411,7 +411,7 @@ void NodeAlbum::drawClouds( const vector<gl::TextureRef> &clouds )
 			gl::enableAlphaBlending();
 			if( G_IS_IPAD2 || G_DEBUG ){
 				gl::color( ColorA( 0.0f, 0.0f, 0.0f, alpha ) );
-				lodSphere->draw();
+				lodSphere->drawLit();
 			}
 			const float eclipseAmt = ( 1.0f - mEclipseStrength ) * 0.5f + 0.5f;
 			gl::color( ColorA( eclipseAmt, eclipseAmt, eclipseAmt, alpha * 2.0f ) );
@@ -423,7 +423,7 @@ void NodeAlbum::drawClouds( const vector<gl::TextureRef> &clouds )
 		gl::enableAdditiveBlending();
 		const float radius2 = (mRadius * mDeathPer + mCloudLayerRadius*1.5f) / radius;
 		gl::scale( vec3( radius2, radius2, radius2 ) );
-		lodSphere->draw();
+		lodSphere->drawLit();
         
         clouds[mCloudTexIndex]->unbind();
         
