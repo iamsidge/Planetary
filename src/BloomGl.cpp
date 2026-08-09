@@ -58,6 +58,9 @@ namespace bloom { namespace gl {
 		verts[2] = pos + bbRight * (  scaleXCosA - scaleYSinA ) + bbUp * (  scaleXSinA + scaleYCosA );
 		verts[3] = pos + bbRight * (  scaleXCosA + scaleYSinA ) + bbUp * (  scaleXSinA - scaleYCosA );
 		
+		// The ES3 pipeline has no implicit program: VertBatch draws with
+		// whatever shader happens to be bound, so bind the matching stock one.
+		ci::gl::ScopedGlslProg batchShader( ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
 		ci::gl::VertBatch vb( GL_TRIANGLE_STRIP );
 		for( int i = 0; i < 4; i++ ) {
 			vb.texCoord( texCoords[i*2], texCoords[i*2+1] );
@@ -109,6 +112,9 @@ namespace bloom { namespace gl {
 		verts[2] = vec3( (  scaleXCosA - scaleYSinA ), (  scaleXSinA + scaleYCosA ), 0.0f );
 		verts[3] = vec3( (  scaleXCosA + scaleYSinA ), (  scaleXSinA - scaleYCosA ), 0.0f );
 
+		// The ES3 pipeline has no implicit program: VertBatch draws with
+		// whatever shader happens to be bound, so bind the matching stock one.
+		ci::gl::ScopedGlslProg batchShader( ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
 		ci::gl::VertBatch vb( GL_TRIANGLE_STRIP );
 		for( int i = 0; i < 4; i++ ) {
 			vb.texCoord( texCoords[i*2], texCoords[i*2+1] );
@@ -170,6 +176,9 @@ namespace bloom { namespace gl {
 		verts[2] = ci::vec2( 0.5f,-0.5f) * scale;
 		verts[3] = ci::vec2( 0.5f, 0.5f) * scale;
         
+		// The ES3 pipeline has no implicit program: VertBatch draws with
+		// whatever shader happens to be bound, so bind the matching stock one.
+		ci::gl::ScopedGlslProg batchShader( ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
 		ci::gl::VertBatch vb( GL_TRIANGLE_STRIP );
 		for( int i = 0; i < 4; i++ ) {
 			vb.texCoord( texCoords[i*2], texCoords[i*2+1] );
@@ -244,6 +253,9 @@ namespace bloom { namespace gl {
         // for: state changes still happen once per texture, not per rect.
         BOOST_FOREACH(BatchRef batch, batches) {
             ci::gl::ScopedTextureBind texBind( batch->texture );
+            // The ES3 pipeline has no implicit program: VertBatch draws with
+            // whatever shader happens to be bound, so bind the matching stock one.
+            ci::gl::ScopedGlslProg batchShader( ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
             ci::gl::VertBatch vb( GL_TRIANGLES );
             for( size_t i = 0; i < batch->vertices.size(); i++ ) {
                 vb.texCoord( batch->vertices[i].texture );

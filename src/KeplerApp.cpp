@@ -479,12 +479,14 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 	mCloudTextures.push_back( mTextures[M_CLOUDS_5] );
     
 	// ARCBALL
-	// 0.9's Arcball projects through a camera and dereferences it in
-	// mouseOnSphere; the default constructor leaves that pointer null, and
-	// only the constructor can set it. Cinder 0.8's Arcball needed no camera,
-	// which is why the ported setSphere/setQuat calls alone segfaulted on the
-	// first touch. &mCam is stable: it is a member, configured just below.
-	mArcball = Arcball( &mCam, Sphere( vec3( getWindowCenter(), 0.0f ), G_DEFAULT_ARCBALL_RADIUS ) );
+	// 0.9's Arcball projects through a camera (which only the constructor can
+	// set — &mCam is a stable member) and models a *world-space* sphere. 0.8's
+	// was screen-space: centre at the window centre, radius in pixels. Feeding
+	// those numbers to 0.9 made a sphere the camera could not sensibly
+	// project, and mouseOnSphere's miss-fallback emitted NaN, which then stuck
+	// in the quat forever. The sphere is kept centred on the camera target and
+	// sized against the camera distance — see updateArcball.
+	mArcball = Arcball( &mCam, Sphere( vec3( 0.0f ), G_INIT_CAM_DIST * 0.5f ) );
 	// Cinder 0.8's Quatf(x,y,z) took Euler angles; GLM spells that quat(vec3).
 	mArcball.setQuat( quat( vec3( -0.2f, 0.0f, -0.3f ) ) );
 	
@@ -1695,6 +1697,13 @@ void KeplerApp::update()
 
 void KeplerApp::updateArcball()
 {	
+	// Keep the arcball's world sphere where the camera is actually looking,
+	// sized to fill most of the view — which is what 0.8's 500px screen ball
+	// meant. Without this the per-frame synthetic drag below runs against a
+	// stale sphere whenever the camera moves.
+	float arcballRadius = std::max( mCamDist, 1.0f ) * 0.5f;
+	mArcball.setSphere( Sphere( mCenter, arcballRadius ) );
+
 	if( !G_AUTO_MOVE ){
 		if( glm::length(mTouchVel) > 2.0f && !mIsDragging ){
 			vec3 downPos;
@@ -1878,6 +1887,17 @@ void KeplerApp::updateCamera()
     // apply the Arcball to the camera eye/up vectors
     // (instead of to the whole scene)
     quat q = mArcball.getQuat();
+    // The original shipped with "FIXME: what causes camera to sometimes
+    // destroy itself?" — a NaN here is sticky, because the arcball
+    // renormalises its quat on every drag. Restore the last good orientation
+    // rather than letting one bad frame black the scene out permanently.
+    static quat sLastGoodQuat = q;
+    if( isnan( q.w ) || isnan( q.x ) || isnan( q.y ) || isnan( q.z ) ) {
+        mArcball.setQuat( sLastGoodQuat );
+        q = sLastGoodQuat;
+    } else {
+        sLastGoodQuat = q;
+    }
     q.w *= -1.0; // reverse the angle, keep the axis
 	if( G_IS_IPAD2 && G_USE_GYRO ){
 		q = mGyroHelper.getQuat();
@@ -1891,6 +1911,7 @@ void KeplerApp::updateCamera()
     
     vec3 camOffset = q * vec3( 0, 0, mCamDist);
     mEye = mCenter - camOffset;
+
 
     // FIXME: what causes camera to sometimes destroy itself?
 //    if( (isnan(mEye.x) || isnan(mEye.y) || isnan(mEye.z)) ) {

@@ -53,6 +53,9 @@ void PlanetRing::draw() const
 {
     // Client arrays are gone under ES3; VertBatch submits the same six
     // interleaved vertices through the programmable pipeline.
+    // The ES3 pipeline has no implicit program: VertBatch draws with
+    // whatever shader happens to be bound, so bind the matching stock one.
+    gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
     gl::VertBatch vb( GL_TRIANGLES );
     for( int i = 0; i < 6; i++ ) {
         vb.texCoord( mVerts[i].texture );

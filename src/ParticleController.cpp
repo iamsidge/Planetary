@@ -145,6 +145,9 @@ void ParticleController::drawParticleVertexArray( Node *node, float multi )
 	// PARTICLES
 	// Client arrays are gone under ES3; VertBatch carries the same
 	// interleaved position/texcoord/colour stream.
+	// The ES3 pipeline has no implicit program: VertBatch draws with
+	// whatever shader happens to be bound, so bind the matching stock one.
+	gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
 	gl::VertBatch vb( GL_TRIANGLES );
 	for( int i = 0; i < mTotalParticleVertices; i++ ) {
 		vb.texCoord( mParticleVerts[i].texture );
@@ -166,6 +169,9 @@ void ParticleController::drawParticleVertexArray( Node *node, float multi )
 void ParticleController::drawDustVertexArray( Node *node, float multi )
 {
 	// DUST
+	// The ES3 pipeline has no implicit program: VertBatch draws with
+	// whatever shader happens to be bound, so bind the matching stock one.
+	gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().color() ) );
 	gl::VertBatch vb( GL_POINTS );
 	for( int i = 0; i < mTotalDustVertices; i++ ) {
 		vb.color( ColorA( mDustVerts[i].color.r, mDustVerts[i].color.g,

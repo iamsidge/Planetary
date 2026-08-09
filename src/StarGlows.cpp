@@ -97,6 +97,9 @@ void StarGlows::setup( const vector<NodeArtist*> &filteredNodes, const vec3 &bbR
 
 void StarGlows::draw()
 {
+	// The ES3 pipeline has no implicit program: VertBatch draws with
+	// whatever shader happens to be bound, so bind the matching stock one.
+	gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
 	gl::VertBatch vb( GL_TRIANGLES );
 	for( int i = 0; i < mTotalVertices; i++ ) {
 		vb.texCoord( mVerts[i].texture );

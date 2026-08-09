@@ -270,6 +270,9 @@ void Shadow::draw()
     // Client arrays are gone under ES3; VertBatch feeds the same 12 vertices
     // through the programmable pipeline. Positions are 3 floats each and tex
     // coords 2, interleaved across the two flat arrays as before.
+    // The ES3 pipeline has no implicit program: VertBatch draws with
+    // whatever shader happens to be bound, so bind the matching stock one.
+    gl::ScopedGlslProg batchShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
     gl::VertBatch vb( GL_TRIANGLES );
     for( int i = 0; i < 12; i++ ) { // keep in step with the vert count in buildVerts
         vb.texCoord( mShadowTexCoords[i*2], mShadowTexCoords[i*2+1] );
