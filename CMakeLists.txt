@@ -13,7 +13,12 @@ cmake_minimum_required( VERSION 3.16 FATAL_ERROR )
 project( Planetary CXX OBJCXX )
 
 get_filename_component( PLANETARY_ROOT "${CMAKE_CURRENT_SOURCE_DIR}" ABSOLUTE )
-get_filename_component( CINDER_PATH "${PLANETARY_ROOT}/../Cinder" ABSOLUTE )
+# Cinder is vendored under vendor/ so a clean clone builds without an external
+# checkout, and so the iOS 26 scene-adoption patch travels with the source.
+# See vendor/Cinder/README.md. Override with -DCINDER_PATH to use your own.
+if( NOT CINDER_PATH )
+	get_filename_component( CINDER_PATH "${PLANETARY_ROOT}/vendor/Cinder" ABSOLUTE )
+endif()
 
 if( NOT EXISTS "${CINDER_PATH}/include/cinder/Cinder.h" )
 	message( FATAL_ERROR "Cinder not found at ${CINDER_PATH}. Set -DCINDER_PATH=/path/to/Cinder." )

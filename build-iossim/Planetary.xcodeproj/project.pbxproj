@@ -9,7 +9,7 @@
 /* Begin PBXAggregateTarget section */
 		1F20E44D0CCDA52C7476E26B /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 30DEB1B2471642668CD1BBCA /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = DCEA7A11373D419EA887063C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
 				0E4335D652EFB45B1A96299A /* Generate CMakeFiles/ZERO_CHECK */,
 			);
@@ -20,13 +20,13 @@
 		};
 		B516E1A5CD385E78ED735DD1 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = B75D3F71B5914299A2D1FE6D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = 57BBC03259224C8BA5CD10F8 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
 				CD007D52F1241DCB2F355E1A /* Generate CMakeFiles/ALL_BUILD */,
 			);
 			dependencies = (
-				7BD7B92A76354B6AA629E716 /* PBXTargetDependency */,
-				73329ED7C16148A490A38405 /* PBXTargetDependency */,
+				6714F61497CD4E87AA94A6B2 /* PBXTargetDependency */,
+				3806E32B32DB478A8659AE60 /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
@@ -34,208 +34,208 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		03C5AC288D0C482E99DEB5C4 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */ = {isa = PBXBuildFile; fileRef = 52918A169BA54CCBB1127F82 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */; };
-		08DBB157E2C642E5862BC154 /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */ = {isa = PBXBuildFile; fileRef = 9CC3C7DB2D6C4D4ABBCAC85C /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		09345B795A01409E927BFD14 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */ = {isa = PBXBuildFile; fileRef = E82FD6AD68014DD7B7EE5A9D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */; };
-		09B011C2CDD94EE1A71BBEB4 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */ = {isa = PBXBuildFile; fileRef = FB91260CB7834225B4AC1EA8 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		0A93BFDDF0DE46B1BAEB056D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */ = {isa = PBXBuildFile; fileRef = DEC695DAD2F244AAA01A2437 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */; };
-		0D487753A0634C11A684E225 /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */ = {isa = PBXBuildFile; fileRef = 3128B85EEFAA4AB7BDC14BA4 /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		132AF624614541448D677494 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */ = {isa = PBXBuildFile; fileRef = F0428C2CD4A24E7AAE7AF262 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */; };
-		14C6D092D8F64034A48549F6 /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */ = {isa = PBXBuildFile; fileRef = BFF2C3F5CD7742F885B5FCBF /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		172BBC597ACD4FF99151CAFB /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */ = {isa = PBXBuildFile; fileRef = 29466626384344E18B312057 /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		1DEDCDEF22E74CFE874C78D5 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */ = {isa = PBXBuildFile; fileRef = 9BCDAC39B1634BC3A09924DF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */; };
-		2406874C9976411E80399A65 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */ = {isa = PBXBuildFile; fileRef = DF149E6F35844FA287B08159 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		27B12E35B9F64751A03BD262 /* /Users/simonash/Developer/Planetary/src/Particle.cpp */ = {isa = PBXBuildFile; fileRef = F3AF116073DA4DBC897C7AAF /* /Users/simonash/Developer/Planetary/src/Particle.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		2AF2232CDBF74A0D932EB23D /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */ = {isa = PBXBuildFile; fileRef = 7D61C6B759994632882C6B1D /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		3246D7A3F251470D80E53A9A /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */ = {isa = PBXBuildFile; fileRef = D9BA3A5F54FA4ACBB5E64AB6 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */; };
-		34A7549795F041B6B4007676 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */ = {isa = PBXBuildFile; fileRef = 10BD261A2F704E1E90C1E05D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */; };
-		352413E3E16448968AA495AB /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */ = {isa = PBXBuildFile; fileRef = AE05C24C8FF34502B9D402E1 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		3E07379A26EC459388B3BBA7 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */ = {isa = PBXBuildFile; fileRef = ED58A372283341CFBDF9D7A7 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		412C8C7D54DF41BBB7B61A2C /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */ = {isa = PBXBuildFile; fileRef = CEEB815BB9DD4FB292FB8AC0 /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		48091FE356FF45A387866F88 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */ = {isa = PBXBuildFile; fileRef = D944C244731343509C8FBD99 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */; };
-		4A968D0E3BC849DCB619BCA5 /* /Users/simonash/Developer/Planetary/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 8D4BE54E772749FC825F4EFA /* /Users/simonash/Developer/Planetary/CMakeLists.txt */; };
-		55ED042BB96B423BB76430D3 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */ = {isa = PBXBuildFile; fileRef = E7E31B2024CE4590808AA945 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		5D7EBEE8CAF74B079182442E /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */ = {isa = PBXBuildFile; fileRef = FE2CE2FB6448428F8FE7AC18 /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		5E0F2BDAF35241FEA17A49DB /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */ = {isa = PBXBuildFile; fileRef = 19C3A10F3CD4416D9D5A9844 /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		68AEF7613F9C46AAA206ACB1 /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */ = {isa = PBXBuildFile; fileRef = 4964EB99868E46C5B7B88A5E /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		6F989BA1F7884160A0DF8395 /* /Users/simonash/Developer/Planetary/src/State.cpp */ = {isa = PBXBuildFile; fileRef = 4839D0CAF09D441BA476E37E /* /Users/simonash/Developer/Planetary/src/State.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		7169EA11C2FB4340961E4D6D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */ = {isa = PBXBuildFile; fileRef = 4F647AFFE8794EF496D06B54 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */; };
-		7191B9C5B51D4475821FA87A /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */ = {isa = PBXBuildFile; fileRef = 237BE33A899047E8B79730FA /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		723F499B8B744E908753B11A /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */ = {isa = PBXBuildFile; fileRef = C5DD84CC63F149A0BF43237A /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		74B1539661424402BA269394 /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */ = {isa = PBXBuildFile; fileRef = F83CE4D63C14478497E1B9F0 /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		83243FCDFB84463DB2161DE1 /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */ = {isa = PBXBuildFile; fileRef = 5C1658EC50894D4CB777DB2B /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		849905FE69444A34BB744E52 /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */ = {isa = PBXBuildFile; fileRef = 2F60E07CA5B24BB6970D640C /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		8892A29AD1D0455C97FAAFE5 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */ = {isa = PBXBuildFile; fileRef = B0402F23247546AD80F9C129 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */; };
-		90A0518A09264134AE2F9FB6 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */ = {isa = PBXBuildFile; fileRef = A4D78F36B5EC466EADB03FD0 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		910B66D71F1A4442B840A48A /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */ = {isa = PBXBuildFile; fileRef = A91DB620673D4826B4EA0F1C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */; };
-		915801A76BC74635A47BD2FB /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */ = {isa = PBXBuildFile; fileRef = 9A27D24A8C7940A9AA5874BB /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */; };
-		942230983845413E8AF93AB5 /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */ = {isa = PBXBuildFile; fileRef = B36EAC413F3A438C835B61DD /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		95A45F6FD56549D0AE4EE758 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */ = {isa = PBXBuildFile; fileRef = 43DE3FFC1A0C435098839613 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		997AFFE6C3A9468C990E8666 /* /Users/simonash/Developer/Planetary/src/Data.cpp */ = {isa = PBXBuildFile; fileRef = 582A9FB2AAFF40008C4EE7D7 /* /Users/simonash/Developer/Planetary/src/Data.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		9A479CF829C345C196110446 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */ = {isa = PBXBuildFile; fileRef = 22EC7757517246EB94ACC998 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */; };
-		9A90329C4BD340AC98B0D774 /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */ = {isa = PBXBuildFile; fileRef = 4C66E5850B264092BC8BCE9D /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		A286B661287B431D85497169 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */ = {isa = PBXBuildFile; fileRef = 5B8F85EF831C4D528383F2FD /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */; };
-		A3CC71DB46084A7F95CC3628 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */ = {isa = PBXBuildFile; fileRef = F339FC1515034589ACEB0889 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */; };
-		B38F0B63B91B46DA86225AE7 /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */ = {isa = PBXBuildFile; fileRef = 3E1C9D31E53843BFAABBF5C2 /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		B4D68C51600C4189B30D9D5C /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */ = {isa = PBXBuildFile; fileRef = 6D307FA39E7746FC9B29B495 /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		B689F8E6AFE1477C81CC5CEE /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */ = {isa = PBXBuildFile; fileRef = 2E8667C28AD64D13A7489C2A /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		B889E89999484D89978B62CE /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */ = {isa = PBXBuildFile; fileRef = 52FF5E233BAC4B508A730951 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		B9E9EBCA0C3E4CD3913E57BD /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */ = {isa = PBXBuildFile; fileRef = 6963B4876CC547A689635FED /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		BD1631FC832A4A83BC48ED50 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */ = {isa = PBXBuildFile; fileRef = 9C4D68E6AA114162A61DB8F9 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */; };
-		BE9D2E4B55CD4FC49115B5B0 /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */ = {isa = PBXBuildFile; fileRef = 3B7E629A317548A89C7CA0DD /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		C0EBD7A111564C11913C90E3 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */ = {isa = PBXBuildFile; fileRef = B47E0BB55D954339922F752F /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */; };
-		C6B155FC435D4F179955DBEE /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */ = {isa = PBXBuildFile; fileRef = 99564519C17E40E7825A7A78 /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */; };
-		CFD88FD485C84F5A8B4CC8D8 /* /Users/simonash/Developer/Planetary/src/Node.cpp */ = {isa = PBXBuildFile; fileRef = 9C77DBCF396449B0BFA73A19 /* /Users/simonash/Developer/Planetary/src/Node.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		D7E3E8118D2B464D9E9A44A2 /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = 8070580CC9A041EFB67AB10C /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */; };
-		D8157B28ADAF46B79658C33B /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */ = {isa = PBXBuildFile; fileRef = DD7C66B8357F429A811D5EF1 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */; };
-		DC009FDF209D4924BEF0845A /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */ = {isa = PBXBuildFile; fileRef = A68FF42C24274BECBE7D852A /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		DD55F33601FE40F9A1F04C9D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */ = {isa = PBXBuildFile; fileRef = 765895860F964C899316CE21 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */; };
-		DDA8D0974A844EA9A37474F8 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */ = {isa = PBXBuildFile; fileRef = 000C21F4E22C4F75A376642F /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */; };
-		DE492422F94842C29460FE5C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */ = {isa = PBXBuildFile; fileRef = DDD0F8BAB4AA4818924DEB77 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */; };
-		DEEE0326F0BD4C0091EC5754 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */ = {isa = PBXBuildFile; fileRef = AC2612313C5C4FE58019BDB4 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		EA573095968C472DAC73B6C5 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */ = {isa = PBXBuildFile; fileRef = 8E54C6DBB0964C51AC7DF2B0 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		ED9C399871F4432DAB4E54EB /* /Users/simonash/Developer/Planetary/src/World.cpp */ = {isa = PBXBuildFile; fileRef = 553CBBCF2061429CB7D45795 /* /Users/simonash/Developer/Planetary/src/World.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		EDC8962982434FCEBB32F2F2 /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */ = {isa = PBXBuildFile; fileRef = 02A00B2629414B07A75058EF /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		EE1A586D8FAD4500B1567C69 /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */ = {isa = PBXBuildFile; fileRef = C58139866376494B9B5BE9FC /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		EF8AAADB038749DB9711F5CB /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */ = {isa = PBXBuildFile; fileRef = 78E3E991564D4373A8E1D79D /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		F0304A015BEE43FDB785325C /* /Users/simonash/Developer/Planetary/src/Stats.cpp */ = {isa = PBXBuildFile; fileRef = A554763E596C4BADA2314669 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		F076ECE473A0471D853C2BD7 /* /Users/simonash/Developer/Planetary/src/Dust.cpp */ = {isa = PBXBuildFile; fileRef = 1F72E9189D5B4808997B918A /* /Users/simonash/Developer/Planetary/src/Dust.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		F4CEDCE7D917431B8CD5B7A7 /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */ = {isa = PBXBuildFile; fileRef = 323FC3DBCC9446A2A601812F /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		F699DBA1D33944F298683AA5 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */ = {isa = PBXBuildFile; fileRef = ACE66DA7C9C14092BD0BE456 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
-		FBEBD2D196E84037BFF89A54 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */ = {isa = PBXBuildFile; fileRef = B18E71DCB0BB482291126A24 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		00936E4E6CC049D094CE90DC /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */ = {isa = PBXBuildFile; fileRef = 71EF219427E84ACE9ADE9057 /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		0134ED3F2A9C46BCB425207E /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */ = {isa = PBXBuildFile; fileRef = 69F9444BC26B4C2EB8FAE12D /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		03B18FE1A12D4DB1AF375B6E /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */ = {isa = PBXBuildFile; fileRef = A21521E819044FEAB4A120CF /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */; };
+		045259D119DF43A1B60D1B88 /* /Users/simonash/Developer/Planetary/src/Data.cpp */ = {isa = PBXBuildFile; fileRef = 978E700C683F4DED8C0269CB /* /Users/simonash/Developer/Planetary/src/Data.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		082EF0128AE2432FAA3A65B7 /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */ = {isa = PBXBuildFile; fileRef = D4573E8F79884EE7A8BE5CD8 /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		09C5D2200396437E887A1453 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */ = {isa = PBXBuildFile; fileRef = 2EA11C50D07642D4946CDA7C /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */; };
+		0BE0E4E19BCF4FFFA46405FC /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */ = {isa = PBXBuildFile; fileRef = DD04274E6E614C3CA028AA34 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		0C27D1364929426CB0862586 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */ = {isa = PBXBuildFile; fileRef = 2A59F83A69C3461E91128737 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		15584E063396409FA42D2B25 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */ = {isa = PBXBuildFile; fileRef = D6B7055E6E5D491A8F7EF8DF /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */; };
+		1791042DB604464386C58F69 /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */ = {isa = PBXBuildFile; fileRef = B0F391025B8F42439445A72C /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		1C8D6B025F4F4FBBA1CDEC8F /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */ = {isa = PBXBuildFile; fileRef = 56F83BF8E6724AFC988D2650 /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		246A2E49315D4926806EFD9D /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */ = {isa = PBXBuildFile; fileRef = A285CE36D816459496A3444E /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		2BE131481E89403E8C11FDFF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */ = {isa = PBXBuildFile; fileRef = B57AAD03AC5C40AB9624906C /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */; };
+		2FA179F444664D7DAFE64A5F /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */ = {isa = PBXBuildFile; fileRef = 9EB66DA00795453C8A674DC7 /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		311632AD22564BA5AC723CA8 /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */ = {isa = PBXBuildFile; fileRef = 17D203DF425F494DBABBEC4A /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		4521350291B848E282259062 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */ = {isa = PBXBuildFile; fileRef = D774F291D3C64BA7975C15A0 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		462930F127E94533ACEEB7CD /* /Users/simonash/Developer/Planetary/src/World.cpp */ = {isa = PBXBuildFile; fileRef = 9E18E56FEC5B4A5584015AC7 /* /Users/simonash/Developer/Planetary/src/World.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		4B21A53F83B64CEB88CB9B9F /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */ = {isa = PBXBuildFile; fileRef = 3ACCBA5D6A6D49F7908EA446 /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		4DCEC3F6A6EC46A1A225987C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */ = {isa = PBXBuildFile; fileRef = 773F9EA148BA4F849F119A0F /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */; };
+		50CCA4F086054B6EAE3146D8 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */ = {isa = PBXBuildFile; fileRef = 839C4E3847FF4681BC271569 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		517C6679426347A78B60BC4E /* /Users/simonash/Developer/Planetary/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 97F91C5D204A47DAA42F80FA /* /Users/simonash/Developer/Planetary/CMakeLists.txt */; };
+		51F9795EFD654953ACBD638F /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */ = {isa = PBXBuildFile; fileRef = A95933A2965A4D6D994A5FDF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */; };
+		523DC05031354E85ACE5039B /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */ = {isa = PBXBuildFile; fileRef = 4E4FBE2C76F141388D56C585 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		5406B5C23EF0477BBD13A7C5 /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */ = {isa = PBXBuildFile; fileRef = A108C384F10C4FE58DA83A5C /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		54AA30B0423D423A84006D19 /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */ = {isa = PBXBuildFile; fileRef = 2388A7E538494DAF89C5DCBA /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		551C5CB986F34C04B6BCB141 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */ = {isa = PBXBuildFile; fileRef = 713B795301C84127B1963FE2 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		5669B5F1A5B24406849798FC /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */ = {isa = PBXBuildFile; fileRef = 0BFBCE5BA51F44C7993256BF /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		5B398EE6C0894AE7995D5440 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */ = {isa = PBXBuildFile; fileRef = B4A339CA149E430886D68BE7 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		5ED138C753D541679707DCAC /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */ = {isa = PBXBuildFile; fileRef = 05FC896E611B400F9DDD1F2B /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		5ED82E5F1A3A484AB984B41B /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */ = {isa = PBXBuildFile; fileRef = 9484FDDB8C7246D8B16CB268 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */; };
+		5FC9048D542E47FB933014D2 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */ = {isa = PBXBuildFile; fileRef = 5721E984D36443D28D9F0077 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		61FCBE31C95140529A81D3D9 /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */ = {isa = PBXBuildFile; fileRef = 671CC23A6C484FBA844BD076 /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		63E00E0022DF45C99BEE4ECB /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */ = {isa = PBXBuildFile; fileRef = 1E7EB5AB7024418C93E5A9FC /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */; };
+		663173120F104857BA6F73F0 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */ = {isa = PBXBuildFile; fileRef = 9BD260A315954090A8CBC450 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */; };
+		671D4C28BF544A67B649ABBE /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */ = {isa = PBXBuildFile; fileRef = 66D124EC83EC40E78519801E /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		6B4EC153D2394910837A2541 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */ = {isa = PBXBuildFile; fileRef = B39D23A768834495B27AA124 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		716B879D253F4E348F7109FF /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */ = {isa = PBXBuildFile; fileRef = 5B7C21F5DC414D8582B750E1 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */; };
+		7478AF96112F42199E06B957 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */ = {isa = PBXBuildFile; fileRef = 0A193CC8806F4098808CAEE2 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */; };
+		7F79315B3F91448C9BE7BEC8 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */ = {isa = PBXBuildFile; fileRef = ECDD5865994F459A8B1D41F1 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		8080F768107E46589A8F4FB2 /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */ = {isa = PBXBuildFile; fileRef = 271B72AB06C346EEBB9CAECF /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */; };
+		85D7D8065BD94475A3CB0BA9 /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */ = {isa = PBXBuildFile; fileRef = 988BBECB31604AA3A46592F7 /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		95DA4BDB32C347FAB386575F /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */ = {isa = PBXBuildFile; fileRef = 046A7E7CB8D84DCA90671F58 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		98C721BE173741FE9982E36B /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */ = {isa = PBXBuildFile; fileRef = 57B21C7C689840A9ACA0F515 /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		9A45385030CB4F8B9D3F35BC /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */ = {isa = PBXBuildFile; fileRef = C222AC91CC044437AA1C105C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */; };
+		9D2BC90316654CDF83A087E1 /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */ = {isa = PBXBuildFile; fileRef = F3E44CA552E6474FA57CE23C /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		9F50EC2C73BC486699EFFED4 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */ = {isa = PBXBuildFile; fileRef = A15EA9CB59AC4E78B6FE3418 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */; };
+		A133C474BF3942E3A343C81D /* /Users/simonash/Developer/Planetary/src/Node.cpp */ = {isa = PBXBuildFile; fileRef = 43955986BB49409D92DEEF2A /* /Users/simonash/Developer/Planetary/src/Node.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		A350A14F41CA42EEBE003AC0 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */ = {isa = PBXBuildFile; fileRef = 4E164425E6554FE3899BD837 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */; };
+		A7309E6FFD574A9B9FFC9AC7 /* /Users/simonash/Developer/Planetary/src/State.cpp */ = {isa = PBXBuildFile; fileRef = 527E4E3D6FE44FCBB321F37B /* /Users/simonash/Developer/Planetary/src/State.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		A768EF5EEC9D43FCBB4E6F4B /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */ = {isa = PBXBuildFile; fileRef = D7062FA473614398885A9021 /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		A76F6332BE1743C99DC54AD4 /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */ = {isa = PBXBuildFile; fileRef = 4987981781B44FC6B0BC3BFA /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		A9795A108C6E4BF5BB6F320C /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */ = {isa = PBXBuildFile; fileRef = B0C3D17B37D24F2B95D9A6C5 /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		B06CC7E43AD3426E9EEE960D /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */ = {isa = PBXBuildFile; fileRef = A0A6960A81FA412BB051A1AD /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		B2507FDA313846FB80E0D695 /* /Users/simonash/Developer/Planetary/src/Particle.cpp */ = {isa = PBXBuildFile; fileRef = B0385CF655D9489D9994E41A /* /Users/simonash/Developer/Planetary/src/Particle.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		B7B26139EF284D3FB7ECC4AE /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */ = {isa = PBXBuildFile; fileRef = 48ABBEFB132B4234B2C73155 /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		B93074B072BA4488B8468A3C /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */ = {isa = PBXBuildFile; fileRef = D8EBDBC6F5AF440882731AFA /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */; };
+		BCEFBC7623C34B2AAC28EED6 /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */ = {isa = PBXBuildFile; fileRef = 044C4C0A62BD4C86943D947E /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		C0DEDD2AB66A4C45BECD4A62 /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */ = {isa = PBXBuildFile; fileRef = 9EA7C19D538F4444B912B16C /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		C2A58136E9374F39958ED258 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */ = {isa = PBXBuildFile; fileRef = 57BD4409BA3E482B8872A62B /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */; };
+		C3748F4595FE4ACA8BCDB3D0 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */ = {isa = PBXBuildFile; fileRef = B844E08601464CBF8C0D390A /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */; };
+		C4C794F892D24E98BDD8AC9C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */ = {isa = PBXBuildFile; fileRef = 7ACD271330EC456B9DF79808 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */; };
+		CB3B65FFD0E747EE9A67516F /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */ = {isa = PBXBuildFile; fileRef = C9BF553924DA464DBF2849E8 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		E0C181DE32504BF9B875E45F /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */ = {isa = PBXBuildFile; fileRef = 651D7D6E6134428E946FC2E9 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */; };
+		E5BBBADC2B0B4E11BEFC1538 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */ = {isa = PBXBuildFile; fileRef = 0AAB9BE875CB479885EFA676 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		EC362D7CFA4B4724B2919B68 /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */ = {isa = PBXBuildFile; fileRef = A465A3CA073945FEA115747E /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
+		ED1AE7EE410B46C6B49FCBEA /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */ = {isa = PBXBuildFile; fileRef = BC878B11FA884FD5B26E3988 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */; };
+		F16942FBCAF246E0AFB6B233 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */ = {isa = PBXBuildFile; fileRef = D6167645A3ED4C1BB3690354 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */; };
+		FCAA7260175B4C7980115934 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */ = {isa = PBXBuildFile; fileRef = E70CC327FBE54FE4A5B7D4B9 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */; };
+		FCDDC2D32CFF449682B3CD35 /* /Users/simonash/Developer/Planetary/src/Dust.cpp */ = {isa = PBXBuildFile; fileRef = F4344999B2B2411695880D40 /* /Users/simonash/Developer/Planetary/src/Dust.cpp */; settings = {COMPILER_FLAGS = "-x objective-c++"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-		878BA4426A0F4CAFB37A25D6 /* Release */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Release;
-		};
-		D2B057D0FDFD45E49B4BA94B /* MinSizeRel */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = MinSizeRel;
-		};
-		D7C6F652BE4542D19DEFC379 /* RelWithDebInfo */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = RelWithDebInfo;
-		};
-		F98C61F9E141456FA7F4B823 /* Debug */ = {
+		337F173203FE48F2B2DF1FA5 /* Debug */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = Debug;
 		};
+		8EC9B28863A94C3F8D861529 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+		A7015EA8DA01434C856118B7 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		D0078241C49648C0B8C02EAA /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		4FAF87075A324FB0B29BA685 /* PBXContainerItemProxy */ = {
+		0FE237E57A5C49729621BE6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 2A4047397F404C9384649CC2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1F20E44D0CCDA52C7476E26B;
-			remoteInfo = ZERO_CHECK;
-		};
-		66065E9A4BE044549925EA7A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A4047397F404C9384649CC2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1F20E44D0CCDA52C7476E26B;
-			remoteInfo = ZERO_CHECK;
-		};
-		CA477CCF51454CE79663EB69 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2A4047397F404C9384649CC2 /* Project object */;
+			containerPortal = 010264922149466B99DB0F48 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 952F277250299AF449AC4AD5;
 			remoteInfo = Planetary;
 		};
+		700718845EC24E1B938BF48D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 010264922149466B99DB0F48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F20E44D0CCDA52C7476E26B;
+			remoteInfo = ZERO_CHECK;
+		};
+		EE83C26CF5D1496587E4BC78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 010264922149466B99DB0F48 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F20E44D0CCDA52C7476E26B;
+			remoteInfo = ZERO_CHECK;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		000C21F4E22C4F75A376642F /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework"; sourceTree = "<absolute>"; };
-		02A00B2629414B07A75058EF /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NotificationOverlay.cpp; path = src/NotificationOverlay.cpp; sourceTree = SOURCE_ROOT; };
-		10BD261A2F704E1E90C1E05D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework"; sourceTree = "<absolute>"; };
-		19C3A10F3CD4416D9D5A9844 /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = GyroHelper.cpp; path = src/GyroHelper.cpp; sourceTree = SOURCE_ROOT; };
-		1F72E9189D5B4808997B918A /* /Users/simonash/Developer/Planetary/src/Dust.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Dust.cpp; path = src/Dust.cpp; sourceTree = SOURCE_ROOT; };
-		22EC7757517246EB94ACC998 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework"; sourceTree = "<absolute>"; };
-		237BE33A899047E8B79730FA /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Vignette.cpp; path = src/Vignette.cpp; sourceTree = SOURCE_ROOT; };
-		29466626384344E18B312057 /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlaylistChooser.cpp; path = src/PlaylistChooser.cpp; sourceTree = SOURCE_ROOT; };
-		2C1344FAE8A44F8296B3D816 /* /Users/simonash/Developer/Planetary/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		2E8667C28AD64D13A7489C2A /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Orientation.cpp; path = blocks/CinderOrientation/src/Orientation.cpp; sourceTree = SOURCE_ROOT; };
-		2F60E07CA5B24BB6970D640C /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TimeLabel.cpp; path = src/TimeLabel.cpp; sourceTree = SOURCE_ROOT; };
-		3128B85EEFAA4AB7BDC14BA4 /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlaylistFilter.cpp; path = src/PlaylistFilter.cpp; sourceTree = SOURCE_ROOT; };
-		323FC3DBCC9446A2A601812F /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomSphere.cpp; path = src/BloomSphere.cpp; sourceTree = SOURCE_ROOT; };
-		3B7E629A317548A89C7CA0DD /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = UiLayer.cpp; path = src/UiLayer.cpp; sourceTree = SOURCE_ROOT; };
-		3E1C9D31E53843BFAABBF5C2 /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TextLabel.cpp; path = src/TextLabel.cpp; sourceTree = SOURCE_ROOT; };
-		43DE3FFC1A0C435098839613 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ScrollingLabel.cpp; path = src/ScrollingLabel.cpp; sourceTree = SOURCE_ROOT; };
-		4839D0CAF09D441BA476E37E /* /Users/simonash/Developer/Planetary/src/State.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = State.cpp; path = src/State.cpp; sourceTree = SOURCE_ROOT; };
-		4964EB99868E46C5B7B88A5E /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NodeTrack.cpp; path = src/NodeTrack.cpp; sourceTree = SOURCE_ROOT; };
-		4C66E5850B264092BC8BCE9D /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NodeAlbum.cpp; path = src/NodeAlbum.cpp; sourceTree = SOURCE_ROOT; };
-		4F647AFFE8794EF496D06B54 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework"; sourceTree = "<absolute>"; };
-		52918A169BA54CCBB1127F82 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework"; sourceTree = "<absolute>"; };
-		52FF5E233BAC4B508A730951 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = OrientationNode.cpp; path = blocks/BloomScene/src/OrientationNode.cpp; sourceTree = SOURCE_ROOT; };
-		553CBBCF2061429CB7D45795 /* /Users/simonash/Developer/Planetary/src/World.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = World.cpp; path = src/World.cpp; sourceTree = SOURCE_ROOT; };
-		582A9FB2AAFF40008C4EE7D7 /* /Users/simonash/Developer/Planetary/src/Data.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Data.cpp; path = src/Data.cpp; sourceTree = SOURCE_ROOT; };
-		5B8F85EF831C4D528383F2FD /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework"; sourceTree = "<absolute>"; };
-		5C1658EC50894D4CB777DB2B /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = HelpLayer.cpp; path = src/HelpLayer.cpp; sourceTree = SOURCE_ROOT; };
-		6963B4876CC547A689635FED /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TaskQueue.cpp; path = blocks/BloomTasks/src/TaskQueue.cpp; sourceTree = SOURCE_ROOT; };
-		6D307FA39E7746FC9B29B495 /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = OrbitRing.cpp; path = src/OrbitRing.cpp; sourceTree = SOURCE_ROOT; };
-		765895860F964C899316CE21 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework"; sourceTree = "<absolute>"; };
-		78E3E991564D4373A8E1D79D /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlanetRing.cpp; path = src/PlanetRing.cpp; sourceTree = SOURCE_ROOT; };
-		7D61C6B759994632882C6B1D /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Shadow.cpp; path = src/Shadow.cpp; sourceTree = SOURCE_ROOT; };
-		8070580CC9A041EFB67AB10C /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.text.plist; fileEncoding = 4; name = Info.plist; path = "build-iossim/CMakeFiles/Planetary.dir/Info.plist"; sourceTree = SOURCE_ROOT; };
-		8D4BE54E772749FC825F4EFA /* /Users/simonash/Developer/Planetary/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		8E54C6DBB0964C51AC7DF2B0 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Slider.cpp; path = src/Slider.cpp; sourceTree = SOURCE_ROOT; };
-		99564519C17E40E7825A7A78 /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = StringHelpers.mm; path = src/StringHelpers.mm; sourceTree = SOURCE_ROOT; };
-		9A27D24A8C7940A9AA5874BB /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CinderIPod.mm; path = blocks/CinderIPod/src/CinderIPod.mm; sourceTree = SOURCE_ROOT; };
-		9BCDAC39B1634BC3A09924DF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CinderIPodPlayerImpl.mm; path = blocks/CinderIPod/src/CinderIPodPlayerImpl.mm; sourceTree = SOURCE_ROOT; };
-		9C4D68E6AA114162A61DB8F9 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework"; sourceTree = "<absolute>"; };
-		9C77DBCF396449B0BFA73A19 /* /Users/simonash/Developer/Planetary/src/Node.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Node.cpp; path = src/Node.cpp; sourceTree = SOURCE_ROOT; };
-		9CC3C7DB2D6C4D4ABBCAC85C /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomGl.cpp; path = src/BloomGl.cpp; sourceTree = SOURCE_ROOT; };
-		A4D78F36B5EC466EADB03FD0 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Stars.cpp; path = src/Stars.cpp; sourceTree = SOURCE_ROOT; };
-		A554763E596C4BADA2314669 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Stats.cpp; path = src/Stats.cpp; sourceTree = SOURCE_ROOT; };
-		A68FF42C24274BECBE7D852A /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = AlphaChooser.cpp; path = src/AlphaChooser.cpp; sourceTree = SOURCE_ROOT; };
-		A91DB620673D4826B4EA0F1C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework"; sourceTree = "<absolute>"; };
-		AC2612313C5C4FE58019BDB4 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NodeArtist.cpp; path = src/NodeArtist.cpp; sourceTree = SOURCE_ROOT; };
-		ACE66DA7C9C14092BD0BE456 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Galaxy.cpp; path = src/Galaxy.cpp; sourceTree = SOURCE_ROOT; };
-		AE05C24C8FF34502B9D402E1 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TextureLoader.cpp; path = src/TextureLoader.cpp; sourceTree = SOURCE_ROOT; };
-		B0402F23247546AD80F9C129 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework"; sourceTree = "<absolute>"; };
-		B18E71DCB0BB482291126A24 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LoadingScreen.cpp; path = src/LoadingScreen.cpp; sourceTree = SOURCE_ROOT; };
-		B36EAC413F3A438C835B61DD /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KeplerApp.cpp; path = src/KeplerApp.cpp; sourceTree = SOURCE_ROOT; };
-		B47E0BB55D954339922F752F /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CinderIPodPlayer.mm; path = blocks/CinderIPod/src/CinderIPodPlayer.mm; sourceTree = SOURCE_ROOT; };
-		BFF2C3F5CD7742F885B5FCBF /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = StarGlows.cpp; path = src/StarGlows.cpp; sourceTree = SOURCE_ROOT; };
-		C58139866376494B9B5BE9FC /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ParticleController.cpp; path = src/ParticleController.cpp; sourceTree = SOURCE_ROOT; };
-		C5DD84CC63F149A0BF43237A /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TextureRect.cpp; path = src/TextureRect.cpp; sourceTree = SOURCE_ROOT; };
-		CEEB815BB9DD4FB292FB8AC0 /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Constellation.cpp; path = src/Constellation.cpp; sourceTree = SOURCE_ROOT; };
-		D944C244731343509C8FBD99 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework"; sourceTree = "<absolute>"; };
-		D9BA3A5F54FA4ACBB5E64AB6 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework"; sourceTree = "<absolute>"; };
-		DD7C66B8357F429A811D5EF1 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = OrientationHelper.mm; path = blocks/CinderOrientation/src/OrientationHelper.mm; sourceTree = SOURCE_ROOT; };
-		DDD0F8BAB4AA4818924DEB77 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework"; sourceTree = "<absolute>"; };
-		DEC695DAD2F244AAA01A2437 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework"; sourceTree = "<absolute>"; };
-		DF149E6F35844FA287B08159 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomNode.cpp; path = blocks/BloomScene/src/BloomNode.cpp; sourceTree = SOURCE_ROOT; };
-		E1023FA96EB64A9081962384 /* Planetary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = Planetary; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7E31B2024CE4590808AA945 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlayControls.cpp; path = src/PlayControls.cpp; sourceTree = SOURCE_ROOT; };
-		E82FD6AD68014DD7B7EE5A9D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework"; sourceTree = "<absolute>"; };
-		ED58A372283341CFBDF9D7A7 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SettingsPanel.cpp; path = src/SettingsPanel.cpp; sourceTree = SOURCE_ROOT; };
-		F0428C2CD4A24E7AAE7AF262 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework"; sourceTree = "<absolute>"; };
-		F339FC1515034589ACEB0889 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AVFAudio.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework"; sourceTree = "<absolute>"; };
-		F3AF116073DA4DBC897C7AAF /* /Users/simonash/Developer/Planetary/src/Particle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Particle.cpp; path = src/Particle.cpp; sourceTree = SOURCE_ROOT; };
-		F83CE4D63C14478497E1B9F0 /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Buttons.cpp; path = src/Buttons.cpp; sourceTree = SOURCE_ROOT; };
-		FB91260CB7834225B4AC1EA8 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomScene.cpp; path = blocks/BloomScene/src/BloomScene.cpp; sourceTree = SOURCE_ROOT; };
-		FE2CE2FB6448428F8FE7AC18 /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LetterFilter.cpp; path = src/LetterFilter.cpp; sourceTree = SOURCE_ROOT; };
+		044C4C0A62BD4C86943D947E /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Buttons.cpp; path = src/Buttons.cpp; sourceTree = SOURCE_ROOT; };
+		046A7E7CB8D84DCA90671F58 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlayControls.cpp; path = src/PlayControls.cpp; sourceTree = SOURCE_ROOT; };
+		05FC896E611B400F9DDD1F2B /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Vignette.cpp; path = src/Vignette.cpp; sourceTree = SOURCE_ROOT; };
+		0A193CC8806F4098808CAEE2 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AVFAudio.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework"; sourceTree = "<absolute>"; };
+		0AAB9BE875CB479885EFA676 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Slider.cpp; path = src/Slider.cpp; sourceTree = SOURCE_ROOT; };
+		0BFBCE5BA51F44C7993256BF /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = AlphaChooser.cpp; path = src/AlphaChooser.cpp; sourceTree = SOURCE_ROOT; };
+		17D203DF425F494DBABBEC4A /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TimeLabel.cpp; path = src/TimeLabel.cpp; sourceTree = SOURCE_ROOT; };
+		1E7EB5AB7024418C93E5A9FC /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework"; sourceTree = "<absolute>"; };
+		2388A7E538494DAF89C5DCBA /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Shadow.cpp; path = src/Shadow.cpp; sourceTree = SOURCE_ROOT; };
+		271B72AB06C346EEBB9CAECF /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = StringHelpers.mm; path = src/StringHelpers.mm; sourceTree = SOURCE_ROOT; };
+		2A59F83A69C3461E91128737 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Stats.cpp; path = src/Stats.cpp; sourceTree = SOURCE_ROOT; };
+		2EA11C50D07642D4946CDA7C /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = OrientationHelper.mm; path = blocks/CinderOrientation/src/OrientationHelper.mm; sourceTree = SOURCE_ROOT; };
+		3ACCBA5D6A6D49F7908EA446 /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = HelpLayer.cpp; path = src/HelpLayer.cpp; sourceTree = SOURCE_ROOT; };
+		43955986BB49409D92DEEF2A /* /Users/simonash/Developer/Planetary/src/Node.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Node.cpp; path = src/Node.cpp; sourceTree = SOURCE_ROOT; };
+		48ABBEFB132B4234B2C73155 /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TaskQueue.cpp; path = blocks/BloomTasks/src/TaskQueue.cpp; sourceTree = SOURCE_ROOT; };
+		4987981781B44FC6B0BC3BFA /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = OrbitRing.cpp; path = src/OrbitRing.cpp; sourceTree = SOURCE_ROOT; };
+		4E164425E6554FE3899BD837 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework"; sourceTree = "<absolute>"; };
+		4E4FBE2C76F141388D56C585 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Galaxy.cpp; path = src/Galaxy.cpp; sourceTree = SOURCE_ROOT; };
+		527E4E3D6FE44FCBB321F37B /* /Users/simonash/Developer/Planetary/src/State.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = State.cpp; path = src/State.cpp; sourceTree = SOURCE_ROOT; };
+		56F83BF8E6724AFC988D2650 /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomGl.cpp; path = src/BloomGl.cpp; sourceTree = SOURCE_ROOT; };
+		5721E984D36443D28D9F0077 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Stars.cpp; path = src/Stars.cpp; sourceTree = SOURCE_ROOT; };
+		57B21C7C689840A9ACA0F515 /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Constellation.cpp; path = src/Constellation.cpp; sourceTree = SOURCE_ROOT; };
+		57BD4409BA3E482B8872A62B /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework"; sourceTree = "<absolute>"; };
+		5B7C21F5DC414D8582B750E1 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework"; sourceTree = "<absolute>"; };
+		651D7D6E6134428E946FC2E9 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework"; sourceTree = "<absolute>"; };
+		66D124EC83EC40E78519801E /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomScene.cpp; path = blocks/BloomScene/src/BloomScene.cpp; sourceTree = SOURCE_ROOT; };
+		671CC23A6C484FBA844BD076 /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NodeTrack.cpp; path = src/NodeTrack.cpp; sourceTree = SOURCE_ROOT; };
+		69F9444BC26B4C2EB8FAE12D /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = UiLayer.cpp; path = src/UiLayer.cpp; sourceTree = SOURCE_ROOT; };
+		713B795301C84127B1963FE2 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LoadingScreen.cpp; path = src/LoadingScreen.cpp; sourceTree = SOURCE_ROOT; };
+		71EF219427E84ACE9ADE9057 /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlaylistChooser.cpp; path = src/PlaylistChooser.cpp; sourceTree = SOURCE_ROOT; };
+		773F9EA148BA4F849F119A0F /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework"; sourceTree = "<absolute>"; };
+		7ACD271330EC456B9DF79808 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework"; sourceTree = "<absolute>"; };
+		839C4E3847FF4681BC271569 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomNode.cpp; path = blocks/BloomScene/src/BloomNode.cpp; sourceTree = SOURCE_ROOT; };
+		9484FDDB8C7246D8B16CB268 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework"; sourceTree = "<absolute>"; };
+		978E700C683F4DED8C0269CB /* /Users/simonash/Developer/Planetary/src/Data.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Data.cpp; path = src/Data.cpp; sourceTree = SOURCE_ROOT; };
+		97F91C5D204A47DAA42F80FA /* /Users/simonash/Developer/Planetary/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		988BBECB31604AA3A46592F7 /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NotificationOverlay.cpp; path = src/NotificationOverlay.cpp; sourceTree = SOURCE_ROOT; };
+		9BD260A315954090A8CBC450 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework"; sourceTree = "<absolute>"; };
+		9E18E56FEC5B4A5584015AC7 /* /Users/simonash/Developer/Planetary/src/World.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = World.cpp; path = src/World.cpp; sourceTree = SOURCE_ROOT; };
+		9EA7C19D538F4444B912B16C /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NodeAlbum.cpp; path = src/NodeAlbum.cpp; sourceTree = SOURCE_ROOT; };
+		9EB66DA00795453C8A674DC7 /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = StarGlows.cpp; path = src/StarGlows.cpp; sourceTree = SOURCE_ROOT; };
+		A0A6960A81FA412BB051A1AD /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlanetRing.cpp; path = src/PlanetRing.cpp; sourceTree = SOURCE_ROOT; };
+		A108C384F10C4FE58DA83A5C /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PlaylistFilter.cpp; path = src/PlaylistFilter.cpp; sourceTree = SOURCE_ROOT; };
+		A15EA9CB59AC4E78B6FE3418 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework"; sourceTree = "<absolute>"; };
+		A21521E819044FEAB4A120CF /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework"; sourceTree = "<absolute>"; };
+		A285CE36D816459496A3444E /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TextLabel.cpp; path = src/TextLabel.cpp; sourceTree = SOURCE_ROOT; };
+		A465A3CA073945FEA115747E /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = BloomSphere.cpp; path = src/BloomSphere.cpp; sourceTree = SOURCE_ROOT; };
+		A95933A2965A4D6D994A5FDF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CinderIPod.mm; path = blocks/CinderIPod/src/CinderIPod.mm; sourceTree = SOURCE_ROOT; };
+		B0151693E9C84311A417DD57 /* Planetary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = Planetary; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0385CF655D9489D9994E41A /* /Users/simonash/Developer/Planetary/src/Particle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Particle.cpp; path = src/Particle.cpp; sourceTree = SOURCE_ROOT; };
+		B0C3D17B37D24F2B95D9A6C5 /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = LetterFilter.cpp; path = src/LetterFilter.cpp; sourceTree = SOURCE_ROOT; };
+		B0F391025B8F42439445A72C /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ParticleController.cpp; path = src/ParticleController.cpp; sourceTree = SOURCE_ROOT; };
+		B39D23A768834495B27AA124 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SettingsPanel.cpp; path = src/SettingsPanel.cpp; sourceTree = SOURCE_ROOT; };
+		B4A339CA149E430886D68BE7 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = NodeArtist.cpp; path = src/NodeArtist.cpp; sourceTree = SOURCE_ROOT; };
+		B57AAD03AC5C40AB9624906C /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CinderIPodPlayer.mm; path = blocks/CinderIPod/src/CinderIPodPlayer.mm; sourceTree = SOURCE_ROOT; };
+		B844E08601464CBF8C0D390A /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework"; sourceTree = "<absolute>"; };
+		BC878B11FA884FD5B26E3988 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework"; sourceTree = "<absolute>"; };
+		C222AC91CC044437AA1C105C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework"; sourceTree = "<absolute>"; };
+		C9BF553924DA464DBF2849E8 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ScrollingLabel.cpp; path = src/ScrollingLabel.cpp; sourceTree = SOURCE_ROOT; };
+		D4573E8F79884EE7A8BE5CD8 /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TextureRect.cpp; path = src/TextureRect.cpp; sourceTree = SOURCE_ROOT; };
+		D6167645A3ED4C1BB3690354 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework"; sourceTree = "<absolute>"; };
+		D6B7055E6E5D491A8F7EF8DF /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework"; sourceTree = "<absolute>"; };
+		D7062FA473614398885A9021 /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KeplerApp.cpp; path = src/KeplerApp.cpp; sourceTree = SOURCE_ROOT; };
+		D774F291D3C64BA7975C15A0 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = OrientationNode.cpp; path = blocks/BloomScene/src/OrientationNode.cpp; sourceTree = SOURCE_ROOT; };
+		D8EBDBC6F5AF440882731AFA /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */ = {isa = PBXFileReference; explicitFileType = sourcecode.text.plist; fileEncoding = 4; name = Info.plist; path = "build-iossim/CMakeFiles/Planetary.dir/Info.plist"; sourceTree = SOURCE_ROOT; };
+		DD04274E6E614C3CA028AA34 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Orientation.cpp; path = blocks/CinderOrientation/src/Orientation.cpp; sourceTree = SOURCE_ROOT; };
+		E70CC327FBE54FE4A5B7D4B9 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = CinderIPodPlayerImpl.mm; path = blocks/CinderIPod/src/CinderIPodPlayerImpl.mm; sourceTree = SOURCE_ROOT; };
+		ECDD5865994F459A8B1D41F1 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = TextureLoader.cpp; path = src/TextureLoader.cpp; sourceTree = SOURCE_ROOT; };
+		F1F1D7EFBA664FBD8A6B5E67 /* /Users/simonash/Developer/Planetary/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F3E44CA552E6474FA57CE23C /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = GyroHelper.cpp; path = src/GyroHelper.cpp; sourceTree = SOURCE_ROOT; };
+		F4344999B2B2411695880D40 /* /Users/simonash/Developer/Planetary/src/Dust.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Dust.cpp; path = src/Dust.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C3B2DB69A4334A759B55EB3D /* Frameworks */ = {
+		8AF0ABBA219D41EA92E6D063 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,145 +245,145 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6750185310334EC1B675F402 /* Planetary */ = {
+		30E52461BD6140D4B64E5020 = {
 			isa = PBXGroup;
 			children = (
-				F04F0DF37E9A4E1CBAF957E8 /* Resources */,
-				FABD3003344E4062B1B2BA96 /* Source Files */,
-				8D4BE54E772749FC825F4EFA /* /Users/simonash/Developer/Planetary/CMakeLists.txt */,
+				C66350FD7ABE40AAA41F3EE4 /* ALL_BUILD */,
+				9311A9062462449E9648D8F7 /* Planetary */,
+				A2CFC0B1335B4D32BB2FCA43 /* Products */,
+				ED4E9A0DBE144453863BD84F /* Frameworks */,
+				FC8D02C15CC24D25BC77E4E8 /* Resources */,
 			);
-			name = Planetary;
 			sourceTree = "<group>";
 		};
-		7201D323CF35425FBE8EBEB0 /* ALL_BUILD */ = {
+		38747AB2766A434EA8C86BBF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B85E2131064546E89F1F9AF4 /* CMake Rules */,
-				2C1344FAE8A44F8296B3D816 /* /Users/simonash/Developer/Planetary/CMakeLists.txt */,
+				D8EBDBC6F5AF440882731AFA /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */,
 			);
-			name = ALL_BUILD;
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		A58DBE73ACFE45EA886A6E24 /* Frameworks */ = {
+		609DB54C8BE04B1EA5ECF4E0 /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-				000C21F4E22C4F75A376642F /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */,
-				765895860F964C899316CE21 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */,
-				D9BA3A5F54FA4ACBB5E64AB6 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */,
-				F0428C2CD4A24E7AAE7AF262 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */,
-				52918A169BA54CCBB1127F82 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */,
-				5B8F85EF831C4D528383F2FD /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */,
-				D944C244731343509C8FBD99 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */,
-				DEC695DAD2F244AAA01A2437 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */,
-				DDD0F8BAB4AA4818924DEB77 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */,
-				A91DB620673D4826B4EA0F1C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */,
-				B0402F23247546AD80F9C129 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */,
-				E82FD6AD68014DD7B7EE5A9D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */,
-				22EC7757517246EB94ACC998 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */,
-				4F647AFFE8794EF496D06B54 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */,
-				10BD261A2F704E1E90C1E05D /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */,
-				F339FC1515034589ACEB0889 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */,
-				9C4D68E6AA114162A61DB8F9 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */,
+				839C4E3847FF4681BC271569 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */,
+				66D124EC83EC40E78519801E /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */,
+				D774F291D3C64BA7975C15A0 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */,
+				48ABBEFB132B4234B2C73155 /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */,
+				A95933A2965A4D6D994A5FDF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */,
+				B57AAD03AC5C40AB9624906C /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */,
+				E70CC327FBE54FE4A5B7D4B9 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */,
+				DD04274E6E614C3CA028AA34 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */,
+				2EA11C50D07642D4946CDA7C /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */,
+				0BFBCE5BA51F44C7993256BF /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */,
+				56F83BF8E6724AFC988D2650 /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */,
+				A465A3CA073945FEA115747E /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */,
+				044C4C0A62BD4C86943D947E /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */,
+				57B21C7C689840A9ACA0F515 /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */,
+				978E700C683F4DED8C0269CB /* /Users/simonash/Developer/Planetary/src/Data.cpp */,
+				F4344999B2B2411695880D40 /* /Users/simonash/Developer/Planetary/src/Dust.cpp */,
+				4E4FBE2C76F141388D56C585 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */,
+				F3E44CA552E6474FA57CE23C /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */,
+				3ACCBA5D6A6D49F7908EA446 /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */,
+				D7062FA473614398885A9021 /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */,
+				B0C3D17B37D24F2B95D9A6C5 /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */,
+				713B795301C84127B1963FE2 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */,
+				43955986BB49409D92DEEF2A /* /Users/simonash/Developer/Planetary/src/Node.cpp */,
+				9EA7C19D538F4444B912B16C /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */,
+				B4A339CA149E430886D68BE7 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */,
+				671CC23A6C484FBA844BD076 /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */,
+				988BBECB31604AA3A46592F7 /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */,
+				4987981781B44FC6B0BC3BFA /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */,
+				B0385CF655D9489D9994E41A /* /Users/simonash/Developer/Planetary/src/Particle.cpp */,
+				B0F391025B8F42439445A72C /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */,
+				A0A6960A81FA412BB051A1AD /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */,
+				046A7E7CB8D84DCA90671F58 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */,
+				71EF219427E84ACE9ADE9057 /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */,
+				A108C384F10C4FE58DA83A5C /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */,
+				C9BF553924DA464DBF2849E8 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */,
+				B39D23A768834495B27AA124 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */,
+				2388A7E538494DAF89C5DCBA /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */,
+				0AAB9BE875CB479885EFA676 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */,
+				9EB66DA00795453C8A674DC7 /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */,
+				5721E984D36443D28D9F0077 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */,
+				527E4E3D6FE44FCBB321F37B /* /Users/simonash/Developer/Planetary/src/State.cpp */,
+				2A59F83A69C3461E91128737 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */,
+				271B72AB06C346EEBB9CAECF /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */,
+				A285CE36D816459496A3444E /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */,
+				ECDD5865994F459A8B1D41F1 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */,
+				D4573E8F79884EE7A8BE5CD8 /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */,
+				17D203DF425F494DBABBEC4A /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */,
+				69F9444BC26B4C2EB8FAE12D /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */,
+				05FC896E611B400F9DDD1F2B /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */,
+				9E18E56FEC5B4A5584015AC7 /* /Users/simonash/Developer/Planetary/src/World.cpp */,
 			);
-			name = Frameworks;
+			name = "Source Files";
 			sourceTree = "<group>";
 		};
-		B85E2131064546E89F1F9AF4 /* CMake Rules */ = {
+		877FF42319F448E2AEE71204 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		D42F827AA5E040F2A9F0B272 = {
+		9311A9062462449E9648D8F7 /* Planetary */ = {
 			isa = PBXGroup;
 			children = (
-				7201D323CF35425FBE8EBEB0 /* ALL_BUILD */,
-				6750185310334EC1B675F402 /* Planetary */,
-				FD27F2B0E274451FBFD8974D /* Products */,
-				A58DBE73ACFE45EA886A6E24 /* Frameworks */,
-				DBA9C958F7CF4B118BDA9B41 /* Resources */,
+				38747AB2766A434EA8C86BBF /* Resources */,
+				609DB54C8BE04B1EA5ECF4E0 /* Source Files */,
+				97F91C5D204A47DAA42F80FA /* /Users/simonash/Developer/Planetary/CMakeLists.txt */,
 			);
+			name = Planetary;
 			sourceTree = "<group>";
 		};
-		DBA9C958F7CF4B118BDA9B41 /* Resources */ = {
+		A2CFC0B1335B4D32BB2FCA43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		F04F0DF37E9A4E1CBAF957E8 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				8070580CC9A041EFB67AB10C /* /Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		FABD3003344E4062B1B2BA96 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				DF149E6F35844FA287B08159 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */,
-				FB91260CB7834225B4AC1EA8 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */,
-				52FF5E233BAC4B508A730951 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */,
-				6963B4876CC547A689635FED /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */,
-				9A27D24A8C7940A9AA5874BB /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */,
-				B47E0BB55D954339922F752F /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */,
-				9BCDAC39B1634BC3A09924DF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */,
-				2E8667C28AD64D13A7489C2A /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */,
-				DD7C66B8357F429A811D5EF1 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */,
-				A68FF42C24274BECBE7D852A /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */,
-				9CC3C7DB2D6C4D4ABBCAC85C /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */,
-				323FC3DBCC9446A2A601812F /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */,
-				F83CE4D63C14478497E1B9F0 /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */,
-				CEEB815BB9DD4FB292FB8AC0 /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */,
-				582A9FB2AAFF40008C4EE7D7 /* /Users/simonash/Developer/Planetary/src/Data.cpp */,
-				1F72E9189D5B4808997B918A /* /Users/simonash/Developer/Planetary/src/Dust.cpp */,
-				ACE66DA7C9C14092BD0BE456 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */,
-				19C3A10F3CD4416D9D5A9844 /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */,
-				5C1658EC50894D4CB777DB2B /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */,
-				B36EAC413F3A438C835B61DD /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */,
-				FE2CE2FB6448428F8FE7AC18 /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */,
-				B18E71DCB0BB482291126A24 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */,
-				9C77DBCF396449B0BFA73A19 /* /Users/simonash/Developer/Planetary/src/Node.cpp */,
-				4C66E5850B264092BC8BCE9D /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */,
-				AC2612313C5C4FE58019BDB4 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */,
-				4964EB99868E46C5B7B88A5E /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */,
-				02A00B2629414B07A75058EF /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */,
-				6D307FA39E7746FC9B29B495 /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */,
-				F3AF116073DA4DBC897C7AAF /* /Users/simonash/Developer/Planetary/src/Particle.cpp */,
-				C58139866376494B9B5BE9FC /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */,
-				78E3E991564D4373A8E1D79D /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */,
-				E7E31B2024CE4590808AA945 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */,
-				29466626384344E18B312057 /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */,
-				3128B85EEFAA4AB7BDC14BA4 /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */,
-				43DE3FFC1A0C435098839613 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */,
-				ED58A372283341CFBDF9D7A7 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */,
-				7D61C6B759994632882C6B1D /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */,
-				8E54C6DBB0964C51AC7DF2B0 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */,
-				BFF2C3F5CD7742F885B5FCBF /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */,
-				A4D78F36B5EC466EADB03FD0 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */,
-				4839D0CAF09D441BA476E37E /* /Users/simonash/Developer/Planetary/src/State.cpp */,
-				A554763E596C4BADA2314669 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */,
-				99564519C17E40E7825A7A78 /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */,
-				3E1C9D31E53843BFAABBF5C2 /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */,
-				AE05C24C8FF34502B9D402E1 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */,
-				C5DD84CC63F149A0BF43237A /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */,
-				2F60E07CA5B24BB6970D640C /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */,
-				3B7E629A317548A89C7CA0DD /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */,
-				237BE33A899047E8B79730FA /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */,
-				553CBBCF2061429CB7D45795 /* /Users/simonash/Developer/Planetary/src/World.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		FD27F2B0E274451FBFD8974D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E1023FA96EB64A9081962384 /* Planetary */,
+				B0151693E9C84311A417DD57 /* Planetary */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C66350FD7ABE40AAA41F3EE4 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				877FF42319F448E2AEE71204 /* CMake Rules */,
+				F1F1D7EFBA664FBD8A6B5E67 /* /Users/simonash/Developer/Planetary/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		ED4E9A0DBE144453863BD84F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C222AC91CC044437AA1C105C /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework */,
+				4E164425E6554FE3899BD837 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MediaPlayer.framework */,
+				A15EA9CB59AC4E78B6FE3418 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework */,
+				7ACD271330EC456B9DF79808 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UIKit.framework */,
+				651D7D6E6134428E946FC2E9 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/OpenGLES.framework */,
+				A21521E819044FEAB4A120CF /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFoundation.framework */,
+				57BD4409BA3E482B8872A62B /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreVideo.framework */,
+				B844E08601464CBF8C0D390A /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Accelerate.framework */,
+				773F9EA148BA4F849F119A0F /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework */,
+				1E7EB5AB7024418C93E5A9FC /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework */,
+				BC878B11FA884FD5B26E3988 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework */,
+				D6167645A3ED4C1BB3690354 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/ImageIO.framework */,
+				9484FDDB8C7246D8B16CB268 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/MobileCoreServices.framework */,
+				D6B7055E6E5D491A8F7EF8DF /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AudioToolbox.framework */,
+				5B7C21F5DC414D8582B750E1 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreAudio.framework */,
+				0A193CC8806F4098808CAEE2 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AVFAudio.framework */,
+				9BD260A315954090A8CBC450 /* /Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMedia.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FC8D02C15CC24D25BC77E4E8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,42 +391,42 @@
 /* Begin PBXNativeTarget section */
 		952F277250299AF449AC4AD5 /* Planetary */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6EBDADB2AD6145B5A7DB3DCD /* Build configuration list for PBXNativeTarget "Planetary" */;
+			buildConfigurationList = 8F351C3711A74D58A35E27FD /* Build configuration list for PBXNativeTarget "Planetary" */;
 			buildPhases = (
-				3FE13C8583AA4ED9AE213DF2 /* Sources */,
-				C3B2DB69A4334A759B55EB3D /* Frameworks */,
+				78DD474F9D614D5C959ABC9A /* Sources */,
+				8AF0ABBA219D41EA92E6D063 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				08DF8DC8AA7C4E7FABF65736 /* PBXTargetDependency */,
+				B9C932AC1D394462B1ECF69D /* PBXTargetDependency */,
 			);
 			name = Planetary;
 			productName = Planetary;
-			productReference = E1023FA96EB64A9081962384 /* Planetary */;
+			productReference = B0151693E9C84311A417DD57 /* Planetary */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		2A4047397F404C9384649CC2 /* Project object */ = {
+		010264922149466B99DB0F48 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 2700;
 			};
-			buildConfigurationList = A16D1611286B49CF8318E51B /* Build configuration list for PBXProject "Planetary" */;
+			buildConfigurationList = 111EA8C9BD9B447DA3D74926 /* Build configuration list for PBXProject "Planetary" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				F98C61F9E141456FA7F4B823 /* Debug */,
-				878BA4426A0F4CAFB37A25D6 /* Release */,
-				D2B057D0FDFD45E49B4BA94B /* MinSizeRel */,
-				D7C6F652BE4542D19DEFC379 /* RelWithDebInfo */,
+				337F173203FE48F2B2DF1FA5 /* Debug */,
+				8EC9B28863A94C3F8D861529 /* Release */,
+				A7015EA8DA01434C856118B7 /* MinSizeRel */,
+				D0078241C49648C0B8C02EAA /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = D42F827AA5E040F2A9F0B272;
+			mainGroup = 30E52461BD6140D4B64E5020;
 			projectDirPath = /Users/simonash/Developer/Planetary;
 			projectRoot = "";
 			targets = (
@@ -537,138 +537,85 @@ fi
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3FE13C8583AA4ED9AE213DF2 /* Sources */ = {
+		78DD474F9D614D5C959ABC9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2406874C9976411E80399A65 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */,
-				09B011C2CDD94EE1A71BBEB4 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */,
-				B889E89999484D89978B62CE /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */,
-				B9E9EBCA0C3E4CD3913E57BD /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */,
-				915801A76BC74635A47BD2FB /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */,
-				C0EBD7A111564C11913C90E3 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */,
-				1DEDCDEF22E74CFE874C78D5 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */,
-				B689F8E6AFE1477C81CC5CEE /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */,
-				D8157B28ADAF46B79658C33B /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */,
-				DC009FDF209D4924BEF0845A /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */,
-				08DBB157E2C642E5862BC154 /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */,
-				F4CEDCE7D917431B8CD5B7A7 /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */,
-				74B1539661424402BA269394 /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */,
-				412C8C7D54DF41BBB7B61A2C /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */,
-				997AFFE6C3A9468C990E8666 /* /Users/simonash/Developer/Planetary/src/Data.cpp */,
-				F076ECE473A0471D853C2BD7 /* /Users/simonash/Developer/Planetary/src/Dust.cpp */,
-				F699DBA1D33944F298683AA5 /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */,
-				5E0F2BDAF35241FEA17A49DB /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */,
-				83243FCDFB84463DB2161DE1 /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */,
-				942230983845413E8AF93AB5 /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */,
-				5D7EBEE8CAF74B079182442E /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */,
-				FBEBD2D196E84037BFF89A54 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */,
-				CFD88FD485C84F5A8B4CC8D8 /* /Users/simonash/Developer/Planetary/src/Node.cpp */,
-				9A90329C4BD340AC98B0D774 /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */,
-				DEEE0326F0BD4C0091EC5754 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */,
-				68AEF7613F9C46AAA206ACB1 /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */,
-				EDC8962982434FCEBB32F2F2 /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */,
-				B4D68C51600C4189B30D9D5C /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */,
-				27B12E35B9F64751A03BD262 /* /Users/simonash/Developer/Planetary/src/Particle.cpp */,
-				EE1A586D8FAD4500B1567C69 /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */,
-				EF8AAADB038749DB9711F5CB /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */,
-				55ED042BB96B423BB76430D3 /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */,
-				172BBC597ACD4FF99151CAFB /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */,
-				0D487753A0634C11A684E225 /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */,
-				95A45F6FD56549D0AE4EE758 /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */,
-				3E07379A26EC459388B3BBA7 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */,
-				2AF2232CDBF74A0D932EB23D /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */,
-				EA573095968C472DAC73B6C5 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */,
-				14C6D092D8F64034A48549F6 /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */,
-				90A0518A09264134AE2F9FB6 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */,
-				6F989BA1F7884160A0DF8395 /* /Users/simonash/Developer/Planetary/src/State.cpp */,
-				F0304A015BEE43FDB785325C /* /Users/simonash/Developer/Planetary/src/Stats.cpp */,
-				C6B155FC435D4F179955DBEE /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */,
-				B38F0B63B91B46DA86225AE7 /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */,
-				352413E3E16448968AA495AB /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */,
-				723F499B8B744E908753B11A /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */,
-				849905FE69444A34BB744E52 /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */,
-				BE9D2E4B55CD4FC49115B5B0 /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */,
-				7191B9C5B51D4475821FA87A /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */,
-				ED9C399871F4432DAB4E54EB /* /Users/simonash/Developer/Planetary/src/World.cpp */,
+				50CCA4F086054B6EAE3146D8 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomNode.cpp */,
+				671D4C28BF544A67B649ABBE /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/BloomScene.cpp */,
+				4521350291B848E282259062 /* /Users/simonash/Developer/Planetary/blocks/BloomScene/src/OrientationNode.cpp */,
+				B7B26139EF284D3FB7ECC4AE /* /Users/simonash/Developer/Planetary/blocks/BloomTasks/src/TaskQueue.cpp */,
+				51F9795EFD654953ACBD638F /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPod.mm */,
+				2BE131481E89403E8C11FDFF /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayer.mm */,
+				FCAA7260175B4C7980115934 /* /Users/simonash/Developer/Planetary/blocks/CinderIPod/src/CinderIPodPlayerImpl.mm */,
+				0BE0E4E19BCF4FFFA46405FC /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/Orientation.cpp */,
+				09C5D2200396437E887A1453 /* /Users/simonash/Developer/Planetary/blocks/CinderOrientation/src/OrientationHelper.mm */,
+				5669B5F1A5B24406849798FC /* /Users/simonash/Developer/Planetary/src/AlphaChooser.cpp */,
+				1C8D6B025F4F4FBBA1CDEC8F /* /Users/simonash/Developer/Planetary/src/BloomGl.cpp */,
+				EC362D7CFA4B4724B2919B68 /* /Users/simonash/Developer/Planetary/src/BloomSphere.cpp */,
+				BCEFBC7623C34B2AAC28EED6 /* /Users/simonash/Developer/Planetary/src/Buttons.cpp */,
+				98C721BE173741FE9982E36B /* /Users/simonash/Developer/Planetary/src/Constellation.cpp */,
+				045259D119DF43A1B60D1B88 /* /Users/simonash/Developer/Planetary/src/Data.cpp */,
+				FCDDC2D32CFF449682B3CD35 /* /Users/simonash/Developer/Planetary/src/Dust.cpp */,
+				523DC05031354E85ACE5039B /* /Users/simonash/Developer/Planetary/src/Galaxy.cpp */,
+				9D2BC90316654CDF83A087E1 /* /Users/simonash/Developer/Planetary/src/GyroHelper.cpp */,
+				4B21A53F83B64CEB88CB9B9F /* /Users/simonash/Developer/Planetary/src/HelpLayer.cpp */,
+				A768EF5EEC9D43FCBB4E6F4B /* /Users/simonash/Developer/Planetary/src/KeplerApp.cpp */,
+				A9795A108C6E4BF5BB6F320C /* /Users/simonash/Developer/Planetary/src/LetterFilter.cpp */,
+				551C5CB986F34C04B6BCB141 /* /Users/simonash/Developer/Planetary/src/LoadingScreen.cpp */,
+				A133C474BF3942E3A343C81D /* /Users/simonash/Developer/Planetary/src/Node.cpp */,
+				C0DEDD2AB66A4C45BECD4A62 /* /Users/simonash/Developer/Planetary/src/NodeAlbum.cpp */,
+				5B398EE6C0894AE7995D5440 /* /Users/simonash/Developer/Planetary/src/NodeArtist.cpp */,
+				61FCBE31C95140529A81D3D9 /* /Users/simonash/Developer/Planetary/src/NodeTrack.cpp */,
+				85D7D8065BD94475A3CB0BA9 /* /Users/simonash/Developer/Planetary/src/NotificationOverlay.cpp */,
+				A76F6332BE1743C99DC54AD4 /* /Users/simonash/Developer/Planetary/src/OrbitRing.cpp */,
+				B2507FDA313846FB80E0D695 /* /Users/simonash/Developer/Planetary/src/Particle.cpp */,
+				1791042DB604464386C58F69 /* /Users/simonash/Developer/Planetary/src/ParticleController.cpp */,
+				B06CC7E43AD3426E9EEE960D /* /Users/simonash/Developer/Planetary/src/PlanetRing.cpp */,
+				95DA4BDB32C347FAB386575F /* /Users/simonash/Developer/Planetary/src/PlayControls.cpp */,
+				00936E4E6CC049D094CE90DC /* /Users/simonash/Developer/Planetary/src/PlaylistChooser.cpp */,
+				5406B5C23EF0477BBD13A7C5 /* /Users/simonash/Developer/Planetary/src/PlaylistFilter.cpp */,
+				CB3B65FFD0E747EE9A67516F /* /Users/simonash/Developer/Planetary/src/ScrollingLabel.cpp */,
+				6B4EC153D2394910837A2541 /* /Users/simonash/Developer/Planetary/src/SettingsPanel.cpp */,
+				54AA30B0423D423A84006D19 /* /Users/simonash/Developer/Planetary/src/Shadow.cpp */,
+				E5BBBADC2B0B4E11BEFC1538 /* /Users/simonash/Developer/Planetary/src/Slider.cpp */,
+				2FA179F444664D7DAFE64A5F /* /Users/simonash/Developer/Planetary/src/StarGlows.cpp */,
+				5FC9048D542E47FB933014D2 /* /Users/simonash/Developer/Planetary/src/Stars.cpp */,
+				A7309E6FFD574A9B9FFC9AC7 /* /Users/simonash/Developer/Planetary/src/State.cpp */,
+				0C27D1364929426CB0862586 /* /Users/simonash/Developer/Planetary/src/Stats.cpp */,
+				8080F768107E46589A8F4FB2 /* /Users/simonash/Developer/Planetary/src/StringHelpers.mm */,
+				246A2E49315D4926806EFD9D /* /Users/simonash/Developer/Planetary/src/TextLabel.cpp */,
+				7F79315B3F91448C9BE7BEC8 /* /Users/simonash/Developer/Planetary/src/TextureLoader.cpp */,
+				082EF0128AE2432FAA3A65B7 /* /Users/simonash/Developer/Planetary/src/TextureRect.cpp */,
+				311632AD22564BA5AC723CA8 /* /Users/simonash/Developer/Planetary/src/TimeLabel.cpp */,
+				0134ED3F2A9C46BCB425207E /* /Users/simonash/Developer/Planetary/src/UiLayer.cpp */,
+				5ED138C753D541679707DCAC /* /Users/simonash/Developer/Planetary/src/Vignette.cpp */,
+				462930F127E94533ACEEB7CD /* /Users/simonash/Developer/Planetary/src/World.cpp */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		08DF8DC8AA7C4E7FABF65736 /* PBXTargetDependency */ = {
+		3806E32B32DB478A8659AE60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1F20E44D0CCDA52C7476E26B /* ZERO_CHECK */;
-			targetProxy = 4FAF87075A324FB0B29BA685 /* PBXContainerItemProxy */;
+			targetProxy = 700718845EC24E1B938BF48D /* PBXContainerItemProxy */;
 		};
-		73329ED7C16148A490A38405 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1F20E44D0CCDA52C7476E26B /* ZERO_CHECK */;
-			targetProxy = 66065E9A4BE044549925EA7A /* PBXContainerItemProxy */;
-		};
-		7BD7B92A76354B6AA629E716 /* PBXTargetDependency */ = {
+		6714F61497CD4E87AA94A6B2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 952F277250299AF449AC4AD5 /* Planetary */;
-			targetProxy = CA477CCF51454CE79663EB69 /* PBXContainerItemProxy */;
+			targetProxy = 0FE237E57A5C49729621BE6F /* PBXContainerItemProxy */;
+		};
+		B9C932AC1D394462B1ECF69D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F20E44D0CCDA52C7476E26B /* ZERO_CHECK */;
+			targetProxy = EE83C26CF5D1496587E4BC78 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0C62BE059C9E4395B4597F93 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		19D0EB610BA749A4BE7811B2 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/simonash/Developer/Planetary/build/RelWithDebInfo;
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				FRAMEWORK_SEARCH_PATHS = ("/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks","$(inherited)");
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 2;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",FT2_BUILD_LIBRARY,FT_DEBUG_LEVEL_TRACE,CINDER_GL_ES,CINDER_GL_ES_3,"$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/opt/homebrew/include,/Users/simonash/Developer/Planetary/src,/Users/simonash/Developer/Planetary/blocks/CinderIPod/include,/Users/simonash/Developer/Planetary/blocks/CinderGestures/include,/Users/simonash/Developer/Planetary/blocks/BloomScene/include,/Users/simonash/Developer/Planetary/blocks/BloomTasks/src,/Users/simonash/Developer/Planetary/blocks/CinderOrientation/include,"$(inherited)");
-				INFOPLIST_FILE = "/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist";
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG '-std=c++20' '-ferror-limit=0' ";
-				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Cinder/lib/ios-sim/RelWithDebInfo/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cooperhewitt.planetary;
-				PRODUCT_NAME = Planetary;
-				SECTORDER_FLAGS = "";
-				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Cinder/include,"$(inherited)");
-				TARGETED_DEVICE_FAMILY = 2;
-				TARGET_TEMP_DIR = "/Users/simonash/Developer/Planetary/build-iossim/build/Planetary.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		1F36FBFA79064FF7A8B537D5 /* MinSizeRel */ = {
+		01027FA827514B8C9B620A94 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -683,45 +630,12 @@ fi
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		2B783ABD3EE64F4AAA880CD5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/simonash/Developer/Planetary/build/Release;
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				FRAMEWORK_SEARCH_PATHS = ("/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks","$(inherited)");
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",FT2_BUILD_LIBRARY,FT_DEBUG_LEVEL_TRACE,CINDER_GL_ES,CINDER_GL_ES_3,"$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/opt/homebrew/include,/Users/simonash/Developer/Planetary/src,/Users/simonash/Developer/Planetary/blocks/CinderIPod/include,/Users/simonash/Developer/Planetary/blocks/CinderGestures/include,/Users/simonash/Developer/Planetary/blocks/BloomScene/include,/Users/simonash/Developer/Planetary/blocks/BloomTasks/src,/Users/simonash/Developer/Planetary/blocks/CinderOrientation/include,"$(inherited)");
-				INFOPLIST_FILE = "/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist";
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++20' '-ferror-limit=0' ";
-				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Cinder/lib/ios-sim/Release/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cooperhewitt.planetary;
-				PRODUCT_NAME = Planetary;
-				SECTORDER_FLAGS = "";
-				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Cinder/include,"$(inherited)");
-				TARGETED_DEVICE_FAMILY = 2;
-				TARGET_TEMP_DIR = "/Users/simonash/Developer/Planetary/build-iossim/build/Planetary.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
 			name = Release;
 		};
-		4DA65099C28346418A77CA8C /* Debug */ = {
+		01256C6815884A77921A481D /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -739,84 +653,9 @@ fi
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = Debug;
-		};
-		4E0CF81931414823B1123BEA /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
 			name = RelWithDebInfo;
 		};
-		5EF0719789BD463C868BE12F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = /Users/simonash/Developer/Planetary/build/Debug;
-				EXECUTABLE_PREFIX = "";
-				EXECUTABLE_SUFFIX = "";
-				FRAMEWORK_SEARCH_PATHS = ("/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks","$(inherited)");
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",FT2_BUILD_LIBRARY,FT_DEBUG_LEVEL_TRACE,CINDER_GL_ES,CINDER_GL_ES_3,"$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/opt/homebrew/include,/Users/simonash/Developer/Planetary/src,/Users/simonash/Developer/Planetary/blocks/CinderIPod/include,/Users/simonash/Developer/Planetary/blocks/CinderGestures/include,/Users/simonash/Developer/Planetary/blocks/BloomScene/include,/Users/simonash/Developer/Planetary/blocks/BloomTasks/src,/Users/simonash/Developer/Planetary/blocks/CinderOrientation/include,"$(inherited)");
-				INFOPLIST_FILE = "/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist";
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = "   '-std=c++20' '-ferror-limit=0' ";
-				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Cinder/lib/ios-sim/Debug/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = org.cooperhewitt.planetary;
-				PRODUCT_NAME = Planetary;
-				SECTORDER_FLAGS = "";
-				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Cinder/include,"$(inherited)");
-				TARGETED_DEVICE_FAMILY = 2;
-				TARGET_TEMP_DIR = "/Users/simonash/Developer/Planetary/build-iossim/build/Planetary.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		5F2237DC3B49425FA2DD9903 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				SDKROOT = iphonesimulator;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SYMROOT = "/Users/simonash/Developer/Planetary/build-iossim/build";
-			};
-			name = MinSizeRel;
-		};
-		6560C0EC13414974AEC75518 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				SDKROOT = iphonesimulator;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SYMROOT = "/Users/simonash/Developer/Planetary/build-iossim/build";
-			};
-			name = RelWithDebInfo;
-		};
-		67EEC9E05C624E29ADC67DD0 /* MinSizeRel */ = {
+		0C707522291C422F9E180D6A /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -836,7 +675,7 @@ fi
 			};
 			name = MinSizeRel;
 		};
-		6B770146F97249D3942D587C /* Release */ = {
+		3F962B74C5AE4553A0852B8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -854,9 +693,9 @@ fi
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = Release;
+			name = Debug;
 		};
-		77B7A7DD3E6C41CA822CEA05 /* Release */ = {
+		4018FEC39D154D4C8F71306C /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -869,14 +708,14 @@ fi
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = ("","$(inherited)");
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = Release;
+			name = MinSizeRel;
 		};
-		AEF0E684B7ED438ABC7F3BD6 /* Release */ = {
+		AA7335A8F30B4A43B01377FE /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -885,39 +724,9 @@ fi
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SYMROOT = "/Users/simonash/Developer/Planetary/build-iossim/build";
 			};
-			name = Release;
-		};
-		CBB6B48088B24CA1B9337592 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
 			name = RelWithDebInfo;
 		};
-		DEA6BF29F0CB4CE881C49309 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				SDKROOT = iphonesimulator;
-				SYMROOT = "/Users/simonash/Developer/Planetary/build-iossim/build";
-			};
-			name = Debug;
-		};
-		FF68A85D94AC4403B0491967 /* MinSizeRel */ = {
+		AEF521489976451687ED088C /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -937,12 +746,12 @@ fi
 				INSTALL_PATH = "";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++20' '-ferror-limit=0' ";
-				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Cinder/lib/ios-sim/MinSizeRel/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Planetary/vendor/Cinder/lib/ios-sim/MinSizeRel/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
 				OTHER_REZFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.cooperhewitt.planetary;
 				PRODUCT_NAME = Planetary;
 				SECTORDER_FLAGS = "";
-				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Cinder/include,"$(inherited)");
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Planetary/vendor/Cinder/include,"$(inherited)");
 				TARGETED_DEVICE_FAMILY = 2;
 				TARGET_TEMP_DIR = "/Users/simonash/Developer/Planetary/build-iossim/build/Planetary.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				USE_HEADERMAP = NO;
@@ -950,54 +759,245 @@ fi
 			};
 			name = MinSizeRel;
 		};
+		AFB1330DD184428EA28680ED /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		CCD0C89BDC1A49B2A405E41F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		CE9D946A09E945D69D9D0FAB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = /Users/simonash/Developer/Planetary/build/Debug;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = ("/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks","$(inherited)");
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",FT2_BUILD_LIBRARY,FT_DEBUG_LEVEL_TRACE,CINDER_GL_ES,CINDER_GL_ES_3,"$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/opt/homebrew/include,/Users/simonash/Developer/Planetary/src,/Users/simonash/Developer/Planetary/blocks/CinderIPod/include,/Users/simonash/Developer/Planetary/blocks/CinderGestures/include,/Users/simonash/Developer/Planetary/blocks/BloomScene/include,/Users/simonash/Developer/Planetary/blocks/BloomTasks/src,/Users/simonash/Developer/Planetary/blocks/CinderOrientation/include,"$(inherited)");
+				INFOPLIST_FILE = "/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist";
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = "   '-std=c++20' '-ferror-limit=0' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Planetary/vendor/Cinder/lib/ios-sim/Debug/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cooperhewitt.planetary;
+				PRODUCT_NAME = Planetary;
+				SECTORDER_FLAGS = "";
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Planetary/vendor/Cinder/include,"$(inherited)");
+				TARGETED_DEVICE_FAMILY = 2;
+				TARGET_TEMP_DIR = "/Users/simonash/Developer/Planetary/build-iossim/build/Planetary.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		D16126A58C16485487DD0515 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphonesimulator;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/simonash/Developer/Planetary/build-iossim/build";
+			};
+			name = MinSizeRel;
+		};
+		D2D9E0C53414447D85C72FF2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		D43BEF95CE0444E6A7FB28DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphonesimulator;
+				SYMROOT = "/Users/simonash/Developer/Planetary/build-iossim/build";
+			};
+			name = Debug;
+		};
+		ECECA1412BCC4919A3685E37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = /Users/simonash/Developer/Planetary/build/Release;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = ("/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks","$(inherited)");
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",FT2_BUILD_LIBRARY,FT_DEBUG_LEVEL_TRACE,CINDER_GL_ES,CINDER_GL_ES_3,"$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/opt/homebrew/include,/Users/simonash/Developer/Planetary/src,/Users/simonash/Developer/Planetary/blocks/CinderIPod/include,/Users/simonash/Developer/Planetary/blocks/CinderGestures/include,/Users/simonash/Developer/Planetary/blocks/BloomScene/include,/Users/simonash/Developer/Planetary/blocks/BloomTasks/src,/Users/simonash/Developer/Planetary/blocks/CinderOrientation/include,"$(inherited)");
+				INFOPLIST_FILE = "/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist";
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=c++20' '-ferror-limit=0' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Planetary/vendor/Cinder/lib/ios-sim/Release/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cooperhewitt.planetary;
+				PRODUCT_NAME = Planetary;
+				SECTORDER_FLAGS = "";
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Planetary/vendor/Cinder/include,"$(inherited)");
+				TARGETED_DEVICE_FAMILY = 2;
+				TARGET_TEMP_DIR = "/Users/simonash/Developer/Planetary/build-iossim/build/Planetary.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		F4B89A46147B4DE89E7ACD04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphonesimulator;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/simonash/Developer/Planetary/build-iossim/build";
+			};
+			name = Release;
+		};
+		FFB270B0A6084B01BCA6DA3B /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = /Users/simonash/Developer/Planetary/build/RelWithDebInfo;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				FRAMEWORK_SEARCH_PATHS = ("/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks","$(inherited)");
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",FT2_BUILD_LIBRARY,FT_DEBUG_LEVEL_TRACE,CINDER_GL_ES,CINDER_GL_ES_3,"$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/opt/homebrew/include,/Users/simonash/Developer/Planetary/src,/Users/simonash/Developer/Planetary/blocks/CinderIPod/include,/Users/simonash/Developer/Planetary/blocks/CinderGestures/include,/Users/simonash/Developer/Planetary/blocks/BloomScene/include,/Users/simonash/Developer/Planetary/blocks/BloomTasks/src,/Users/simonash/Developer/Planetary/blocks/CinderOrientation/include,"$(inherited)");
+				INFOPLIST_FILE = "/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir/Info.plist";
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG '-std=c++20' '-ferror-limit=0' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names","/Users/simonash/Developer/Planetary/vendor/Cinder/lib/ios-sim/RelWithDebInfo/libcinder.a","-framework CoreText","-framework MediaPlayer","-framework CoreMotion","-framework UIKit","-framework OpenGLES","-framework AVFoundation","-framework CoreVideo","-framework Accelerate","-framework CoreGraphics","-framework QuartzCore","-framework Foundation","-framework ImageIO","-framework MobileCoreServices","-framework AudioToolbox","-framework CoreAudio","-framework AVFAudio","-framework CoreMedia","-lobjc","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.cooperhewitt.planetary;
+				PRODUCT_NAME = Planetary;
+				SECTORDER_FLAGS = "";
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/simonash/Developer/Planetary/vendor/Cinder/include,"$(inherited)");
+				TARGETED_DEVICE_FAMILY = 2;
+				TARGET_TEMP_DIR = "/Users/simonash/Developer/Planetary/build-iossim/build/Planetary.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		30DEB1B2471642668CD1BBCA /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		111EA8C9BD9B447DA3D74926 /* Build configuration list for PBXProject "Planetary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0C62BE059C9E4395B4597F93 /* Debug */,
-				77B7A7DD3E6C41CA822CEA05 /* Release */,
-				67EEC9E05C624E29ADC67DD0 /* MinSizeRel */,
-				4E0CF81931414823B1123BEA /* RelWithDebInfo */,
+				D43BEF95CE0444E6A7FB28DA /* Debug */,
+				F4B89A46147B4DE89E7ACD04 /* Release */,
+				D16126A58C16485487DD0515 /* MinSizeRel */,
+				AA7335A8F30B4A43B01377FE /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		6EBDADB2AD6145B5A7DB3DCD /* Build configuration list for PBXNativeTarget "Planetary" */ = {
+		57BBC03259224C8BA5CD10F8 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5EF0719789BD463C868BE12F /* Debug */,
-				2B783ABD3EE64F4AAA880CD5 /* Release */,
-				FF68A85D94AC4403B0491967 /* MinSizeRel */,
-				19D0EB610BA749A4BE7811B2 /* RelWithDebInfo */,
+				3F962B74C5AE4553A0852B8D /* Debug */,
+				01027FA827514B8C9B620A94 /* Release */,
+				4018FEC39D154D4C8F71306C /* MinSizeRel */,
+				01256C6815884A77921A481D /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		A16D1611286B49CF8318E51B /* Build configuration list for PBXProject "Planetary" */ = {
+		8F351C3711A74D58A35E27FD /* Build configuration list for PBXNativeTarget "Planetary" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DEA6BF29F0CB4CE881C49309 /* Debug */,
-				AEF0E684B7ED438ABC7F3BD6 /* Release */,
-				5F2237DC3B49425FA2DD9903 /* MinSizeRel */,
-				6560C0EC13414974AEC75518 /* RelWithDebInfo */,
+				CE9D946A09E945D69D9D0FAB /* Debug */,
+				ECECA1412BCC4919A3685E37 /* Release */,
+				AEF521489976451687ED088C /* MinSizeRel */,
+				FFB270B0A6084B01BCA6DA3B /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		B75D3F71B5914299A2D1FE6D /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		DCEA7A11373D419EA887063C /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4DA65099C28346418A77CA8C /* Debug */,
-				6B770146F97249D3942D587C /* Release */,
-				1F36FBFA79064FF7A8B537D5 /* MinSizeRel */,
-				CBB6B48088B24CA1B9337592 /* RelWithDebInfo */,
+				CCD0C89BDC1A49B2A405E41F /* Debug */,
+				D2D9E0C53414447D85C72FF2 /* Release */,
+				0C707522291C422F9E180D6A /* MinSizeRel */,
+				AFB1330DD184428EA28680ED /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 2A4047397F404C9384649CC2 /* Project object */;
+	rootObject = 010264922149466B99DB0F48 /* Project object */;
 }

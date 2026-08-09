@@ -26,3 +26,9 @@ Release/
 
 # CMake build output
 build-ios/
+
+# Cinder build artifacts (the static lib is ~128MB per slice; rebuild locally,
+# see vendor/Cinder/README.md)
+vendor/Cinder/lib/
+vendor/Cinder/build-ios/
+vendor/Cinder/build-iossim/

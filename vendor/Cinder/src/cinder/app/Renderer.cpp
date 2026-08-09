@@ -1,0 +1,118 @@
+/*
+ Copyright (c) 2012, The Cinder Project, All rights reserved.
+
+ This code is intended for use with the Cinder C++ library: http://libcinder.org
+
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that
+ the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, this list of conditions and
+	the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and
+	the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#include "cinder/app/Renderer.h"
+
+#include "cinder/gl/platform.h"
+
+#include "cinder/app/AppBase.h"
+
+#if defined( CINDER_COCOA_TOUCH )
+	#include "cinder/cocoa/CinderCocoaTouch.h"
+	#import "cinder/app/cocoa/RendererImpl2dCocoaTouchQuartz.h"
+#elif defined( CINDER_MSW_DESKTOP )
+	#include "cinder/app/msw/AppImplMsw.h"
+	#include "cinder/app/msw/RendererImpl2dGdi.h"
+#elif defined( CINDER_ANDROID )
+    #include "cinder/app/android/Renderer2dAndroid.h"
+#endif
+
+namespace cinder { namespace app {
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Renderer
+Renderer::Renderer( const Renderer & /*renderer*/ )
+{
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Renderer2d
+#if defined( CINDER_MSW_DESKTOP )
+
+Renderer2d::Renderer2d( const Renderer2d &renderer )
+	: Renderer( renderer )
+{
+	mImpl = 0;
+	mDoubleBuffer = renderer.mDoubleBuffer;
+}
+
+Renderer2d::Renderer2d( bool doubleBuffer, bool paintEvents )
+	: Renderer(), mDoubleBuffer(doubleBuffer), mPaintEvents( paintEvents )
+{
+}
+
+void Renderer2d::setup( WindowImplMsw *windowImpl, RendererRef /*sharedRenderer*/ )
+{
+	mWindowImpl = windowImpl;
+	mImpl = new RendererImpl2dGdi( mDoubleBuffer, mPaintEvents );
+	mImpl->initialize( windowImpl, RendererRef() /* we don't use shared renderers on GDI */ );
+}
+
+HWND Renderer2d::getHwnd() const
+{
+	return mWindowImpl->getHwnd();
+}
+
+HDC	Renderer2d::getDc() const
+{
+	return mImpl->getDc();
+}
+
+void Renderer2d::kill()
+{
+	mImpl->kill();
+}
+
+void Renderer2d::prepareToggleFullScreen()
+{
+	mImpl->prepareToggleFullScreen();
+}
+
+void Renderer2d::finishToggleFullScreen()
+{
+	mImpl->finishToggleFullScreen();
+}
+
+void Renderer2d::startDraw()
+{
+	mImpl->makeCurrentContext();
+}
+
+void Renderer2d::finishDraw()
+{
+	mImpl->swapBuffers();
+}
+
+void Renderer2d::defaultResize()
+{
+	mImpl->defaultResize();
+}
+
+Surface	Renderer2d::copyWindowSurface( const Area &area, int32_t /*windowHeightPixels*/ )
+{
+	return mImpl->copyWindowContents( area );
+}
+
+#endif // defined( CINDER_MSW_DESKTOP )
+
+} } // namespace cinder::app
