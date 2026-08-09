@@ -18,8 +18,8 @@
 
 namespace bloom { namespace gl {
 
-	void drawBillboard( const ci::vec3 &pos, const ci::vec2 &scale, float rotationDegrees, const ci::vec3 &bbRight, const ci::vec3 &bbUp );
-	void drawSphericalBillboard( const ci::vec3 &camEye, const ci::vec3 &objPos, const ci::vec2 &scale, float rotationDegrees );
+	void drawBillboard( const ci::vec3 &pos, const ci::vec2 &scale, float rotInRadians, const ci::vec3 &bbRight, const ci::vec3 &bbUp );
+	void drawSphericalBillboard( const ci::vec3 &camEye, const ci::vec3 &objPos, const ci::vec2 &scale, float rotInRadians );
     void drawSphericalRotatedBillboard( const ci::vec3 &pos, const ci::vec3 &lookAt, const ci::vec3 &turnAt, const ci::vec2 &scale );
 	
     // hat tip http://craiggiles.wordpress.com/2009/08/03/opengl-es-batch-rendering-on-the-iphone/

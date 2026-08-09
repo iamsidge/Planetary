@@ -117,28 +117,28 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
          gl::pushModelMatrix();
          gl::translate( P0 );
 //         gl::rotate( mMatrix );
-         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
          gl::drawStrokedCircle( vec2(0), r0, 50 );
          gl::popModelMatrix();
          
          gl::pushModelMatrix();
          gl::translate( P0 );
 //         gl::rotate( mMatrix );
-         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
          gl::drawStrokedCircle( vec2(0), r0Inner, 50 );
          gl::popModelMatrix();
          
          gl::pushModelMatrix();
          gl::translate( P1 );
 //         gl::rotate( mMatrix );
-         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
          gl::drawStrokedCircle( vec2(0), r1, 25 );
          gl::popModelMatrix();
          
          gl::pushModelMatrix();
          gl::translate( P2 );
 //         gl::rotate( mMatrix );
-         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
          gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
          gl::popModelMatrix();
          
@@ -192,7 +192,7 @@ void Shadow::setup( Node* node, Node* mParentNode, float camAlpha )
          gl::pushModelMatrix();
          gl::translate( P4 );
 //         gl::rotate( mMatrix );
-         gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+         gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
          gl::drawStrokedCircle( vec2(0), dMid, 50 );
          gl::popModelMatrix();
          

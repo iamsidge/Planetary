@@ -23,9 +23,11 @@ namespace {
 
         auto vbo  = ci::gl::Vbo::create( GL_ARRAY_BUFFER, stride * count, verts, GL_STATIC_DRAW );
         auto mesh = ci::gl::VboMesh::create( (uint32_t)count, GL_TRIANGLES, { { layout, vbo } } );
-        return ci::gl::Batch::create( mesh, // The mesh supplies no COLOR attribute, so this must be the
-        // uniform-colour shader; requesting .color() would read an
-        // attribute that was never filled.
+        // The mesh supplies no COLOR attribute, but .color() is still required:
+        // it is the only way the stock shader emits a colour term at all, and
+        // VboMesh deliberately tolerates a missing ciColor, letting
+        // Context::setDefaultShaderVars feed it from gl::color().
+        return ci::gl::Batch::create( mesh,
         ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
     }
 }
@@ -83,17 +85,17 @@ void Galaxy::drawLightMatter( float fadeInAlphaToArtist )
 		
 		float rotationSpeed = -mElapsedSeconds * 0.2f;
         gl::scale( vec3( radius, radius, radius ) );
-        gl::rotate( vec3( 0.0f, rotationSpeed, 0.0f ) );
+        gl::rotate( glm::radians( vec3( 0.0f, rotationSpeed, 0.0f ) ) );
         mDarkMatterBatch->draw();
 		
 		if( G_IS_IPAD2 ){
 			gl::color( ColorA( mLightMatterColor, mInvAlpha * ( 1.0f - fadeInAlphaToArtist ) ) );
 			gl::scale( vec3( 1.15f, 1.15f, 1.15f ) );
-			gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, 50.0f, 0.0f ) ) );
 			mDarkMatterBatch->draw();
 			
 			gl::scale( vec3( 1.15f, 1.15f, 1.15f ) );
-			gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, 50.0f, 0.0f ) ) );
 			mDarkMatterBatch->draw();
 		}
         
@@ -116,19 +118,19 @@ void Galaxy::drawSpiralPlanes()
 		
 		if( G_IS_IPAD2 ){
 			gl::translate( vec3( 0.0f, 3.5f, 0.0f ) );
-			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) ) );
 			mGalaxyBatch->draw();
 			
 			gl::translate( vec3( 0.0f, -7.0f, 0.0f ) );
-			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) ) );
 			mGalaxyBatch->draw();
 			
 			gl::translate( vec3( 0.0f, 3.5f, 0.0f ) );
 			gl::scale( vec3( 0.5f, 0.5f, 0.5f ) );
-			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) ) );
 			mGalaxyBatch->draw();
 		} else {
-			gl::rotate( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, -mElapsedSeconds * 0.2f, 0.0f ) ) );
 			mGalaxyBatch->draw();
 		}
 		
@@ -151,9 +153,9 @@ void Galaxy::drawCenter()
 		gl::ScopedGlslProg glsl( gl::getStockShader( gl::ShaderDef().texture().color() ) );
 		gl::ScopedTextureBind texBind( mStarGlowTex );
 		gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-		gl::drawBillboard( vec3(0), vec2( 400.0f, 400.0f ), mElapsedSeconds * 10.0f, mBbRight, mBbUp );
+		gl::drawBillboard( vec3(0), vec2( 400.0f, 400.0f ), toRadians( mElapsedSeconds * 10.0f ), mBbRight, mBbUp );
 		gl::color( ColorA( BRIGHT_YELLOW, alpha ) );
-		gl::drawBillboard( vec3(0), vec2( 200.0f, 200.0f ), -mElapsedSeconds * 7.0f, mBbRight, mBbUp );
+		gl::drawBillboard( vec3(0), vec2( 200.0f, 200.0f ), toRadians( -mElapsedSeconds * 7.0f ), mBbRight, mBbUp );
 	}
 }
 
@@ -177,7 +179,7 @@ void Galaxy::drawDarkMatter()
 		float alpha		= mInvAlpha * delta;
 		if( alpha > 0.0f ){
 			gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-			gl::rotate( vec3( 0.0f, rotationSpeed, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, rotationSpeed, 0.0f ) ) );
 			gl::scale( vec3( radius, radius * 0.75f, radius ) );
 			mDarkMatterBatch->draw();
 		}
@@ -199,7 +201,7 @@ void Galaxy::drawDarkMatter()
 			alpha		= mInvAlpha * delta;
 			if( alpha > 0.0f ){
 				gl::color( ColorA( BRIGHT_BLUE, alpha ) );
-				gl::rotate( vec3( 0.0f, 50.0f, 0.0f ) );
+				gl::rotate( glm::radians( vec3( 0.0f, 50.0f, 0.0f ) ) );
 				gl::scale( vec3( multi, multi, multi ) );
 				mDarkMatterBatch->draw();
 			}

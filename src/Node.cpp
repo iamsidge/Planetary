@@ -311,7 +311,7 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
                 gl::pushModelMatrix();
                 gl::translate( pos2 + offset2 );
                 if (angle != 0) {
-                    gl::rotate( angle * 180.0f/M_PI );
+                    gl::rotate( angle );
                     texCorner = glm::rotate( texCorner, (float)(angle) );
                 }
                 if( mIsPlaying ){

@@ -328,7 +328,7 @@ void NodeAlbum::drawPlanet( const gl::TextureRef &tex )
 		gl::pushModelMatrix();
 		gl::translate( mPos );
 		gl::scale( vec3( mRadius, mRadius, mRadius ) * mDeathPer );
-		gl::rotate( mAxialRot );
+		gl::rotate( glm::radians( mAxialRot ) );
 		
 		mAlbumArtTex->bind();
 		
@@ -404,7 +404,7 @@ void NodeAlbum::drawClouds( const vector<gl::TextureRef> &clouds )
         const float alpha = constrain( ( 5.0f - mDistFromCamZAxis ) * 0.2f, 0.0f, 0.334f ) * mClosenessFadeAlpha;        
 
         gl::scale( vec3( radius, radius, radius ) );
-        gl::rotate( mAxialRot * vec3( 1.0f, 0.75f, 1.0f ) + vec3( 0.0f, 0.5f, 0.0f ) ); 
+        gl::rotate( glm::radians( mAxialRot * vec3( 1.0f, 0.75f, 1.0f ) + vec3( 0.0f, 0.5f, 0.0f ) ) ); 
 		
 		// SHADOW CLOUDS
 		if( mIsHighlighted ){
@@ -482,7 +482,7 @@ void NodeAlbum::drawOrbitRing( float pinchAlphaPer, float camAlpha, const OrbitR
 	gl::pushModelMatrix();
 	gl::translate( mParentNode->mPos );
 	gl::scale( vec3( mOrbitRadius, mOrbitRadius, mOrbitRadius ) );
-	gl::rotate( vec3( 90.0f, 0.0f, toDegrees( mOrbitAngle ) ) );	
+	gl::rotate( vec3( glm::radians( 90.0f ), 0.0f, mOrbitAngle ) );	
     orbitRing.drawHighRes();
 	gl::popModelMatrix();
 	
@@ -502,7 +502,7 @@ void NodeAlbum::drawRings( const gl::TextureRef &tex, const PlanetRing &planetRi
 			
             float c = 0.5f * mIdealCameraDist;
 			gl::scale( vec3( c, c, c ) );
-			gl::rotate( vec3( 0.0f, app::getElapsedSeconds() * mAxialVel * 0.2f, 0.0f ) );
+			gl::rotate( glm::radians( vec3( 0.0f, app::getElapsedSeconds() * mAxialVel * 0.2f, 0.0f ) ) );
 			
 			float zoomPer = constrain( 1.0f - ( mGen - G_ZOOM ), 0.0f, 1.0f );
 			gl::color( ColorA( mColor, camAlpha * zoomPer ) );
@@ -644,28 +644,28 @@ void NodeAlbum::findShadows( float camAlpha )
 		 gl::pushModelMatrix();
 		 gl::translate( P0 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
 		 gl::drawStrokedCircle( vec2(0), r0, 50 );
 		 gl::popModelMatrix();
 		 
 		 gl::pushModelMatrix();
 		 gl::translate( P0 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
 		 gl::drawStrokedCircle( vec2(0), r0Inner, 50 );
 		 gl::popModelMatrix();
 		 
 		 gl::pushModelMatrix();
 		 gl::translate( P1 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
 		 gl::drawStrokedCircle( vec2(0), r1, 25 );
 		 gl::popModelMatrix();
 		 
 		 gl::pushModelMatrix();
 		 gl::translate( P2 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
 		 gl::drawStrokedCircle( vec2(0), 0.01f, 16 );
 		 gl::popModelMatrix();
 		 
@@ -715,7 +715,7 @@ void NodeAlbum::findShadows( float camAlpha )
 		 gl::pushModelMatrix();
 		 gl::translate( P4 );
 		 gl::rotate( mMatrix );
-		 gl::rotate( vec3( 90.0f, 0.0f, 0.0f ) );
+		 gl::rotate( glm::radians( vec3( 90.0f, 0.0f, 0.0f ) ) );
 		 gl::drawStrokedCircle( vec2(0), dMid, 50 );
 		 gl::popModelMatrix();
 		 

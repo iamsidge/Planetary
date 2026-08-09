@@ -184,7 +184,7 @@ void NodeArtist::drawPlanet( const gl::TextureRef &tex )
 		gl::pushModelMatrix();
 		gl::translate( mPos );
 		gl::scale( vec3( mRadius, mRadius, mRadius ) * mDeathPer * 0.16f );
-		gl::rotate( mAxialRot );
+		gl::rotate( glm::radians( mAxialRot ) );
 		gl::color( ColorA( ( mColor + Color::white() ) * 0.5f, 1.0f ) );
 
 		tex->bind();		
