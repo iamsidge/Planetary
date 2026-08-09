@@ -194,3 +194,18 @@ list( FILTER PLANETARY_CPP_SOURCES INCLUDE REGEX "\\.cpp$" )
 set_source_files_properties( ${PLANETARY_CPP_SOURCES}
 	PROPERTIES COMPILE_FLAGS "-x objective-c++"
 )
+
+# blocks/CinderSpotify is written for ARC: it holds NSString/NSDate members in
+# C++ structs and never retains anything. The rest of Planetary is manual
+# retain/release 2011 code — StringHelpers.mm still calls [release] — so ARC
+# cannot be turned on globally. Enabling it per-file gives the new code correct
+# ownership without touching the old.
+#
+# Without this the tokens were assigned from autoreleased objects and freed at
+# the next pool drain, so the first library request messaged freed memory.
+set_source_files_properties(
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyAuth.mm"
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/CinderSpotify.mm"
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyPlayer.mm"
+	PROPERTIES COMPILE_FLAGS "-fobjc-arc"
+)
