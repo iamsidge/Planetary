@@ -2,6 +2,7 @@
 #include <cmath>
 
 #include "cinder/app/cocoa/AppCocoaTouch.h"
+#include "cinder/app/RendererGl.h"
 #include "glm/gtx/rotate_vector.hpp"
 #include "cinder/app/Renderer.h"
 #include "cinder/Surface.h"
@@ -466,10 +467,9 @@ void KeplerApp::onTextureLoaderComplete( TextureLoader* loader )
 	mCloudTextures.push_back( mTextures[M_CLOUDS_5] );
     
 	// ARCBALL
-	mArcball.setWindowSize( getWindowSize() );
-	mArcball.setCenter( getWindowCenter() );
-	mArcball.setRadius( G_DEFAULT_ARCBALL_RADIUS );
-	mArcball.setQuat( quat( -0.2, 0.0f, -0.3f ) );
+	mArcball.setSphere( Sphere( vec3( getWindowCenter(), 0.0f ), G_DEFAULT_ARCBALL_RADIUS ) );
+	// Cinder 0.8's Quatf(x,y,z) took Euler angles; GLM spells that quat(vec3).
+	mArcball.setQuat( quat( vec3( -0.2f, 0.0f, -0.3f ) ) );
 	
 	// CAMERA PERSP
 	mCamDist			= G_INIT_CAM_DIST;
@@ -654,8 +654,8 @@ void KeplerApp::touchesBegan( TouchEvent event )
         mTouchVel		= vec2(0);
 		vec3 worldTouchPos;
 		if( G_USE_GYRO ) worldTouchPos = vec3(mTouchPos,0);
-		else			 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
-        mArcball.mouseDown( ivec2(worldTouchPos.x, worldTouchPos.y) );
+		else			 worldTouchPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos, 0.0f, 1.0f) );
+        mArcball.mouseDown( vec2(worldTouchPos.x, worldTouchPos.y), getWindowSize() );
 	}
     else {
         mIsTouching = false;
@@ -678,8 +678,8 @@ void KeplerApp::touchesMoved( TouchEvent event )
                 mTouchPos		= currentPos;
                 vec3 worldTouchPos;
 				if( G_USE_GYRO ) worldTouchPos = vec3(mTouchPos,0);
-				else			 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
-                mArcball.mouseDrag( ivec2( worldTouchPos.x, worldTouchPos.y ) );
+				else			 worldTouchPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos, 0.0f, 1.0f) );
+                mArcball.mouseDrag( vec2( worldTouchPos.x, worldTouchPos.y ), getWindowSize() );
             }
         }
     }
@@ -735,7 +735,7 @@ bool KeplerApp::onPinchBegan( PinchEvent event )
 	
 // using pinch to control arcball is weird because of the pop
 // from one finger to two fingers. disabled until a fix is found.
-//	vec3 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
+//	vec3 worldTouchPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos, 0.0f, 1.0f) );
 //	mArcball.mouseDrag( ivec2( worldTouchPos.x, worldTouchPos.y ) );
 	
     return false;
@@ -758,7 +758,7 @@ bool KeplerApp::onPinchMoved( PinchEvent event )
 	averageTouchPos /= touches.size();
 // using pinch to control arcball is weird because of the pop
 // from one finger to two fingers. disabled until a fix is found.
-//	vec3 worldTouchPos = mInverseOrientationMatrix * vec3(mTouchPos,0);
+//	vec3 worldTouchPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos, 0.0f, 1.0f) );
 //	mArcball.mouseDrag( ivec2( worldTouchPos.x, worldTouchPos.y ) );
 	
 	//mTouchThrowVel	= ( averageTouchPos - mTouchPos );
@@ -840,7 +840,7 @@ void KeplerApp::setInterfaceOrientation( const Orientation &orientation )
     mInterfaceOrientation = orientation;
 
     mOrientationMatrix = getOrientationMatrix44( mInterfaceOrientation, getWindowSize() );
-    mInverseOrientationMatrix = mOrientationMatrix.inverted();
+    mInverseOrientationMatrix = glm::inverse( mOrientationMatrix );
     
 //    if( ! G_USE_GYRO ) mUp = getUpVectorForOrientation( mInterfaceOrientation );
 //	else			   mUp = vec3(0,1,0);
@@ -1682,25 +1682,25 @@ void KeplerApp::updateArcball()
 		if( glm::length(mTouchVel) > 2.0f && !mIsDragging ){
 			vec3 downPos;
 			if( G_USE_GYRO )	downPos = ( vec3(mTouchPos,0) );
-			else				downPos = mInverseOrientationMatrix * ( vec3(mTouchPos,0) );
-			mArcball.mouseDown( ivec2(downPos.x, downPos.y) );
+			else				downPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos, 0.0f, 1.0f) );
+			mArcball.mouseDown( vec2(downPos.x, downPos.y), getWindowSize() );
 			
 			vec3 dragPos;
 			if( G_USE_GYRO )	dragPos = ( vec3(mTouchPos + mTouchVel,0) );
-			else				dragPos = mInverseOrientationMatrix * ( vec3(mTouchPos + mTouchVel,0) );
-			mArcball.mouseDrag( ivec2(dragPos.x, dragPos.y) );        
+			else				dragPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos + mTouchVel, 0.0f, 1.0f) );
+			mArcball.mouseDrag( vec2(dragPos.x, dragPos.y), getWindowSize() );        
 		}
 	} else {
 		if( !mIsDragging ){
 			vec3 downPos;
 			if( G_USE_GYRO )	downPos = ( vec3(mTouchPos,0) );
-			else				downPos = mInverseOrientationMatrix * ( vec3(mTouchPos,0) );
-			mArcball.mouseDown( ivec2(downPos.x, downPos.y) );
+			else				downPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos, 0.0f, 1.0f) );
+			mArcball.mouseDown( vec2(downPos.x, downPos.y), getWindowSize() );
 			
 			vec3 dragPos;
 			if( G_USE_GYRO )	dragPos = ( vec3(mTouchPos + mTouchVel,0) );
-			else				dragPos = mInverseOrientationMatrix * ( vec3(mTouchPos + mTouchVel,0) );
-			mArcball.mouseDrag( ivec2(dragPos.x, dragPos.y) );        
+			else				dragPos = vec3( mInverseOrientationMatrix * vec4(mTouchPos + mTouchVel, 0.0f, 1.0f) );
+			mArcball.mouseDrag( vec2(dragPos.x, dragPos.y), getWindowSize() );        
 		}
 	}
 }
@@ -1846,7 +1846,7 @@ void KeplerApp::updateCamera()
     double t		= constrain( getElapsedSeconds()-mSelectionTime, 0.0, duration );
 	double p        = easeInOutCubic( t / duration );
 
-	mCenter			= lerp( mCenterFrom, (mCenterDest + mCenterOffset), p );
+	mCenter			= lerp( mCenterFrom, (mCenterDest + mCenterOffset), (float)p );
 	mCamDist		= lerp( mCamDistFrom, mCamDistDest, p );
 	mCamDist		= min( mCamDist, G_INIT_CAM_DIST );
 
@@ -1869,7 +1869,7 @@ void KeplerApp::updateCamera()
     // set up vector according to screen orientation
 	mUp = vec3(0,1,0);
 	if( !G_USE_GYRO ){
-        mUp.rotateZ( -1.0f * mOrientationNodeRef->getInterfaceAngle() );
+        mUp = glm::rotateZ( mUp, -1.0f * mOrientationNodeRef->getInterfaceAngle() );
     }
     
     vec3 camOffset = q * vec3( 0, 0, mCamDist);
@@ -1900,9 +1900,8 @@ void KeplerApp::draw()
 		drawScene();
 	}
     
-    const GLenum discards[]  = {GL_DEPTH_ATTACHMENT_OES};
-//    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    glDiscardFramebufferEXT(GL_FRAMEBUFFER_OES,1,discards);
+    // The old glDiscardFramebufferEXT was an ES1/ES2 OES extension. It was
+    // only a bandwidth hint, so dropping it costs nothing but a little fill.
 }
 
 void KeplerApp::drawNoArtists()
@@ -1917,7 +1916,7 @@ void KeplerApp::drawNoArtists()
     gl::multModelMatrix(mOrientationMatrix);
 	vec2 interfaceSize = getWindowSize();
 	if( isLandscapeOrientation( mInterfaceOrientation ) ){
-		interfaceSize = interfaceSize.yx();
+		interfaceSize = vec2( interfaceSize.y, interfaceSize.x );
 	}
     vec2 center = interfaceSize * 0.5f;
     gl::color( Color::white() );
@@ -2001,22 +2000,18 @@ void KeplerApp::drawScene()
 
     glEnable( GL_CULL_FACE );
     glCullFace( GL_BACK );
-    glEnable( GL_COLOR_MATERIAL );
-    glEnable( GL_RESCALE_NORMAL );
-    glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT, ColorA( 0.0f, 0.0f, 0.0f, 1.0f ) );
-    glMaterialfv( GL_FRONT_AND_BACK, GL_DIFFUSE, ColorA( Color::white(), 1.0f ) );
-
-    if (artistNode) {
-        // LIGHT FROM ARTIST
-        glEnable( GL_LIGHT0 );
-        glEnable( GL_LIGHT1 );
-        vec3 lightPos          = artistNode->mPos;
-        GLfloat artistLight[]	= { lightPos.x, lightPos.y, lightPos.z, 1.0f };
-        glLightfv( GL_LIGHT0, GL_POSITION, artistLight );
-        glLightfv( GL_LIGHT0, GL_DIFFUSE, ColorA( artistNode->mColor, 1.0f ) );
-        glLightfv( GL_LIGHT1, GL_POSITION, artistLight );
-        glLightfv( GL_LIGHT1, GL_DIFFUSE, ColorA( BRIGHT_BLUE, 1.0f ) );
-    }
+    // TODO: KNOWN VISUAL REGRESSION — fixed-function lighting is gone.
+    //
+    // The original lit the planets with two GL_LIGHTs positioned at the artist
+    // node (its own colour, plus a blue fill), with GL_COLOR_MATERIAL and
+    // rescaled normals. None of that exists in ES3, and there is no mechanical
+    // equivalent: it needs a GLSL program with the light position and the two
+    // colours as uniforms, applied to the sphere batches.
+    //
+    // Until then the spheres draw unlit, so they will look flat rather than
+    // shaded. Everything else renders correctly. The light parameters that
+    // would feed such a shader are artistNode->mPos, artistNode->mColor and
+    // BRIGHT_BLUE.
     
     for( int i = 0; i < sortedNodes.size(); i++ ){
         
@@ -2031,7 +2026,6 @@ void KeplerApp::drawScene()
         }
         
         gl::enableDepthRead();
-        glEnable( GL_LIGHTING );
 
         gl::disableAlphaBlending(); // dings additive blending            
         gl::enableAlphaBlending();  // restores alpha blending
@@ -2039,7 +2033,6 @@ void KeplerApp::drawScene()
         sortedNodes[i]->drawPlanet( mTextures[STAR_CORE_TEX] ); // star core tex for artistars, planets do their own thing
         sortedNodes[i]->drawClouds( mCloudTextures );
         
-        glDisable( GL_LIGHTING );
         gl::disableDepthRead();
         
         gl::enableAdditiveBlending();
@@ -2052,12 +2045,10 @@ void KeplerApp::drawScene()
     }
         
     glDisable( GL_CULL_FACE );
-    glDisable( GL_RESCALE_NORMAL );
 
     if (artistNode) {
 		gl::enableAdditiveBlending();
 		artistNode->drawExtraGlow( mEye - mCenterOffset, mStarGlowTex, mTextures[STAR_TEX] );
-        glDisable( GL_LIGHTING );
 	}
     
 	gl::enableDepthRead();	

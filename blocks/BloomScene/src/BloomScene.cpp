@@ -28,18 +28,24 @@ BloomScene::BloomScene( AppCocoaTouch *app ):
     mParent = BloomNodeRef(); // NULL, we are the parent (crash rather than recurse)
     mRoot = BloomSceneRef();  // NULL, will be set in create() because we are the root
     
-    cbTouchesBegan = mApp->registerTouchesBegan( this, &BloomScene::touchesBegan );
-    cbTouchesMoved = mApp->registerTouchesMoved( this, &BloomScene::touchesMoved );
-    cbTouchesEnded = mApp->registerTouchesEnded( this, &BloomScene::touchesEnded );
+    // 0.9 replaced the register/unregister callbacks with window signals; the
+    // handlers still return bool, so adapt via setHandled().
+    auto win = mApp->getWindow();
+    cbTouchesBegan = win->getSignalTouchesBegan().connect(
+        [this]( ci::app::TouchEvent &event ){ if( touchesBegan( event ) ) event.setHandled(); } );
+    cbTouchesMoved = win->getSignalTouchesMoved().connect(
+        [this]( ci::app::TouchEvent &event ){ if( touchesMoved( event ) ) event.setHandled(); } );
+    cbTouchesEnded = win->getSignalTouchesEnded().connect(
+        [this]( ci::app::TouchEvent &event ){ if( touchesEnded( event ) ) event.setHandled(); } );
     
     mInterfaceSize = mApp->getWindowSize();
 }
 
 BloomScene::~BloomScene()
 {
-    mApp->unregisterTouchesBegan( cbTouchesBegan );
-    mApp->unregisterTouchesMoved( cbTouchesMoved );
-    mApp->unregisterTouchesEnded( cbTouchesEnded );
+    cbTouchesBegan.disconnect();
+    cbTouchesMoved.disconnect();
+    cbTouchesEnded.disconnect();
 }
 
 bool BloomScene::touchesBegan( TouchEvent event )

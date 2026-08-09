@@ -86,10 +86,10 @@ public:
         float scale = getScale();
 
         mat4 mtx;
-        mtx.translate(vec3(mTouch1.mPos, 0.0f));
+        mtx = glm::translate( mtx, vec3(mTouch1.mPos, 0.0f) );
         mtx = glm::rotate( mtx, getRotation(), vec3(0,0,1) );
-        mtx.scale(vec3(scale, scale, scale));
-        mtx.translate(vec3(getTranslation() - mTouch1.mPos, 0.0f));
+        mtx = glm::scale( mtx, vec3(scale, scale, scale) );
+        mtx = glm::translate( mtx, vec3(getTranslation() - mTouch1.mPos, 0.0f) );
         return mtx;
     }
                    
@@ -98,10 +98,10 @@ public:
         float scale = getScaleDelta();
         
         mat4 mtx;
-        mtx.translate(vec3(mTouch1.mPos, 0.0f));
+        mtx = glm::translate( mtx, vec3(mTouch1.mPos, 0.0f) );
         mtx = glm::rotate( mtx, getRotationDelta(), vec3(0,0,1) );
-        mtx.scale(vec3(scale, scale, scale));
-        mtx.translate(vec3(getTranslationDelta() - mTouch1.mPos, 0.0f));
+        mtx = glm::scale( mtx, vec3(scale, scale, scale) );
+        mtx = glm::translate( mtx, vec3(getTranslationDelta() - mTouch1.mPos, 0.0f) );
         return mtx;
     }
     
@@ -117,10 +117,10 @@ public:
         float scale = getScaleDelta();
         
         mat4 mtx;
-        mtx.translate(t1Pos);
+        mtx = glm::translate( mtx, t1Pos );
         mtx = glm::rotate( mtx, getRotationDelta(), cam.getViewDirection() );
-        mtx.scale(vec3(scale, scale, scale));
-        mtx.translate(t1Pos - t1pPos - t1Pos);
+        mtx = glm::scale( mtx, vec3(scale, scale, scale) );
+        mtx = glm::translate( mtx, t1Pos - t1pPos - t1Pos );
         return mtx;
     }
     

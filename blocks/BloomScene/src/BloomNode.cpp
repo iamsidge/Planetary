@@ -99,13 +99,13 @@ mat4 BloomNode::getConcatenatedTransform() const
 
 vec2 BloomNode::localToGlobal( const vec2 &pos )
 {
-    return vec2((getConcatenatedTransform() * vec3( pos.x, pos.y, 0)));
+    return vec2( getConcatenatedTransform() * vec4( pos.x, pos.y, 0.0f, 1.0f ) );
 }
 
 vec2 BloomNode::globalToLocal( const vec2 &pos )
 {
-    mat4 invMtx = getConcatenatedTransform().inverted();
-    return vec2((invMtx * vec3(pos.x,pos.y,0)));    
+    mat4 invMtx = glm::inverse( getConcatenatedTransform() );
+    return vec2( invMtx * vec4( pos.x, pos.y, 0.0f, 1.0f ) );
 }
 
 bool BloomNode::deepTouchBegan( TouchEvent::Touch touch )

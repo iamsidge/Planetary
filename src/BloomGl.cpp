@@ -8,6 +8,8 @@
 
 #include <boost/foreach.hpp>
 #include "BloomGl.h"
+#include "glm/gtc/type_ptr.hpp"
+#include "cinder/gl/Batch.h"
 #include "cinder/Quaternion.h"
 
 using namespace ci;
@@ -41,12 +43,8 @@ namespace bloom { namespace gl {
 
 	void drawBillboard( const vec3 &pos, const vec2 &scale, float rotInRadians, const vec3 &bbRight, const vec3 &bbUp )
 	{
-		glEnableClientState( GL_VERTEX_ARRAY );
 		vec3 verts[4];
-		glVertexPointer( 3, GL_FLOAT, 0, &verts[0].x );
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-		GLfloat texCoords[8] = { 0, 0, 0, 1, 1, 0, 1, 1 };
-		glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
+		static const GLfloat texCoords[8] = { 0, 0, 0, 1, 1, 0, 1, 1 };
 		
 		float sinA = math<float>::sin( rotInRadians );
 		float cosA = math<float>::cos( rotInRadians );
@@ -60,17 +58,19 @@ namespace bloom { namespace gl {
 		verts[2] = pos + bbRight * (  scaleXCosA - scaleYSinA ) + bbUp * (  scaleXSinA + scaleYCosA );
 		verts[3] = pos + bbRight * (  scaleXCosA + scaleYSinA ) + bbUp * (  scaleXSinA - scaleYCosA );
 		
-		glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
-		
-		glDisableClientState( GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );	
+		ci::gl::VertBatch vb( GL_TRIANGLE_STRIP );
+		for( int i = 0; i < 4; i++ ) {
+			vb.texCoord( texCoords[i*2], texCoords[i*2+1] );
+			vb.vertex( verts[i] );
+		}
+		vb.draw();
 	}
 
 
 	void drawSphericalBillboard( const vec3 &camEye, const vec3 &objPos, const vec2 &scale, float rotInRadians )
 	{	
-		gl::pushModelMatrix();
-		glTranslatef( objPos.x, objPos.y, objPos.z );
+		ci::gl::pushModelMatrix();
+		ci::gl::translate( objPos.x, objPos.y, objPos.z );
 		
 		vec3 lookAt = vec3(0,0,1);
 		vec3 upAux;
@@ -84,21 +84,17 @@ namespace bloom { namespace gl {
 
 // Cylindrical billboarding
 		angleCosine = constrain( glm::dot(lookAt, objToCamProj), -1.0f, 1.0f );
-		glRotatef( toDegrees( acos(angleCosine) ), upAux.x, upAux.y, upAux.z );	
+		ci::gl::rotate( acos(angleCosine), vec3( upAux.x, upAux.y, upAux.z ) );	
 		
 // Spherical billboarding
 		angleCosine = constrain( glm::dot(objToCamProj, objToCam), -1.0f, 1.0f );
-		if( objToCam.y < 0 )	glRotatef( toDegrees( acos(angleCosine) ), 1.0f, 0.0f, 0.0f );	
-		else					glRotatef( toDegrees( acos(angleCosine) ),-1.0f, 0.0f, 0.0f );
+		if( objToCam.y < 0 )	ci::gl::rotate( acos(angleCosine), vec3( 1.0f, 0.0f, 0.0f ) );	
+		else					ci::gl::rotate( acos(angleCosine), vec3( -1.0f, 0.0f, 0.0f ) );
 		
 		
 		vec3 verts[4];
 		GLfloat texCoords[8] = { 0, 0, 0, 1, 1, 0, 1, 1 };
 		
-		glEnableClientState( GL_VERTEX_ARRAY );
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-		glVertexPointer( 3, GL_FLOAT, 0, &verts[0].x );
-		glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
 		
 		float sinA = math<float>::sin( rotInRadians );
 		float cosA = math<float>::cos( rotInRadians );
@@ -113,10 +109,12 @@ namespace bloom { namespace gl {
 		verts[2] = vec3( (  scaleXCosA - scaleYSinA ), (  scaleXSinA + scaleYCosA ), 0.0f );
 		verts[3] = vec3( (  scaleXCosA + scaleYSinA ), (  scaleXSinA - scaleYCosA ), 0.0f );
 
-		glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
-		
-		glDisableClientState( GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );	
+		ci::gl::VertBatch vb( GL_TRIANGLE_STRIP );
+		for( int i = 0; i < 4; i++ ) {
+			vb.texCoord( texCoords[i*2], texCoords[i*2+1] );
+			vb.vertex( verts[i] );
+		}
+		vb.draw();
 		
 		
 //		glDisable( GL_TEXTURE_2D );
@@ -124,12 +122,12 @@ namespace bloom { namespace gl {
 //		ci::gl::drawLine( vec3(0), objToCam );
 //		glEnable( GL_TEXTURE_2D );
 		
-		gl::popModelMatrix();
+		ci::gl::popModelMatrix();
 	}
 
     void drawSphericalRotatedBillboard( const ci::vec3 &pos, const ci::vec3 &lookAt, const ci::vec3 &turnAt, const ci::vec2 &scale )
     {
-        gl::pushModelMatrix();
+        ci::gl::pushModelMatrix();
 
         // hacked together from three.js's Matrix4.lookAt...
         
@@ -141,14 +139,14 @@ namespace bloom { namespace gl {
         
         vec3 up = turnAt - pos;
         
-		vec3 x = up.crossglm::normalize((z));
+		vec3 x = glm::normalize( glm::cross( up, z ) );
         
 		if ( glm::length(x) == 0 ) {
 			z.x += 0.0001;
-			x = up.crossglm::normalize((z));
+			x = glm::normalize( glm::cross( up, z ) );
 		}
         
-        vec3 y = z.crossglm::normalize((x));
+        vec3 y = glm::normalize( glm::cross( z, x ) );
     
         float m[16];
         m[ 0] = x.x; m[ 4] = y.x; m[ 8] = z.x; m[12] = pos.x;
@@ -156,7 +154,7 @@ namespace bloom { namespace gl {
         m[ 2] = x.z; m[ 6] = y.z; m[10] = z.z; m[14] = pos.z;
         m[ 3] = 0;   m[ 7] = 0;   m[11] = 0;   m[15] = 1;
             
-        gl::multModelMatrix(m);
+        ci::gl::multModelMatrix( glm::make_mat4( m ) );
         
         ///////////////// and now we just get to draw a square
         // ... might be worth pre-multiplying the verts to avoid the push/mult/pop entirely?
@@ -166,22 +164,20 @@ namespace bloom { namespace gl {
         ci::vec2 verts[4];
 		GLfloat texCoords[8] = { 0, 0, 0, 1, 1, 0, 1, 1 };
 		
-		glEnableClientState( GL_VERTEX_ARRAY );
-		glEnableClientState( GL_TEXTURE_COORD_ARRAY );
-		glVertexPointer( 2, GL_FLOAT, 0, &verts[0].x );
-		glTexCoordPointer( 2, GL_FLOAT, 0, texCoords );
 				
 		verts[0] = ci::vec2(-0.5f,-0.5f) * scale;
 		verts[1] = ci::vec2(-0.5f, 0.5f) * scale;
 		verts[2] = ci::vec2( 0.5f,-0.5f) * scale;
 		verts[3] = ci::vec2( 0.5f, 0.5f) * scale;
         
-		glDrawArrays( GL_TRIANGLE_STRIP, 0, 4 );
-		
-		glDisableClientState( GL_VERTEX_ARRAY );
-		glDisableClientState( GL_TEXTURE_COORD_ARRAY );	        
+		ci::gl::VertBatch vb( GL_TRIANGLE_STRIP );
+		for( int i = 0; i < 4; i++ ) {
+			vb.texCoord( texCoords[i*2], texCoords[i*2+1] );
+			vb.vertex( verts[i] );
+		}
+		vb.draw();        
         
-        gl::popModelMatrix();
+        ci::gl::popModelMatrix();
     }
     
     /////////////////////////////////////////////////////////
@@ -234,27 +230,27 @@ namespace bloom { namespace gl {
     
     void batchRect( const ci::gl::TextureRef &texture, const ci::Area &srcArea, const ci::Rectf &dstRect )
     {
-        batchRect( texture, texture.getAreaTexCoords( srcArea ), dstRect );
+        batchRect( texture, texture->getAreaTexCoords( srcArea ), dstRect );
     }
 
     void batchRect( const ci::gl::TextureRef &texture, const ci::vec2 &pos )
     {
-        batchRect( texture, texture.getCleanBounds(), ci::Rectf(pos.x, pos.y, pos.x + texture->getWidth(), pos.y + texture->getHeight()) );        
+        batchRect( texture, texture->getBounds(), ci::Rectf(pos.x, pos.y, pos.x + texture->getWidth(), pos.y + texture->getHeight()) );        
     }
     
     void endBatch()
     {
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+        // One VertBatch per texture, preserving the batching this class exists
+        // for: state changes still happen once per texture, not per rect.
         BOOST_FOREACH(BatchRef batch, batches) {
-            batch->texture->bind();
-            glVertexPointer(2, GL_FLOAT, sizeof(VertexData), &batch->vertices[0].vertex);
-            glTexCoordPointer(2, GL_FLOAT, sizeof(VertexData), &batch->vertices[0].texture);
-            glDrawArrays(GL_TRIANGLES, 0, batch->vertices.size());
-            batch->texture->unbind();
+            ci::gl::ScopedTextureBind texBind( batch->texture );
+            ci::gl::VertBatch vb( GL_TRIANGLES );
+            for( size_t i = 0; i < batch->vertices.size(); i++ ) {
+                vb.texCoord( batch->vertices[i].texture );
+                vb.vertex( batch->vertices[i].vertex );
+            }
+            vb.draw();
         }
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     }
 
 } }

@@ -9,6 +9,7 @@
 #pragma once
 #include <map>
 #include "cinder/Function.h"
+#include "cinder/Signals.h"
 #include "BloomNode.h"
 
 // forward declare to avoid full include
@@ -44,7 +45,7 @@ protected:
     
     ci::vec2 mInterfaceSize;    
     
-    ci::CallbackId cbTouchesBegan, cbTouchesMoved, cbTouchesEnded;
+    ci::signals::Connection cbTouchesBegan, cbTouchesMoved, cbTouchesEnded;
     
 private:
   

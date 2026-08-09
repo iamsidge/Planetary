@@ -73,11 +73,18 @@ elseif( NOT TARGET cinder )
 	message( FATAL_ERROR "Cinder is not built for iOS. Expected ${CINDER_BUILT_CONFIG} — see README." )
 endif()
 
+# Frameworks Cinder's own iOS list doesn't pull in: CoreText backs its Font
+# and TextBox rendering, and MediaPlayer is what CinderIPod is built on.
+find_library( CORETEXT_FRAMEWORK CoreText REQUIRED )
+find_library( MEDIAPLAYER_FRAMEWORK MediaPlayer REQUIRED )
+find_library( COREMOTION_FRAMEWORK CoreMotion REQUIRED )
+
 ci_make_app(
 	APP_NAME    "Planetary"
 	CINDER_PATH ${CINDER_PATH}
 	SOURCES     ${PLANETARY_SRC} ${BLOCK_SRC}
 	INCLUDES    ${BLOCK_INCLUDES}
+	LIBRARIES   ${CORETEXT_FRAMEWORK} ${MEDIAPLAYER_FRAMEWORK} ${COREMOTION_FRAMEWORK}
 	ASSETS_PATH "${PLANETARY_ROOT}/resources"
 )
 

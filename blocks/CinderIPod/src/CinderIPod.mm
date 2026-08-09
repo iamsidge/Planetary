@@ -124,10 +124,12 @@ Surface Track::getArtwork(const ivec2 &size)
     MPMediaItemArtwork *artwork = [m_media_item valueForProperty: MPMediaItemPropertyArtwork];
     UIImage *artwork_img = [artwork imageWithSize: CGSizeMake(size.x, size.y)];
 
-    if(artwork_img)
-        return cocoa::convertUiImage(artwork_img, true);
-    else
-        return Surface();
+    if(artwork_img) {
+        Surface8uRef surface = cocoa::convertUiImage(artwork_img, true);
+        if(surface)
+            return *surface;
+    }
+    return Surface();
 }
 
 
