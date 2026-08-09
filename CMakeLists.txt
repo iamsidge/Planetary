@@ -66,7 +66,12 @@ include( "${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake" )
 # never resolves. It also unsets cinder_DIR, ruling out the usual override.
 # Importing the built config here defines the `cinder` target up front, and
 # ci_make_app then skips its own find_package entirely.
-set( CINDER_BUILT_CONFIG "${CINDER_PATH}/lib/ios/Debug/cinderConfig.cmake" )
+if( CMAKE_OSX_SYSROOT MATCHES "[Ss]imulator" )
+	set( CINDER_SLICE "ios-sim" )
+else()
+	set( CINDER_SLICE "ios" )
+endif()
+set( CINDER_BUILT_CONFIG "${CINDER_PATH}/lib/${CINDER_SLICE}/Debug/cinderConfig.cmake" )
 if( NOT TARGET cinder AND EXISTS "${CINDER_BUILT_CONFIG}" )
 	include( "${CINDER_BUILT_CONFIG}" )
 elseif( NOT TARGET cinder )
@@ -92,6 +97,17 @@ ci_make_app(
 # of 20 per file hides whole classes of error behind whichever ones happen to
 # come first, which makes the remaining work impossible to size.
 target_compile_options( Planetary PRIVATE -ferror-limit=0 )
+
+# CMake's default bundle template has no CFBundleIdentifier, and simctl
+# refuses to install without one. UIDeviceFamily 2 keeps this an iPad app,
+# as the original was.
+set_target_properties( Planetary PROPERTIES
+	MACOSX_BUNDLE_GUI_IDENTIFIER "org.cooperhewitt.planetary"
+	XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.cooperhewitt.planetary"
+	XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "2"
+	MACOSX_BUNDLE_INFO_PLIST "${PLANETARY_ROOT}/Info.plist.in"
+	MACOSX_BUNDLE_EXECUTABLE_NAME "Planetary"
+)
 
 # On iOS, cinder/app/App.h resolves to AppCocoaTouch.h, which declares
 # Objective-C types (@class UITextView, ...). Any translation unit that
