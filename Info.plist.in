@@ -25,16 +25,29 @@
 
 	<!--
 	  iOS 26 made UIScene lifecycle adoption mandatory for apps built against
-	  the new SDK: without this manifest UIKit traps at launch inside
-	  _UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption. Cinder's
-	  AppCocoaTouch predates scenes and drives a UIWindow from the app
-	  delegate, so no scene delegate class is declared here — the manifest
-	  alone is what satisfies the check.
+	  the new SDK: without it UIKit traps at launch inside
+	  _UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption. The
+	  manifest alone is NOT enough — a real scene delegate is required.
+	  CinderSceneDelegate is our patch to Cinder (branch ios26-scene-adoption);
+	  it creates the UIWindow from the connecting UIWindowScene and defers
+	  setup() until the scene has supplied the geometry.
 	-->
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Cinder</string>
+					<key>UISceneDelegateClassName</key>
+					<string>CinderSceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
 	</dict>
 
 	<!-- An iPad app, as the original was. -->
