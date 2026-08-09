@@ -60,8 +60,17 @@ class Auth {
 	 */
 	std::string blockingAccessToken();
 
-	//! Discards the tokens. The next authorize() prompts again.
+	//! Discards the tokens, stored ones included. The next authorize() prompts.
 	void signOut();
+
+	/**
+	    Writes the current tokens to NSUserDefaults.
+
+	    Does not lock: callers must already hold the internal mutex, since every
+	    caller is mutating the tokens anyway. Locking here instead would
+	    deadlock the refresh path, which persists while holding it.
+	 */
+	void persist();
 
   private:
 	Auth();

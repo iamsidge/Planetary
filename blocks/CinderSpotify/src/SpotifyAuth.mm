@@ -44,6 +44,15 @@ NSString* challengeFor( NSString *verifier )
 	return base64Url( [NSData dataWithBytes:digest length:sizeof(digest)] );
 }
 
+// Tokens are persisted so a returning user is not asked to sign in again.
+// The refresh token is the sensitive one: it is long-lived and can mint access
+// tokens indefinitely. NSUserDefaults is plain-text within the app container —
+// adequate on a device, where the container is sandboxed and encrypted at rest,
+// but the Keychain would be the stricter home if this ever ships.
+NSString* const kDefaultsAccessToken  = @"CinderSpotifyAccessToken";
+NSString* const kDefaultsRefreshToken = @"CinderSpotifyRefreshToken";
+NSString* const kDefaultsExpiresAt    = @"CinderSpotifyExpiresAt";
+
 NSString* infoPlistString( NSString *key )
 {
 	id value = [[NSBundle mainBundle].infoDictionary objectForKey:key];
@@ -96,6 +105,27 @@ Auth::Auth()
 	: mImpl( new Impl )
 {
 	mImpl->context = [[CinderSpotifyPresentationContext alloc] init];
+
+	// Restore a previous session. An expired access token is kept rather than
+	// discarded: blockingAccessToken() will refresh it, and throwing it away
+	// would force a needless sign-in.
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	mImpl->accessToken  = [defaults stringForKey:kDefaultsAccessToken];
+	mImpl->refreshToken = [defaults stringForKey:kDefaultsRefreshToken];
+	double expiry = [defaults doubleForKey:kDefaultsExpiresAt];
+	if( expiry > 0 )
+		mImpl->expiresAt = [NSDate dateWithTimeIntervalSince1970:expiry];
+}
+
+void Auth::persist()
+{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if( mImpl->accessToken )
+		[defaults setObject:mImpl->accessToken forKey:kDefaultsAccessToken];
+	if( mImpl->refreshToken )
+		[defaults setObject:mImpl->refreshToken forKey:kDefaultsRefreshToken];
+	if( mImpl->expiresAt )
+		[defaults setDouble:[mImpl->expiresAt timeIntervalSince1970] forKey:kDefaultsExpiresAt];
 }
 
 Auth& Auth::instance()
@@ -107,7 +137,9 @@ Auth& Auth::instance()
 bool Auth::isAuthorized() const
 {
 	std::lock_guard<std::mutex> lock( mImpl->mutex );
-	return mImpl->accessToken != nil;
+	// A held refresh token counts: the access token can be renewed without
+	// involving the user, so a restored-but-expired session is still usable.
+	return mImpl->accessToken != nil || mImpl->refreshToken != nil;
 }
 
 void Auth::signOut()
@@ -116,12 +148,31 @@ void Auth::signOut()
 	mImpl->accessToken  = nil;
 	mImpl->refreshToken = nil;
 	mImpl->expiresAt    = nil;
+
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults removeObjectForKey:kDefaultsAccessToken];
+	[defaults removeObjectForKey:kDefaultsRefreshToken];
+	[defaults removeObjectForKey:kDefaultsExpiresAt];
 }
 
 void Auth::authorize( std::function<void(bool, const std::string&)> completion )
 {
 	if( isAuthorized() ) {
-		dispatch_async( dispatch_get_main_queue(), ^{ completion( true, "" ); } );
+		// A restored session may hold only an expired access token, so prove it
+		// can still be renewed before reporting success — otherwise the library
+		// loaders would run against a dead token and quietly return nothing.
+		dispatch_async( dispatch_get_global_queue( QOS_CLASS_UTILITY, 0 ), ^{
+			bool usable = ! blockingAccessToken().empty();
+			dispatch_async( dispatch_get_main_queue(), ^{
+				if( usable ) {
+					completion( true, "" );
+				}
+				else {
+					signOut();          // stale; fall through to a fresh sign-in
+					authorize( completion );
+				}
+			} );
+		} );
 		return;
 	}
 
@@ -232,6 +283,7 @@ void Auth::authorize( std::function<void(bool, const std::string&)> completion )
 							impl->refreshToken = json[@"refresh_token"];
 							NSNumber *expiresIn = json[@"expires_in"];
 							impl->expiresAt = [NSDate dateWithTimeIntervalSinceNow:expiresIn.doubleValue];
+							Auth::instance().persist(); // under the lock, as required
 						}
 						dispatch_async( dispatch_get_main_queue(), ^{ completion( true, "" ); } );
 					}] resume];
@@ -306,6 +358,7 @@ std::string Auth::blockingAccessToken()
 		mImpl->refreshToken = json[@"refresh_token"];
 	NSNumber *expiresIn = json[@"expires_in"];
 	mImpl->expiresAt = [NSDate dateWithTimeIntervalSinceNow:expiresIn.doubleValue];
+	persist();
 	return fresh.UTF8String;
 }
 
