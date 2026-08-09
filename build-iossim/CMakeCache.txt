@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//Path to a library.
+AUTHSERVICES_FRAMEWORK:FILEPATH=/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AuthenticationServices.framework
+
 //Path to a file.
 BOOST_INCLUDE_DIR:PATH=/opt/homebrew/include
 

@@ -2751,3 +2751,79 @@ events:
         - "/Network/Library/Frameworks"
         - "/System/Library/Frameworks"
 ...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "CMakeLists.txt:102 (find_library)"
+    mode: "library"
+    variable: "AUTHSERVICES_FRAMEWORK"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "FIRST"
+      SearchAppBundle: "FIRST"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "AuthenticationServices"
+    candidate_directories:
+      - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/sbin/"
+      - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/lib/"
+      - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/"
+      - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/lib/"
+      - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/"
+      - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/"
+      - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/"
+    found: "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/AuthenticationServices.framework"
+    search_context:
+      ENV{PATH}:
+        - "/Users/simonash/.local/bin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/pkg/env/global/bin"
+        - "/Library/Apple/usr/bin"
+        - "/opt/homebrew/bin"
+        - "/Users/simonash/.cargo/bin"
+        - "/Users/simonash/bin"
+        - "/Users/simonash/Library/Application Support/Claude/local-agent-mode-sessions/f7a6b10e-85f9-4b0d-9474-e4aaac4dc3ed/7882e87c-a3d1-41d9-9bf7-62a5a3f8875b/rpm/plugin_0155zZVATbJU3jHUmPP9NvMC/bin"
+        - "/Users/simonash/Library/Application Support/Claude/local-agent-mode-sessions/f7a6b10e-85f9-4b0d-9474-e4aaac4dc3ed/7882e87c-a3d1-41d9-9bf7-62a5a3f8875b/rpm/plugin_01GXnAjbHRvTe5KYw54voNLX/bin"
+        - "/Users/simonash/Library/Application Support/Claude/local-agent-mode-sessions/skills-plugin/7882e87c-a3d1-41d9-9bf7-62a5a3f8875b/f7a6b10e-85f9-4b0d-9474-e4aaac4dc3ed/bin"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+      CMAKE_FIND_ROOT_PATH: "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Library/Frameworks"
+        - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Network/Library/Frameworks"
+        - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks"
+        - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks"
+        - "/Users/simonash/Downloads/Xcode-beta.app/Contents/Developer/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+...

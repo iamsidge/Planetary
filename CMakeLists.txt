@@ -40,6 +40,15 @@ set( BLOCK_SRC
 	"${PLANETARY_ROOT}/blocks/CinderOrientation/src/OrientationHelper.mm"
 )
 
+# The Spotify backend. Compiled but not yet wired into the app: it is being
+# built out against the same interface CinderIPod presents, and the swap
+# happens once playback is in place. See blocks/CinderSpotify/README.md.
+list( APPEND BLOCK_SRC
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyId.cpp"
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/SpotifyAuth.mm"
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/src/CinderSpotify.mm"
+)
+
 # Cinder 0.8 bundled Boost; 0.9 dropped it. The app uses seven Boost headers
 # (foreach, tokenizer, unordered_map/set, algorithm/string, functional/hash),
 # all header-only, so an external copy is enough. `brew install boost`.
@@ -62,6 +71,7 @@ set( BLOCK_INCLUDES
 	"${PLANETARY_ROOT}/blocks/BloomScene/include"
 	"${PLANETARY_ROOT}/blocks/BloomTasks/src"
 	"${PLANETARY_ROOT}/blocks/CinderOrientation/include"
+	"${PLANETARY_ROOT}/blocks/CinderSpotify/include"
 )
 
 include( "${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake" )
@@ -88,6 +98,8 @@ endif()
 find_library( CORETEXT_FRAMEWORK CoreText REQUIRED )
 find_library( MEDIAPLAYER_FRAMEWORK MediaPlayer REQUIRED )
 find_library( COREMOTION_FRAMEWORK CoreMotion REQUIRED )
+# ASWebAuthenticationSession, for the Spotify PKCE sign-in flow.
+find_library( AUTHSERVICES_FRAMEWORK AuthenticationServices REQUIRED )
 
 ci_make_app(
 	APP_NAME    "Planetary"
@@ -95,6 +107,7 @@ ci_make_app(
 	SOURCES     ${PLANETARY_SRC} ${BLOCK_SRC}
 	INCLUDES    ${BLOCK_INCLUDES}
 	LIBRARIES   ${CORETEXT_FRAMEWORK} ${MEDIAPLAYER_FRAMEWORK} ${COREMOTION_FRAMEWORK}
+	            ${AUTHSERVICES_FRAMEWORK}
 	ASSETS_PATH "${PLANETARY_ROOT}/resources"
 )
 
