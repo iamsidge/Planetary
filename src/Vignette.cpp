@@ -105,7 +105,7 @@ void Vignette::draw()
         
         gl::color( ColorA( 1.0f, 1.0f, 1.0f, constrain(2.0f - mScale, 0.0f, 1.0f) ) );
         
-        gl::ScopedGlslProg glsl( gl::getStockShader( gl::ShaderDef().texture() ) );
+        gl::ScopedGlslProg glsl( gl::getStockShader( gl::ShaderDef().texture().color() ) );
         gl::ScopedTextureBind texBind( mTex );
 
         gl::VertBatch vb( GL_TRIANGLES );

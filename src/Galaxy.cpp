@@ -26,7 +26,7 @@ namespace {
         return ci::gl::Batch::create( mesh, // The mesh supplies no COLOR attribute, so this must be the
         // uniform-colour shader; requesting .color() would read an
         // attribute that was never filled.
-        ci::gl::getStockShader( ci::gl::ShaderDef().texture() ) );
+        ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
     }
 }
 
@@ -143,10 +143,12 @@ void Galaxy::drawCenter()
 	const float alpha = mInvAlpha * mZoomOff;//( 1.25f - mCamGalaxyAlpha ) * mZoomOff;
 	
 	if( alpha > 0.01f ){
-		// gl::drawBillboard draws with whatever program is bound. Without a
-		// textured stock shader the glow renders as a flat opaque quad
-		// instead of sampling starGlow's alpha.
-		gl::ScopedGlslProg glsl( gl::getStockShader( gl::ShaderDef().texture() ) );
+		// gl::drawBillboard draws with whatever program is bound, so a shader
+		// is required here. .color() is not optional: without it the stock
+		// shader has no colour term at all and gl::color() is discarded, which
+		// drops both the tint and the `alpha` fade below. Under additive
+		// blending that left the core saturating at full texel strength.
+		gl::ScopedGlslProg glsl( gl::getStockShader( gl::ShaderDef().texture().color() ) );
 		gl::ScopedTextureBind texBind( mStarGlowTex );
 		gl::color( ColorA( BRIGHT_BLUE, alpha ) );
 		gl::drawBillboard( vec3(0), vec2( 400.0f, 400.0f ), mElapsedSeconds * 10.0f, mBbRight, mBbUp );

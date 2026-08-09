@@ -24,15 +24,22 @@ uniform mat3 ciNormalMatrix;
 in vec4 ciPosition;
 in vec3 ciNormal;
 in vec2 ciTexCoord0;
+// ciColor must be an attribute, not a uniform: Cinder has no colour uniform
+// semantic, so a `uniform vec4 ciColor` is never written and stays zero. As an
+// attribute it is fed from gl::color() by Context::setDefaultShaderVars, and
+// VboMesh explicitly tolerates a mesh that does not supply one.
+in vec4 ciColor;
 
 out vec2 vTexCoord0;
 out vec3 vNormalView;
 out vec3 vPosView;
+out vec4 vColor;
 
 void main()
 {
 	gl_Position  = ciModelViewProjection * ciPosition;
 	vTexCoord0   = ciTexCoord0;
+	vColor       = ciColor;
 	// The spheres are scaled non-uniformly by mRadius on occasion, so the
 	// normal matrix is required rather than reusing the modelview.
 	vNormalView  = ciNormalMatrix * ciNormal;
@@ -45,7 +52,6 @@ const char* kFrag = R"(
 precision highp float;
 
 uniform sampler2D uTex0;
-uniform vec4  ciColor;
 uniform vec3  uLightPosView;
 uniform vec3  uKeyColor;
 uniform vec3  uFillColor;
@@ -54,6 +60,7 @@ uniform float uAmbient;
 in vec2 vTexCoord0;
 in vec3 vNormalView;
 in vec3 vPosView;
+in vec4 vColor;
 
 out vec4 oColor;
 
@@ -72,7 +79,7 @@ void main()
 
 	// GL_COLOR_MATERIAL made the current colour the material diffuse, so the
 	// gl::color() the nodes set still tints and fades the planet.
-	oColor = vec4( texel.rgb * ciColor.rgb * light, texel.a * ciColor.a );
+	oColor = vec4( texel.rgb * vColor.rgb * light, texel.a * vColor.a );
 }
 )";
 
