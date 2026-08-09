@@ -81,16 +81,22 @@
 	<string>Planetary reads your music library to build a solar system from it.</string>
 
 	<!--
-	  Spotify backend configuration. Paste the client id from
-	  https://developer.spotify.com/dashboard here; it is intentionally empty
-	  in source so no credential is committed. Register the same redirect URI
-	  on the Spotify app, exactly as written.
+	  Spotify backend configuration. The client id is substituted at configure
+	  time from the SPOTIFY_CLIENT_ID CMake variable, so it never appears in
+	  tracked source:
+
+	      cmake -B build-iossim ... -DSPOTIFY_CLIENT_ID=your-client-id
+
+	  It is not a secret in the PKCE sense — every shipped client contains one
+	  — but it is tied to a developer account and its quota, so it does not
+	  belong in a public repository. Register the redirect URI below on the
+	  Spotify app exactly as written.
 
 	  With the id blank the app still runs: sign-in fails with an explanatory
 	  message and the galaxy is simply empty.
 	-->
 	<key>SpotifyClientID</key>
-	<string></string>
+	<string>@SPOTIFY_CLIENT_ID@</string>
 	<key>SpotifyRedirectURI</key>
 	<string>planetary://spotify-callback</string>
 

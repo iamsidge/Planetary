@@ -1,3 +1,0 @@
-/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/Planetary.dir
-/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/ALL_BUILD.dir
-/Users/simonash/Developer/Planetary/build-iossim/CMakeFiles/ZERO_CHECK.dir

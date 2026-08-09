@@ -17,6 +17,10 @@ project( Planetary CXX OBJCXX )
 # implement the same interface — see src/MusicBackend.h.
 option( PLANETARY_SPOTIFY "Build against Spotify rather than the local music library" ON )
 
+# Substituted into Info.plist at configure time so it stays out of tracked
+# source. Without it the app runs but sign-in fails with an explanation.
+set( SPOTIFY_CLIENT_ID "" CACHE STRING "Spotify app client id (developer.spotify.com/dashboard)" )
+
 get_filename_component( PLANETARY_ROOT "${CMAKE_CURRENT_SOURCE_DIR}" ABSOLUTE )
 # Cinder is vendored under vendor/ so a clean clone builds without an external
 # checkout, and so the iOS 26 scene-adoption patch travels with the source.
@@ -162,6 +166,13 @@ if( PLANETARY_SPOTIFY )
 	target_compile_definitions( Planetary PRIVATE PLANETARY_USE_SPOTIFY )
 endif()
 
+# @ONLY so only @SPOTIFY_CLIENT_ID@ is substituted here; the ${MACOSX_BUNDLE_*}
+# placeholders are left for CMake's own bundle processing to fill in.
+configure_file( "${PLANETARY_ROOT}/Info.plist.in" "${CMAKE_CURRENT_BINARY_DIR}/Info.plist" @ONLY )
+if( NOT SPOTIFY_CLIENT_ID AND PLANETARY_SPOTIFY )
+	message( WARNING "SPOTIFY_CLIENT_ID is not set; the app will run but Spotify sign-in will fail. Configure with -DSPOTIFY_CLIENT_ID=..." )
+endif()
+
 # CMake's default bundle template has no CFBundleIdentifier, and simctl
 # refuses to install without one. UIDeviceFamily 2 keeps this an iPad app,
 # as the original was.
@@ -169,7 +180,7 @@ set_target_properties( Planetary PROPERTIES
 	MACOSX_BUNDLE_GUI_IDENTIFIER "org.cooperhewitt.planetary"
 	XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.cooperhewitt.planetary"
 	XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "2"
-	MACOSX_BUNDLE_INFO_PLIST "${PLANETARY_ROOT}/Info.plist.in"
+	MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/Info.plist"
 	MACOSX_BUNDLE_EXECUTABLE_NAME "Planetary"
 )
 

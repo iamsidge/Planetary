@@ -24,8 +24,10 @@ Release/
 
 *~
 
-# CMake build output
+# CMake build output. Both slices: build-iossim/ was previously missed, and
+# CMakeCache.txt records every -D argument — including SPOTIFY_CLIENT_ID.
 build-ios/
+build-iossim/
 
 # Cinder build artifacts (the static lib is ~128MB per slice; rebuild locally,
 # see vendor/Cinder/README.md)
