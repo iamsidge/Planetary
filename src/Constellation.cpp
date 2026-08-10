@@ -25,8 +25,13 @@ void Constellation::setup(const vector<NodeArtist*> &filteredNodes)
 
 		NodeArtist *child1 = *it1;
 		float shortestDist = 5000.0f;
-		NodeArtist *nearestChild;
-		
+		// Must be initialised: the inner loop starts at it1+1, so for the last
+		// node it never runs and leaves nothing nearer to link to. The original
+		// left this uninitialised and dereferenced it regardless, which segfaults
+		// -- reliably so when the filter matches a single artist, since that one
+		// node is also the last one.
+		NodeArtist *nearestChild = NULL;
+
 		vector<NodeArtist*>::const_iterator it2 = it1;
 		for( ++it2; it2 != filteredNodes.end(); ++it2 ) {
 			NodeArtist *child2 = *it2;
@@ -39,9 +44,15 @@ void Constellation::setup(const vector<NodeArtist*> &filteredNodes)
 			}
 		}
 		
+		// Skip the whole segment rather than half of it: the loop below consumes
+		// two vertices per distance, so pushing one without the other would
+		// desynchronise the texture coordinates for every later segment.
+		if( nearestChild == NULL )
+			continue;
+
 		distances.push_back( shortestDist );
 		mConstellation.push_back( child1->mPosDest );
-		mConstellation.push_back( nearestChild->mPosDest );		
+		mConstellation.push_back( nearestChild->mPosDest );
 	}
     
 	mTotalConstellationVertices	= mConstellation.size();
