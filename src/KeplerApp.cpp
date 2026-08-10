@@ -2007,8 +2007,8 @@ void KeplerApp::drawScene()
 	if( artistNode ){
 		unsortedNodes.push_back( artistNode );
 	}
-	vector<Node*> sortedNodes = mWorld.sortNodes( unsortedNodes );	
-		
+	vector<Node*> sortedNodes = mWorld.sortNodes( unsortedNodes );
+
     gl::enableDepthWrite();
     gl::setMatrices( mCam );
     

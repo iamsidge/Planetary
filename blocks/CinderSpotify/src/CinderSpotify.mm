@@ -8,6 +8,7 @@
 #include "SpotifyId.h"
 #include "SpotifyModelData.h"
 
+#include "cinder/app/App.h"
 #include "cinder/cocoa/CinderCocoa.h"
 #include "cinder/cocoa/CinderCocoaTouch.h"
 
@@ -26,6 +27,21 @@ namespace cinder { namespace spotify {
 namespace {
 
 NSString* const kApiBase = @"https://api.spotify.com/v1";
+
+/**
+    Page size for the album endpoints.
+
+    Not the documented maximum of 50: /artists/{id}/albums now rejects anything
+    above roughly 10-20 with a 400 "Invalid limit", despite the docs. Verified
+    empirically against a live account -- limit=1,2,3,5,10 succeed; 20,25,49,50
+    all fail. The message is misleading in the other direction too: it blames
+    limit even when include_groups is present, and include_groups turns out to
+    be irrelevant.
+
+    /me/following and /me/playlists still accept 50 and are left alone. Total
+    results are unaffected either way, since apiPaged follows the "next" link.
+ */
+const int kAlbumPageLimit = 10;
 
 /**
     One GET against the Web API, blocking until it answers.
@@ -71,8 +87,16 @@ NSDictionary* apiGet( NSString *path )
 		}
 		return nil;
 	}
-	if( http.statusCode < 200 || http.statusCode >= 300 )
+	if( http.statusCode < 200 || http.statusCode >= 300 ) {
+		// Surfaced rather than swallowed: a silent nil here is indistinguishable
+		// from an empty library, which is exactly what hid the limit bug below.
+		NSString *errBody = [[NSString alloc] initWithData:body encoding:NSUTF8StringEncoding];
+		ci::app::console() << "CinderSpotify: GET " << url.UTF8String << " -> HTTP "
+		                   << (long)http.statusCode
+		                   << ( errBody ? std::string(" ") + errBody.UTF8String : std::string() )
+		                   << std::endl;
 		return nil;
+	}
 
 	id json = [NSJSONSerialization JSONObjectWithData:body options:0 error:nil];
 	return [json isKindOfClass:[NSDictionary class]] ? json : nil;
@@ -410,8 +434,8 @@ std::vector<PlaylistRef> getAlbumsWithArtistId( const uint64_t &artist_id )
 		return albums;
 
 	NSString *path = [NSString stringWithFormat:
-		@"/artists/%s/albums?include_groups=album,single&limit=50",
-		spotifyArtistId.c_str()];
+		@"/artists/%s/albums?include_groups=album,single&limit=%d",
+		spotifyArtistId.c_str(), kAlbumPageLimit];
 
 	std::vector<NSDictionary*> albumJson;
 	apiPaged( path, nil, [&]( NSArray *items, double ) {
@@ -438,8 +462,8 @@ std::vector<PlaylistRef> getAlbumsWithArtistId( const uint64_t &artist_id )
 			playlist->mData->albumArtistName = playlist->mData->artistName;
 		}
 
-		NSString *tracksPath = [NSString stringWithFormat:@"/albums/%s/tracks?limit=50",
-		                                                  albumId.c_str()];
+		NSString *tracksPath = [NSString stringWithFormat:@"/albums/%s/tracks?limit=%d",
+		                                                  albumId.c_str(), kAlbumPageLimit];
 		apiPaged( tracksPath, nil, [&]( NSArray *items, double ) {
 			for( NSDictionary *trackJson in items ) {
 				// Album track listings omit the album, so pass it through for
