@@ -17,6 +17,12 @@ project( Planetary CXX OBJCXX )
 # implement the same interface — see src/MusicBackend.h.
 option( PLANETARY_SPOTIFY "Build against Spotify rather than the local music library" ON )
 
+# Debug-only affordances that must never reach a shipping build. Currently a
+# top-left tap zone that selects the first artist matching the filter, standing
+# in for a debug key -- Cinder delivers no key events on iOS unless a UIKeyInput
+# responder is first responder, which this app never makes one.
+option( PLANETARY_DEBUG_HOOKS "Compile in debug-only input hooks" OFF )
+
 # Substituted into Info.plist at configure time so it stays out of tracked
 # source. Without it the app runs but sign-in fails with an explanation.
 set( SPOTIFY_CLIENT_ID "" CACHE STRING "Spotify app client id (developer.spotify.com/dashboard)" )
@@ -164,6 +170,10 @@ target_compile_options( Planetary PRIVATE -ferror-limit=0 )
 
 if( PLANETARY_SPOTIFY )
 	target_compile_definitions( Planetary PRIVATE PLANETARY_USE_SPOTIFY )
+endif()
+
+if( PLANETARY_DEBUG_HOOKS )
+	target_compile_definitions( Planetary PRIVATE PLANETARY_DEBUG_HOOKS )
 endif()
 
 # @ONLY so only @SPOTIFY_CLIENT_ID@ is substituted here; the ${MACOSX_BUNDLE_*}

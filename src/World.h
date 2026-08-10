@@ -48,6 +48,10 @@ public:
     
 	void setFilter(FilterRef filterRef);
     int  getNumFilteredNodes() const { return mFilteredNodes.size(); }
+    //! First artist matching the current filter, or null if none do.
+    NodeArtist* getFirstFilteredNode() const { return mFilteredNodes.empty() ? nullptr : mFilteredNodes.front(); }
+    //! First artist regardless of filter, or null if the world is empty.
+    NodeArtist* getFirstNode() const { return mNodes.empty() ? nullptr : mNodes.front(); }
     
     void updateIsPlaying( uint64_t artistId, uint64_t albumId, uint64_t trackId );
     void selectHierarchy( uint64_t artistId, uint64_t albumId, uint64_t trackId );

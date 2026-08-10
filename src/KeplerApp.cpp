@@ -291,6 +291,9 @@ class KeplerApp : public AppCocoaTouch {
 	float			mSelectionTime;
     bool            mRemainingSetupCalled; // setup() is short and fast, remainingSetup() is slow
     bool            mUiComplete;
+#if defined( PLANETARY_DEBUG_HOOKS )
+    bool            mDebugDidAutoSelect;
+#endif
 };
 
 void KeplerApp::prepareSettings(Settings *settings)
@@ -312,6 +315,9 @@ void KeplerApp::setup()
     
     mRemainingSetupCalled = false;
     mUiComplete = false;
+#if defined( PLANETARY_DEBUG_HOOKS )
+    mDebugDidAutoSelect = false;
+#endif
 	mState.setup();
     
     mState.setup();
@@ -667,6 +673,7 @@ void KeplerApp::touchesBegan( TouchEvent event )
 
 	mIsDragging = false;
 	const vector<TouchEvent::Touch> touches = getActiveTouches();
+
 	float timeSincePinchEnded = getElapsedSeconds() - mTimePinchEnded;
 	if( touches.size() == 1 && timeSincePinchEnded > 0.2f && keepTouchForPinching(*touches.begin()) ) {
         mIsTouching = true;
@@ -1560,6 +1567,29 @@ void KeplerApp::checkForNodeTouch( const Ray &ray, const vec2 &pos )
 
 void KeplerApp::update()
 {
+#if defined( PLANETARY_DEBUG_HOOKS )
+	// Debug: select the first artist once the world is populated, flying the
+	// camera in so the lit album and track spheres are on screen.
+	//
+	// This fires on a timer rather than on a key or a tap. Cinder only delivers
+	// keyDown on iOS while a UIKeyInput responder is first responder, which this
+	// app never makes one, so a keypress reaches nothing; and every screen edge
+	// where a debug tap zone would sit is already claimed by the top bar or the
+	// alpha wheel, which consume touches before touchesBegan runs.
+	//
+	// The artist's own initial is applied as the filter first, since the default
+	// filter usually matches nothing and a node outside the active filter cannot
+	// be selected. Compiled out unless -DPLANETARY_DEBUG_HOOKS=ON.
+	if( ! mDebugDidAutoSelect && mUiComplete && mData.getState() == Data::LoadStateComplete ) {
+		if( NodeArtist *first = mWorld.getFirstNode() ) {
+			mDebugDidAutoSelect = true;
+			console() << "Planetary debug: auto-selecting first artist '" << first->getName() << "'" << endl;
+			mState.setAlphaChar( first->getName() );
+			mState.setSelectedNode( mWorld.getFirstFilteredNode() );
+		}
+	}
+#endif
+
     if ( mUiComplete && (mData.getState() == Data::LoadStatePending) && mLoadingScreen.isComplete() ) {
         mData.update();
 
