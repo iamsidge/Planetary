@@ -153,9 +153,8 @@ int yearFrom( NSString *releaseDate )
 namespace {
 
 struct ArtworkCache {
-	std::mutex                          mutex;
-	std::map<std::string, Surface>      surfaces;   // by image URL
-	std::map<std::string, bool>         inFlight;
+	std::mutex                     mutex;
+	std::map<std::string, Surface> surfaces;   // by image URL
 };
 
 ArtworkCache& artworkCache()
@@ -165,8 +164,20 @@ ArtworkCache& artworkCache()
 }
 
 /**
-    Returns the cached Surface for a URL, or starts a download and returns an
-    empty one. See Track::getArtwork for why this cannot simply block.
+    Returns the Surface for an image URL, downloading it if it is not cached.
+
+    Blocking, deliberately. Planetary calls Track::getArtwork exactly once while
+    building a node (NodeAlbum::setData) and keeps whatever comes back; there is
+    no mechanism to ask again later. An earlier async version returned an empty
+    Surface on the first call and filled the cache afterwards, which pinned every
+    album to the "no album art" placeholder for the life of the process.
+
+    The callers on this path already block on the album and track requests, so
+    this lengthens an existing stall rather than introducing a new one. Never
+    call it from the draw loop.
+
+    Failures are cached as empty Surfaces so a dead URL is attempted once rather
+    than on every node that references it.
  */
 Surface artworkFor( const std::string &url )
 {
@@ -179,31 +190,32 @@ Surface artworkFor( const std::string &url )
 		auto hit = cache.surfaces.find( url );
 		if( hit != cache.surfaces.end() )
 			return hit->second;
-		if( cache.inFlight[url] )
-			return Surface(); // already downloading; ask again later
-		cache.inFlight[url] = true;
 	}
 
 	NSString *nsUrl = [NSString stringWithUTF8String:url.c_str()];
+
+	__block NSData *body = nil;
+	dispatch_semaphore_t done = dispatch_semaphore_create( 0 );
 	[[[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:nsUrl]
 		completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-			Surface decoded;
-			if( data ) {
-				UIImage *image = [UIImage imageWithData:data];
-				if( image ) {
-					Surface8uRef s = cocoa::convertUiImage( image, true );
-					if( s )
-						decoded = *s;
-				}
-			}
-			ArtworkCache &c = artworkCache();
-			std::lock_guard<std::mutex> lock( c.mutex );
-			c.inFlight[url] = false;
-			if( decoded.getWidth() > 0 )
-				c.surfaces[url] = decoded;
+			body = data;
+			dispatch_semaphore_signal( done );
 		}] resume];
+	dispatch_semaphore_wait( done, dispatch_time( DISPATCH_TIME_NOW, 15ll * NSEC_PER_SEC ) );
 
-	return Surface();
+	Surface decoded;
+	if( body ) {
+		if( UIImage *image = [UIImage imageWithData:body] ) {
+			if( Surface8uRef s = cocoa::convertUiImage( image, true ) )
+				decoded = *s;
+		}
+	}
+
+	{
+		std::lock_guard<std::mutex> lock( cache.mutex );
+		cache.surfaces[url] = decoded;
+	}
+	return decoded;
 }
 
 } // anonymous namespace
