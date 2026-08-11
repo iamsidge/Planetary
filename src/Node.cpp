@@ -388,6 +388,12 @@ void Node::drawName( const CameraPersp &cam, float pinchAlphaPer, float angle )
 void Node::drawTouchHighlight( float zoomAlpha )
 {
 	if( mIsHighlighted ){
+		// ci::gl::drawBillboard draws with whatever program is bound. Without a
+		// textured stock shader the glow renders as a flat opaque quad instead
+		// of sampling the glow texture's falloff -- the same defect that made
+		// the galaxy core a square. .color() is required too, or gl::color()
+		// below is discarded entirely.
+		gl::ScopedGlslProg glowShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
 		vec2 radius = vec2( mRadius * 5.0f, mRadius * 5.0f );
 		if( mIsTapped ){
 			gl::color( ColorA( mColor, mHighlightStrength ) );

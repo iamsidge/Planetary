@@ -159,6 +159,12 @@ void NodeArtist::drawStarGlow( const vec3 &camEye, const vec3 &camNormal, const 
 void NodeArtist::drawEclipseGlow()
 {
 	if( mIsHighlighted && mDistFromCamZAxisPer > 0.0f ){
+		// ci::gl::drawBillboard draws with whatever program is bound. Without a
+		// textured stock shader the glow renders as a flat opaque quad instead
+		// of sampling the glow texture's falloff -- the same defect that made
+		// the galaxy core a square. .color() is required too, or gl::color()
+		// below is discarded entirely.
+		gl::ScopedGlslProg glowShader( gl::getStockShader( gl::ShaderDef().texture().color() ) );
 		/*
         gl::color( ColorA( mGlowColor, mDistFromCamZAxisPer * ( 1.0f - mEclipseStrength ) * 2.0f ) );
 		vec2 radius = vec2( mRadius, mRadius ) * 10.0f;
