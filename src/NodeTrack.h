@@ -55,6 +55,13 @@ class NodeTrack : public Node
 	music::TrackRef      mTrack;
 	music::PlaylistRef   mAlbum;	
 	
+	/**
+	    Rebuilds this track's planet texture from a newly arrived album cover.
+	    Called by NodeAlbum when its artwork finishes downloading, since the
+	    track's texture is derived from the album's surface.
+	 */
+	void refreshAlbumArt( const ci::Surface &albumArt );
+
 private:
 	float		mShadowPer;
 	

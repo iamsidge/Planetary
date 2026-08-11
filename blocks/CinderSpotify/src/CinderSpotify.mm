@@ -155,6 +155,7 @@ namespace {
 struct ArtworkCache {
 	std::mutex                     mutex;
 	std::map<std::string, Surface> surfaces;   // by image URL
+	std::map<std::string, bool>    inFlight;
 };
 
 ArtworkCache& artworkCache()
@@ -164,20 +165,18 @@ ArtworkCache& artworkCache()
 }
 
 /**
-    Returns the Surface for an image URL, downloading it if it is not cached.
+    Returns the cached Surface for an image URL, or starts a download and
+    returns an empty one.
 
-    Blocking, deliberately. Planetary calls Track::getArtwork exactly once while
-    building a node (NodeAlbum::setData) and keeps whatever comes back; there is
-    no mechanism to ask again later. An earlier async version returned an empty
-    Surface on the first call and filled the cache afterwards, which pinned every
-    album to the "no album art" placeholder for the life of the process.
+    Asynchronous so that selecting an artist does not stall on one HTTP request
+    per album before anything appears. That only works because the callers poll:
+    NodeAlbum keeps the placeholder texture and asks again from update() until
+    the real image lands. Any new caller must do the same, or it will keep an
+    empty Surface forever -- which is exactly the bug an earlier version had.
 
-    The callers on this path already block on the album and track requests, so
-    this lengthens an existing stall rather than introducing a new one. Never
-    call it from the draw loop.
-
-    Failures are cached as empty Surfaces so a dead URL is attempted once rather
-    than on every node that references it.
+    A download is started at most once per URL. Failures leave no cache entry,
+    so they are retried, but inFlight is cleared either way so a dead URL cannot
+    wedge the slot permanently.
  */
 Surface artworkFor( const std::string &url )
 {
@@ -190,32 +189,29 @@ Surface artworkFor( const std::string &url )
 		auto hit = cache.surfaces.find( url );
 		if( hit != cache.surfaces.end() )
 			return hit->second;
+		if( cache.inFlight[url] )
+			return Surface(); // already downloading; the caller will ask again
+		cache.inFlight[url] = true;
 	}
 
 	NSString *nsUrl = [NSString stringWithUTF8String:url.c_str()];
-
-	__block NSData *body = nil;
-	dispatch_semaphore_t done = dispatch_semaphore_create( 0 );
 	[[[NSURLSession sharedSession] dataTaskWithURL:[NSURL URLWithString:nsUrl]
 		completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-			body = data;
-			dispatch_semaphore_signal( done );
+			Surface decoded;
+			if( data ) {
+				if( UIImage *image = [UIImage imageWithData:data] ) {
+					if( Surface8uRef s = cocoa::convertUiImage( image, true ) )
+						decoded = *s;
+				}
+			}
+			ArtworkCache &c = artworkCache();
+			std::lock_guard<std::mutex> lock( c.mutex );
+			c.inFlight[url] = false;
+			if( decoded.getWidth() > 0 )
+				c.surfaces[url] = decoded;
 		}] resume];
-	dispatch_semaphore_wait( done, dispatch_time( DISPATCH_TIME_NOW, 15ll * NSEC_PER_SEC ) );
 
-	Surface decoded;
-	if( body ) {
-		if( UIImage *image = [UIImage imageWithData:body] ) {
-			if( Surface8uRef s = cocoa::convertUiImage( image, true ) )
-				decoded = *s;
-		}
-	}
-
-	{
-		std::lock_guard<std::mutex> lock( cache.mutex );
-		cache.surfaces[url] = decoded;
-	}
-	return decoded;
+	return Surface();
 }
 
 } // anonymous namespace

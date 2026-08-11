@@ -33,6 +33,8 @@ NodeAlbum::NodeAlbum( Node *parent, int index, const Font &font, const Font &sma
 	mIsBlockedBySun		= false;
 	mBlockedBySunPer	= 1.0f;
 	mHasAlbumArt		= false;
+	mHasPlaceholderArt	= false;
+	mLastArtRetry		= 0.0;
 // NOW SET IN setChildOrbitRadii()
 //	mIdealCameraDist	= mRadius * 13.5f;
 	mEclipseStrength	= 0.0f;
@@ -121,6 +123,12 @@ void NodeAlbum::setData( PlaylistRef album )
 	
 	
 // CREATE PLANET TEXTURE
+	buildPlanetTexture();
+}
+
+
+void NodeAlbum::buildPlanetTexture()
+{
 	int totalWidth		= 128;
 	if( G_IS_IPAD2 ) totalWidth = 256;
     
@@ -224,12 +232,31 @@ void NodeAlbum::setData( PlaylistRef album )
 	
 	mAlbumArtTex		= gl::Texture::create( planetSurface, fmt );
 	mHasAlbumArt		= true;
-
+	mHasPlaceholderArt	= !hasAlbumArt;
 }
+
 
 
 void NodeAlbum::update( float param1, float param2 )
 {
+	// Artwork downloads in the background, so the first build almost always
+	// lands on the placeholder. Poll until the real cover arrives -- getArtwork
+	// returns it from cache the moment it does, and rebuilding is what puts it
+	// on the planet. Throttled because the check runs every frame per album.
+	if( mHasPlaceholderArt ) {
+		const double now = ci::app::getElapsedSeconds();
+		if( now - mLastArtRetry > 0.5 ) {
+			mLastArtRetry = now;
+			buildPlanetTexture();
+			// The tracks derive their own textures from the album's surface, so
+			// they have to be rebuilt too once it changes.
+			if( ! mHasPlaceholderArt ) {
+				for( vector<Node*>::iterator it = mChildNodes.begin(); it != mChildNodes.end(); ++it )
+					( (NodeTrack*)(*it) )->refreshAlbumArt( mAlbumArtSurface );
+			}
+		}
+	}
+
 	mRadiusDest		= mRadiusInit * param1;
 	mRadius			-= ( mRadius - mRadiusDest ) * 0.2f;
 	mSphere			= Sphere( mPos, mRadius );

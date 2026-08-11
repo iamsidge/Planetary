@@ -53,11 +53,22 @@ class NodeAlbum : public Node
 	float		mTotalLength;
 	float		mAsciiPer;
 	bool		mHasAlbumArt;
+	//! True while mAlbumArtTex was built from the placeholder, not the real cover.
+	bool		mHasPlaceholderArt;
+	//! Elapsed seconds at the last artwork retry, to throttle the polling.
+	double		mLastArtRetry;
 	bool		mHasRings;
 	bool		mHasClouds;
 	bool		mIsBlockedBySun;
 	float		mBlockedBySunPer;
 	ci::gl::TextureRef mAlbumArtTex;
+
+	/**
+	    Builds the planet texture from the album cover, falling back to the
+	    placeholder while the cover is still downloading. Safe to call again:
+	    that is how the real cover replaces the placeholder once it arrives.
+	 */
+	void		buildPlanetTexture();
 	music::PlaylistRef mAlbum;
 	float		mCloudLayerRadius;
 	uint64_t    mId;

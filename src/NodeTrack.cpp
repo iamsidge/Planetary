@@ -329,6 +329,20 @@ void NodeTrack::update( float param1, float param2 )
 	mVel = mPos - prevPos;	
 }
 
+void NodeTrack::refreshAlbumArt( const Surface &albumArt )
+{
+	if( albumArt.getWidth() == 0 )
+		return;
+
+	mAlbumArtSurface	= albumArt;
+	mHasAlbumArt		= false;
+	// Re-queued rather than built inline: createAlbumArt does a pile of
+	// per-pixel work and the queue is what keeps that off the frame that
+	// happens to notice the download finished.
+	mTaskId				= UiTaskQueue::pushTask( std::bind( &NodeTrack::createAlbumArt, this ) );
+}
+
+
 void NodeTrack::createAlbumArt()
 {
     int albumArtWidth   = mAlbumArtSurface.getWidth();
