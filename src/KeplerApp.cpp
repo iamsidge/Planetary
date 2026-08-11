@@ -293,6 +293,7 @@ class KeplerApp : public AppCocoaTouch {
     bool            mUiComplete;
 #if defined( PLANETARY_DEBUG_HOOKS )
     bool            mDebugDidAutoSelect;
+    bool            mDebugDidSelectAlbum;
 #endif
 };
 
@@ -316,7 +317,8 @@ void KeplerApp::setup()
     mRemainingSetupCalled = false;
     mUiComplete = false;
 #if defined( PLANETARY_DEBUG_HOOKS )
-    mDebugDidAutoSelect = false;
+    mDebugDidAutoSelect  = false;
+    mDebugDidSelectAlbum = false;
 #endif
 	mState.setup();
     
@@ -1586,6 +1588,21 @@ void KeplerApp::update()
 			console() << "Planetary debug: auto-selecting first artist '" << first->getName() << "'" << endl;
 			mState.setAlphaChar( first->getName() );
 			mState.setSelectedNode( mWorld.getFirstFilteredNode() );
+		}
+	}
+	// Second stage: drop into the first album once it exists, so a lit sphere
+	// actually fills the frame -- at artist distance the albums are only a few
+	// pixels across. Deliberately a later frame than the artist selection:
+	// NodeArtist::select is what creates the album children, so they cannot be
+	// read in the same frame that triggers it.
+	else if( mDebugDidAutoSelect && ! mDebugDidSelectAlbum ) {
+		Node *artist = mState.getSelectedArtistNode();
+		if( artist && ! artist->mChildNodes.empty() ) {
+			mDebugDidSelectAlbum = true;
+			Node *album = artist->mChildNodes.front();
+			console() << "Planetary debug: auto-selecting first album '" << album->getName()
+			          << "' (" << artist->mChildNodes.size() << " albums)" << endl;
+			mState.setSelectedNode( album );
 		}
 	}
 #endif

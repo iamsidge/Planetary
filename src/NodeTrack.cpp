@@ -46,6 +46,12 @@ NodeTrack::NodeTrack( Node *parent, int index, const Font &font, const Font &sma
 	mShadowTexCoords	= NULL;
 	
 	mMyTime				= Rand::randFloat( 250.0 );
+	// Never initialised in the original. update() does mPrevTime = mCurrentTime
+	// before mCurrentTime has ever been assigned, so the first frame's delta is
+	// built from uninitialised stack memory. When that happens to be NaN it
+	// poisons mMyTime permanently, and every later frame produces a NaN orbit
+	// angle -> NaN mPos -> aborted std::sort in World::sortNodes.
+	mCurrentTime = mPrevTime = (float)app::getElapsedSeconds();
 }
 
 void NodeTrack::setData( TrackRef track, PlaylistRef album, const Surface &albumArt )
@@ -111,7 +117,11 @@ void NodeTrack::setData( TrackRef track, PlaylistRef album, const Surface &album
 	mIdealCameraDist	= 0.15f;//math<float>::max( mRadiusDest * 5.0f, 0.5f );
 	mCloudLayerRadius	= mRadiusDest * 0.025f;
 	
-	mOrbitPeriod		= mTrackLength;
+	// Defensive: the orbit period is a divisor (update() computes
+	// mMyTime / mOrbitPeriod), and a track whose duration_ms is missing parses
+	// as zero. Not the cause of any observed crash -- every track seen so far
+	// reported a length -- but a zero here would divide by zero.
+	mOrbitPeriod		= ( mTrackLength > 0.0f ) ? mTrackLength : 180.0f;
 
 	setStartAngle();
 	
@@ -251,7 +261,8 @@ void NodeTrack::update( float param1, float param2 )
 		mAxialRot.y -= mAxialVel * 0.1f;
 	}
 	mOrbitAngle			= ( mPercentPlayed + timeOffset ) * TWO_PI;
-	
+
+
 	float orbitDelta	= mOrbitAngle - mParentNode->mOrbitAngle;
     
 	if( cos( orbitDelta ) > 0 )

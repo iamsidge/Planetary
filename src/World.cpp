@@ -13,7 +13,9 @@
 #include "NodeArtist.h"
 #include "NodeAlbum.h"
 #include "NodeTrack.h"
+#include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
+#include <cmath>
 #include "cinder/Rect.h"
 #include "cinder/Text.h"
 #include "cinder/Rand.h"
@@ -433,6 +435,19 @@ vector<Node*> World::getUnsortedNodes( int fromGen, int toGen )
 vector<Node*> World::sortNodes( vector<Node*> nodes )
 {
     if( nodes.size() > 0 ){
+#if defined( PLANETARY_DEBUG_HOOKS )
+        for( Node *n : nodes ) {
+            if( ! std::isfinite( n->mDistFromCamZAxis ) || ! std::isfinite( n->mPos.x )
+                || ! std::isfinite( n->mPos.y ) || ! std::isfinite( n->mPos.z ) ) {
+                ci::app::console() << "Planetary debug: NON-FINITE node '" << n->getName()
+                                   << "' gen=" << n->mGen
+                                   << " dist=" << n->mDistFromCamZAxis
+                                   << " pos=" << n->mPos.x << "," << n->mPos.y << "," << n->mPos.z
+                                   << " orbitRadius=" << n->mOrbitRadius
+                                   << " radius=" << n->mRadius << std::endl;
+            }
+        }
+#endif
         sort(nodes.begin(), nodes.end(), nodeSortFunc);
     }
     
