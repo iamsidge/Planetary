@@ -57,6 +57,13 @@ public:
     State    getPlayState();
 
     string getPlayStateString();
+
+    /**
+        Present so both backends share an interface -- see MusicBackend.h. The
+        local library has no remote transport that can fail, so there is never
+        anything to report.
+     */
+    bool takeStatusMessage( std::string & ) { return false; }
         
     // dangerous, sorry: we only know this if it was set within our own app first, 
     // otherwise you have to just deal with it (maybe til iOS 5)

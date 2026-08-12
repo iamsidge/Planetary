@@ -291,9 +291,11 @@ class KeplerApp : public AppCocoaTouch {
 	float			mSelectionTime;
     bool            mRemainingSetupCalled; // setup() is short and fast, remainingSetup() is slow
     bool            mUiComplete;
+    std::string     mLastPlayerMessage;
 #if defined( PLANETARY_DEBUG_HOOKS )
     bool            mDebugDidAutoSelect;
     bool            mDebugDidSelectAlbum;
+    bool            mDebugDidSelectTrack;
 #endif
 };
 
@@ -319,6 +321,7 @@ void KeplerApp::setup()
 #if defined( PLANETARY_DEBUG_HOOKS )
     mDebugDidAutoSelect  = false;
     mDebugDidSelectAlbum = false;
+    mDebugDidSelectTrack = false;
 #endif
 	mState.setup();
     
@@ -1605,7 +1608,37 @@ void KeplerApp::update()
 			mState.setSelectedNode( album );
 		}
 	}
+	// Third stage: select the first track. Selecting a track node is what
+	// starts playback (onSelectedNodeChanged), so this exercises the transport
+	// without needing to hit a moon's touch target.
+	else if( mDebugDidSelectAlbum && ! mDebugDidSelectTrack ) {
+		Node *album = mState.getSelectedAlbumNode();
+		if( album && ! album->mChildNodes.empty() ) {
+			mDebugDidSelectTrack = true;
+			Node *track = album->mChildNodes.front();
+			console() << "Planetary debug: auto-selecting first track '" << track->getName()
+			          << "' (" << album->mChildNodes.size() << " tracks)" << endl;
+			mState.setSelectedNode( track );
+		}
+	}
 #endif
+
+    // Playback runs on a background queue, so a failed play() cannot report back
+    // through its return value. Poll for anything the player wants to tell the
+    // user -- most often that there is no active Spotify device to play on.
+    {
+        std::string playerMessage;
+        // Deduplicated: the 1Hz state poll re-sets the same message every
+        // second while the condition holds, which would strobe the overlay.
+        // Only a change is worth showing.
+        if( mMusicPlayer.takeStatusMessage( playerMessage ) && playerMessage != mLastPlayerMessage ) {
+            mLastPlayerMessage = playerMessage;
+            if( ! playerMessage.empty() ) {
+                console() << "Planetary: " << playerMessage << endl;
+                mNotificationOverlay.showLetter( ' ', playerMessage, mFontHuge );
+            }
+        }
+    }
 
     if ( mUiComplete && (mData.getState() == Data::LoadStatePending) && mLoadingScreen.isComplete() ) {
         mData.update();

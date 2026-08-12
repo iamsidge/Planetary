@@ -4,6 +4,7 @@
 //
 
 #include "SpotifyPlayer.h"
+#include "cinder/app/App.h"
 #include "SpotifyAuth.h"
 #include "SpotifyId.h"
 #include "SpotifyModelData.h"
@@ -67,6 +68,17 @@ NSDictionary* apiRequest( NSString *method, NSString *path, NSDictionary *body, 
 
 	if( outStatus )
 		*outStatus = http.statusCode;
+
+	// Surfaced rather than swallowed: the transport endpoints fail for ordinary
+	// reasons the user can act on (no active device, not Premium), and a silent
+	// nil is indistinguishable from success on the 204 path below.
+	if( http.statusCode < 200 || http.statusCode >= 300 ) {
+		NSString *errBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+		ci::app::console() << "CinderSpotify: " << method.UTF8String << " " << path.UTF8String
+		                   << " -> HTTP " << (long)http.statusCode
+		                   << ( errBody.length ? std::string(" ") + errBody.UTF8String : std::string() )
+		                   << std::endl;
+	}
 
 	// The transport endpoints answer 204 No Content on success.
 	if( ! data || data.length == 0 )
@@ -251,6 +263,24 @@ Player::~Player()
 namespace {
 
 /**
+    Maps a transport response to something worth showing the user.
+
+    Every one of these is an ordinary condition they can act on rather than a
+    bug: no device to play on, a free account, or an expired session. Empty
+    means the request succeeded and there is nothing to say.
+ */
+std::string statusMessageFor( long status )
+{
+	if( status >= 200 && status < 300 ) return "";
+	switch( status ) {
+		case 403: return "Playback needs Spotify Premium.";
+		case 404: return "No active Spotify device. Open Spotify on a phone or computer, play something, then try again.";
+		case 401: return "Spotify session expired. Sign in again.";
+		default:  return "Spotify playback failed.";
+	}
+}
+
+/**
     Ensures something is available to play on.
 
     The Web API plays to whichever device is active. If none is, playback
@@ -275,7 +305,10 @@ bool ensureActiveDevice()
 		return false;
 
 	apiRequest( @"PUT", @"/me/player", @{ @"device_ids": @[deviceId], @"play": @NO }, &status );
-	return true;
+	// The transfer has to be checked. Returning true regardless meant a device
+	// that was listed but could not be activated still reported success, and
+	// the caller then failed with a bare 404 and no explanation.
+	return status >= 200 && status < 300;
 }
 
 } // anonymous namespace
@@ -333,9 +366,9 @@ void Player::play( PlaylistRef playlist, const int index )
 
 		long status = 0;
 		apiRequest( @"PUT", @"/me/player/play", body, &status );
-		if( status == 403 ) {
+		{
 			std::lock_guard<std::mutex> lock( impl->mutex );
-			impl->statusMessage = "Playback needs Spotify Premium.";
+			impl->statusMessage = statusMessageFor( status );
 		}
 	} );
 }
@@ -346,9 +379,9 @@ void Player::play()
 	dispatch_async( mImpl->queue, ^{
 		long status = 0;
 		apiRequest( @"PUT", @"/me/player/play", nil, &status );
-		if( status == 403 ) {
+		{
 			std::lock_guard<std::mutex> lock( impl->mutex );
-			impl->statusMessage = "Playback needs Spotify Premium.";
+			impl->statusMessage = statusMessageFor( status );
 		}
 	} );
 }
@@ -485,6 +518,16 @@ Player::State Player::getPlayState()
 {
 	std::lock_guard<std::mutex> lock( mImpl->mutex );
 	return mImpl->state;
+}
+
+bool Player::takeStatusMessage( std::string &message )
+{
+	std::lock_guard<std::mutex> lock( mImpl->mutex );
+	if( mImpl->statusMessage.empty() )
+		return false;
+	message = mImpl->statusMessage;
+	mImpl->statusMessage.clear();
+	return true;
 }
 
 std::string Player::getPlayStateString()

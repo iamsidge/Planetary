@@ -87,6 +87,15 @@ class Player {
 	//! Human-readable state, including why playback is unavailable.
 	std::string getPlayStateString();
 
+	/**
+	    Takes any pending user-facing message, clearing it.
+
+	    Playback runs on a background queue, so failures cannot be returned from
+	    play(). The app polls this instead and shows whatever comes back once.
+	    \return false when there is nothing to report.
+	 */
+	bool takeStatusMessage( std::string &message );
+
 	//! Only known if playback was started through this Player.
 	PlaylistRef getCurrentPlaylist();
 
