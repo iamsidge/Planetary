@@ -17,11 +17,21 @@ project( Planetary CXX OBJCXX )
 # implement the same interface — see src/MusicBackend.h.
 option( PLANETARY_SPOTIFY "Build against Spotify rather than the local music library" ON )
 
-# Debug-only affordances that must never reach a shipping build. Currently a
-# top-left tap zone that selects the first artist matching the filter, standing
-# in for a debug key -- Cinder delivers no key events on iOS unless a UIKeyInput
-# responder is first responder, which this app never makes one.
-option( PLANETARY_DEBUG_HOOKS "Compile in debug-only input hooks" OFF )
+# Debug-only, and neither may reach a shipping build.
+#
+# Two options rather than one because they differ in kind. DEBUG_HOOKS is
+# passive: it reports on the scene without changing it, currently by naming any
+# node whose position has gone non-finite instead of letting std::sort abort on
+# a comparator that is no longer a strict weak ordering. It is safe to leave on
+# while using the app.
+#
+# DEBUG_AUTOSELECT drives the app: on load it selects the first artist, then its
+# first album, then that album's first track, which starts playback. That makes
+# the lit spheres and the transport reachable without hitting a node's small
+# touch target, but it fights anyone trying to navigate by hand, so it is kept
+# separate and stays off unless asked for.
+option( PLANETARY_DEBUG_HOOKS      "Compile in passive debug diagnostics" OFF )
+option( PLANETARY_DEBUG_AUTOSELECT "Drive artist/album/track selection on load" OFF )
 
 # Substituted into Info.plist at configure time so it stays out of tracked
 # source. Without it the app runs but sign-in fails with an explanation.
@@ -174,6 +184,10 @@ endif()
 
 if( PLANETARY_DEBUG_HOOKS )
 	target_compile_definitions( Planetary PRIVATE PLANETARY_DEBUG_HOOKS )
+endif()
+
+if( PLANETARY_DEBUG_AUTOSELECT )
+	target_compile_definitions( Planetary PRIVATE PLANETARY_DEBUG_AUTOSELECT )
 endif()
 
 # @ONLY so only @SPOTIFY_CLIENT_ID@ is substituted here; the ${MACOSX_BUNDLE_*}

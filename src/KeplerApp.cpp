@@ -292,7 +292,7 @@ class KeplerApp : public AppCocoaTouch {
     bool            mRemainingSetupCalled; // setup() is short and fast, remainingSetup() is slow
     bool            mUiComplete;
     std::string     mLastPlayerMessage;
-#if defined( PLANETARY_DEBUG_HOOKS )
+#if defined( PLANETARY_DEBUG_AUTOSELECT )
     bool            mDebugDidAutoSelect;
     bool            mDebugDidSelectAlbum;
     bool            mDebugDidSelectTrack;
@@ -318,7 +318,7 @@ void KeplerApp::setup()
     
     mRemainingSetupCalled = false;
     mUiComplete = false;
-#if defined( PLANETARY_DEBUG_HOOKS )
+#if defined( PLANETARY_DEBUG_AUTOSELECT )
     mDebugDidAutoSelect  = false;
     mDebugDidSelectAlbum = false;
     mDebugDidSelectTrack = false;
@@ -1572,7 +1572,7 @@ void KeplerApp::checkForNodeTouch( const Ray &ray, const vec2 &pos )
 
 void KeplerApp::update()
 {
-#if defined( PLANETARY_DEBUG_HOOKS )
+#if defined( PLANETARY_DEBUG_AUTOSELECT )
 	// Debug: select the first artist once the world is populated, flying the
 	// camera in so the lit album and track spheres are on screen.
 	//
@@ -1584,7 +1584,7 @@ void KeplerApp::update()
 	//
 	// The artist's own initial is applied as the filter first, since the default
 	// filter usually matches nothing and a node outside the active filter cannot
-	// be selected. Compiled out unless -DPLANETARY_DEBUG_HOOKS=ON.
+	// be selected. Compiled out unless -DPLANETARY_DEBUG_AUTOSELECT=ON.
 	if( ! mDebugDidAutoSelect && mUiComplete && mData.getState() == Data::LoadStateComplete ) {
 		if( NodeArtist *first = mWorld.getFirstNode() ) {
 			mDebugDidAutoSelect = true;
