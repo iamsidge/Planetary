@@ -19,6 +19,11 @@ class NodeArtist : public Node
 	NodeArtist( int index, const ci::Font &font, const ci::Font &smallFont, const ci::Surface &hiResSurfaces, const ci::Surface &loResSurfaces, const ci::Surface &noAlbumArt );
 	
 	void update( float param1, float param2 );
+
+	//! Creates the album children once the async album fetch has answered.
+	void buildAlbumChildren();
+	//! Elapsed seconds at the last album-fetch retry, to throttle the polling.
+	double mLastAlbumRetry = 0.0;
 	void drawEclipseGlow();
 	void drawStarGlow( const ci::vec3 &camEye, const ci::vec3 &camNormal, const ci::gl::TextureRef &tex );
 	void drawExtraGlow( const ci::vec3 &camEye, const ci::gl::TextureRef &texGlow, const ci::gl::TextureRef &texCore );

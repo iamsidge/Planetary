@@ -434,7 +434,33 @@ std::vector<PlaylistRef> getPlaylists( std::function<void(float)> progress )
 	return playlists;
 }
 
-std::vector<PlaylistRef> getAlbumsWithArtistId( const uint64_t &artist_id )
+namespace {
+
+struct AlbumCache {
+	std::mutex                                     mutex;
+	std::map<uint64_t, std::vector<PlaylistRef>>   albums;
+	std::map<uint64_t, bool>                       inFlight;
+};
+
+AlbumCache& albumCache()
+{
+	static AlbumCache sCache;
+	return sCache;
+}
+
+//! Serial, so selecting several artists queues rather than opening dozens of
+//! concurrent connections.
+dispatch_queue_t albumQueue()
+{
+	static dispatch_queue_t q = dispatch_queue_create( "org.cooperhewitt.planetary.albums",
+	                                                   DISPATCH_QUEUE_SERIAL );
+	return q;
+}
+
+//! The actual work: one request for the album list, then one per album for
+//! its tracks. Sequential and slow by nature, which is why it runs off the
+//! main thread via the cache below.
+std::vector<PlaylistRef> fetchAlbumsBlocking( uint64_t artist_id )
 {
 	std::vector<PlaylistRef> albums;
 	std::string spotifyArtistId = spotifyIdFor( artist_id );
@@ -489,6 +515,55 @@ std::vector<PlaylistRef> getAlbumsWithArtistId( const uint64_t &artist_id )
 	return albums;
 }
 
+} // anonymous namespace
+
+/**
+    Albums for an artist, or an empty vector while they are still loading.
+
+    Non-blocking. The fetch is one request for the album list plus one per album
+    for its tracks -- measured at 5.7s for a 32-album artist on a good
+    connection, and it used to run on the main thread inside NodeArtist::select,
+    freezing the app for that whole time. With a slow network and apiGet's 20s
+    timeout it could be far worse.
+
+    Callers must poll, as they already do for artwork: NodeArtist keeps asking
+    from update() and builds its album children when the answer arrives.
+ */
+std::vector<PlaylistRef> getAlbumsWithArtistId( const uint64_t &artist_id )
+{
+	AlbumCache &cache = albumCache();
+	{
+		std::lock_guard<std::mutex> lock( cache.mutex );
+		auto hit = cache.albums.find( artist_id );
+		if( hit != cache.albums.end() )
+			return hit->second;
+		if( cache.inFlight[artist_id] )
+			return std::vector<PlaylistRef>(); // already loading; ask again later
+		cache.inFlight[artist_id] = true;
+	}
+
+	const uint64_t id = artist_id;
+	dispatch_async( albumQueue(), ^{
+		std::vector<PlaylistRef> result = fetchAlbumsBlocking( id );
+		AlbumCache &c = albumCache();
+		std::lock_guard<std::mutex> lock( c.mutex );
+		c.inFlight[id] = false;
+		// Only a non-empty result is cached, so a failed fetch is retried rather
+		// than leaving the artist permanently empty.
+		if( ! result.empty() )
+			c.albums[id] = result;
+	} );
+
+	return std::vector<PlaylistRef>();
+}
+
+/**
+    Every track by an artist, flattened into one playlist.
+
+    Inherits getAlbumsWithArtistId's asynchrony: this returns an empty playlist
+    until the albums have loaded. In practice the caller is "play this artist",
+    which is only reachable once the artist is selected and therefore cached.
+ */
 PlaylistRef getAlbumPlaylistWithArtistId( const uint64_t &artist_id )
 {
 	PlaylistRef flattened = std::make_shared<Playlist>();

@@ -94,8 +94,48 @@ void NodeArtist::setData( PlaylistRef playlist )
 
 
 
+/**
+    Creates the album children, if the albums have finished loading.
+
+    getAlbumsWithArtistId is asynchronous and answers with an empty vector until
+    the fetch completes, so this does nothing on the first call and is retried
+    from update(). It used to run inline in select(), which blocked the main
+    thread for 5.7s on a 32-album artist.
+ */
+void NodeArtist::buildAlbumChildren()
+{
+	vector<music::PlaylistRef> albums = getAlbumsWithArtistId( getId() );
+	if( albums.empty() )
+		return; // still loading; update() will ask again
+
+	mNumAlbums = albums.size();
+
+	int i=0;
+	BOOST_FOREACH(PlaylistRef album, albums) {
+		NodeAlbum *newNode = new NodeAlbum( this, i, mFont, mSmallFont, mHighResSurfaces, mLowResSurfaces, mNoAlbumArtSurface );
+		newNode->setSphereData( mHiSphere, mMdSphere, mLoSphere, mTySphere );
+		mChildNodes.push_back( newNode );
+		newNode->setData( album );
+		i++;
+	}
+
+	setChildOrbitRadii();
+}
+
+
 void NodeArtist::update( float param1, float param2 )
 {	
+	// Albums load in the background, so a selected artist usually has none yet.
+	// Poll until they arrive. Throttled because this runs every frame, and only
+	// while selected, so unselected artists never fetch.
+	if( mIsSelected && mChildNodes.size() == 0 ) {
+		const double now = ci::app::getElapsedSeconds();
+		if( now - mLastAlbumRetry > 0.25 ) {
+			mLastAlbumRetry = now;
+			buildAlbumChildren();
+		}
+	}
+
 //	float hue		= mHue + Rand::randFloat( 0.05f );
 //	mSat			= ( 1.0f - sin( ( hue + 0.15f ) * M_PI ) ) * 0.875f;
 //	mColor			= Color( CM_HSV, hue, mSat + 0.2f, 1.0f );
@@ -260,20 +300,8 @@ void NodeArtist::select()
 	{
 		if( mChildNodes.size() == 0 ){
 
-            vector<music::PlaylistRef> albums = getAlbumsWithArtistId( getId() );
-            mNumAlbums = albums.size();
-            
-			int i=0;
-            BOOST_FOREACH(PlaylistRef album, albums) {
-				NodeAlbum *newNode = new NodeAlbum( this, i, mFont, mSmallFont, mHighResSurfaces, mLowResSurfaces, mNoAlbumArtSurface );
-                newNode->setSphereData( mHiSphere, mMdSphere, mLoSphere, mTySphere );
-				mChildNodes.push_back( newNode );
-				newNode->setData( album );
-				i++;
-			}
-			
-			setChildOrbitRadii();
-			
+			buildAlbumChildren();
+
 		} else {
 			for( vector<Node*>::iterator it = mChildNodes.begin(); it != mChildNodes.end(); ++it ){
 				(*it)->setIsDying( false );
