@@ -33,6 +33,14 @@ option( PLANETARY_SPOTIFY "Build against Spotify rather than the local music lib
 option( PLANETARY_DEBUG_HOOKS      "Compile in passive debug diagnostics" OFF )
 option( PLANETARY_DEBUG_AUTOSELECT "Drive artist/album/track selection on load" OFF )
 
+# Installing on your own device needs a bundle id that is unique to you: Apple
+# will not issue a free provisioning profile for one already registered to
+# someone else. Override both of these to sign with a personal Apple ID.
+set( PLANETARY_BUNDLE_ID "org.cooperhewitt.planetary" CACHE STRING
+     "Bundle identifier. Change this to something unique to install on a device." )
+set( PLANETARY_DEVELOPMENT_TEAM "" CACHE STRING
+     "Apple Developer Team ID for code signing. Leave empty for the simulator." )
+
 # Substituted into Info.plist at configure time so it stays out of tracked
 # source. Without it the app runs but sign-in fails with an explanation.
 set( SPOTIFY_CLIENT_ID "" CACHE STRING "Spotify app client id (developer.spotify.com/dashboard)" )
@@ -201,12 +209,21 @@ endif()
 # refuses to install without one. UIDeviceFamily 2 keeps this an iPad app,
 # as the original was.
 set_target_properties( Planetary PROPERTIES
-	MACOSX_BUNDLE_GUI_IDENTIFIER "org.cooperhewitt.planetary"
-	XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "org.cooperhewitt.planetary"
+	MACOSX_BUNDLE_GUI_IDENTIFIER "${PLANETARY_BUNDLE_ID}"
+	XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "${PLANETARY_BUNDLE_ID}"
 	XCODE_ATTRIBUTE_TARGETED_DEVICE_FAMILY "2"
 	MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_BINARY_DIR}/Info.plist"
 	MACOSX_BUNDLE_EXECUTABLE_NAME "Planetary"
 )
+
+# Automatic signing, so a personal Apple ID added in Xcode is enough; without a
+# team the simulator build is unaffected, since it is not signed.
+if( PLANETARY_DEVELOPMENT_TEAM )
+	set_target_properties( Planetary PROPERTIES
+		XCODE_ATTRIBUTE_DEVELOPMENT_TEAM "${PLANETARY_DEVELOPMENT_TEAM}"
+		XCODE_ATTRIBUTE_CODE_SIGN_STYLE "Automatic"
+	)
+endif()
 
 # On iOS, cinder/app/App.h resolves to AppCocoaTouch.h, which declares
 # Objective-C types (@class UITextView, ...). Any translation unit that

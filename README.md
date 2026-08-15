@@ -53,7 +53,38 @@ cmake -B build-iossim -GXcode -DCMAKE_SYSTEM_NAME=iOS \
 cmake --build build-iossim --config Debug
 ```
 
-Swap `iphonesimulator` for `iphoneos` in both to build for a device.
+Swap `iphonesimulator` for `iphoneos` in both to build for a device — see
+[Installing on your own iPad](#installing-on-your-own-ipad).
+
+Installing on your own iPad
+--
+
+The app is iPad-only (`UIDeviceFamily 2`) and needs iOS 15 or later.
+
+Signing needs a bundle id unique to you: Apple will not issue a provisioning
+profile for one already registered to someone else, so the default
+`org.cooperhewitt.planetary` will not work. Find your Team ID in the
+[Apple Developer account page](https://developer.apple.com/account) under
+Membership, or in Xcode under Settings → Accounts.
+
+Build Cinder for `iphoneos` as above, then:
+
+```bash
+cmake -B build-ios -GXcode -DCMAKE_SYSTEM_NAME=iOS \
+      -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_ARCHITECTURES=arm64 \
+      -DCMAKE_OSX_DEPLOYMENT_TARGET=15.0 \
+      -DSPOTIFY_CLIENT_ID=your_client_id_here \
+      -DPLANETARY_BUNDLE_ID=com.yourname.planetary \
+      -DPLANETARY_DEVELOPMENT_TEAM=YOURTEAMID
+```
+
+Then open `build-ios/Planetary.xcodeproj`, select your iPad as the run
+destination, and Run. The first launch needs the developer certificate trusted
+on the iPad, under Settings → General → VPN & Device Management.
+
+A free Apple ID works, but the app stops launching after seven days and has to
+be reinstalled. A paid developer account extends that to a year.
+
 
 Spotify setup
 --
