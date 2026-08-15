@@ -119,6 +119,7 @@ void setPlanetLight( const vec3 &posView, const Color &key, const Color &fill )
 	prog->uniform( "uFillColor", vec3( fill.r, fill.g, fill.b ) );
 	// GL_LIGHT_MODEL_AMBIENT's default, which the original never overrode.
 	prog->uniform( "uAmbient", 0.2f );
+
 }
 
 void setPlanetLightOff()

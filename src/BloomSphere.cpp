@@ -6,6 +6,7 @@
 //  Copyright 2013 Smithsonian Institution. All rights reserved.
 //
 
+#include "cinder/app/App.h"
 #include <vector>
 #include "cinder/CinderMath.h"
 #include "cinder/Vector.h"
@@ -100,10 +101,18 @@ namespace bloom {
 
         auto vbo  = ci::gl::Vbo::create( GL_ARRAY_BUFFER, sizeof(VertexData) * mNumVerts, verts, GL_STATIC_DRAW );
         auto mesh = ci::gl::VboMesh::create( (uint32_t)mNumVerts, GL_TRIANGLES, { { layout, vbo } } );
-        mBatch = ci::gl::Batch::create( mesh, // The mesh supplies no COLOR attribute, so this must be the
-        // uniform-colour shader; requesting .color() would read an
-        // attribute that was never filled.
-        ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
+        // .color() is required even though the mesh supplies no COLOR attribute:
+        // it is the only way the stock shader emits a colour term at all, and
+        // Context::setDefaultShaderVars feeds ciColor from gl::color().
+        mBatch = ci::gl::Batch::create( mesh,
+            ci::gl::getStockShader( ci::gl::ShaderDef().texture().color() ) );
+
+        // The same geometry drawn with the planet lighting program. Without
+        // this drawLit() silently fell back to the unlit batch, which is what
+        // made the lighting look flat -- the shader was never bound at all.
+        // Null only if the program failed to compile; drawLit still falls back.
+        if( ci::gl::GlslProgRef lit = bloom::planetShader() )
+            mLitBatch = ci::gl::Batch::create( mesh, lit );
 
         delete[] verts;
         
