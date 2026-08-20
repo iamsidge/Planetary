@@ -186,6 +186,12 @@ add_custom_command( TARGET Planetary POST_BUILD
 # come first, which makes the remaining work impossible to size.
 target_compile_options( Planetary PRIVATE -ferror-limit=0 )
 
+# OpenGL ES has been deprecated since iOS 12, so every gl* call raises a
+# warning -- 17 of them here, drowning out anything real. Apple's own opt-out.
+# This silences the deprecation notice only; nothing about the API changes, and
+# the port remains GLES 3.0 by design. Metal would be a rewrite, not a port.
+target_compile_definitions( Planetary PRIVATE GLES_SILENCE_DEPRECATION )
+
 if( PLANETARY_SPOTIFY )
 	target_compile_definitions( Planetary PRIVATE PLANETARY_USE_SPOTIFY )
 endif()
